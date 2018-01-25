@@ -1,7 +1,8 @@
 {
   "devDependencies": {
     "lerna": "^2.8.0",
-    "lerna-changelog": "^0.7.0"
+    "lerna-changelog": "^0.7.0",
+    "semver": "^5.5.0"
   },
   "name": "neoblog",
   "description": "Blogging platform on Neo platform",
