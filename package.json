@@ -1,0 +1,33 @@
+{
+  "devDependencies": {
+    "lerna": "^2.8.0",
+    "lerna-changelog": "^0.7.0"
+  },
+  "name": "neoblog",
+  "description": "Blogging platform on Neo platform",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/be-neo/neoblog.git"
+  },
+  "keywords": [
+    "neo",
+    "blockchain",
+    "blogging",
+    "microblogging",
+    "payments",
+    "platform",
+    "decentralized",
+    "gas"
+  ],
+  "author": "Neo BE",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/be-neo/neoblog/issues"
+  },
+  "homepage": "https://github.com/be-neo/neoblog#readme"
+}
