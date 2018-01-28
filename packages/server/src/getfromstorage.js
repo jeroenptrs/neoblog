@@ -1,23 +1,17 @@
 import '@babel/polyfill';
 import Neon, { api, u } from '@cityofzion/neon-js';
 import * as _ from 'lodash';
-import * as compressjs from 'compressjs';
+import { scriptHash, localHost } from './blockchain/config';
 
-
-const url = 'http://localhost:5000/';
-const scriptHash = '3ae687af46a8fbed9eb5ead2575918c822c91d1e'
-
-const client = Neon.create.rpcClient(url);
+const client = Neon.create.rpcClient(localHost);
 const s2h = u.str2hexstring;
 const algorithm = compressjs.Bzip2
 
-const store_key = s2h('test01');
+const store_key = u.str2hexstring('testkey');
 
 (async function main() {
-  queryBlockchain().then((compressedRaw) => {
-    const compressed = new Uint8Array(compressedRaw.map(raw => parseInt(raw)));
-    const decompressed = algorithm.decompressFile(compressed);
-    console.log(new Buffer(decompressed).toString('utf8'));
+  queryBlockchain().then((result) => {
+    console.log(result);
   }).catch((e) => {
     console.log(e);
   });
@@ -33,7 +27,7 @@ function queryBlockchain() {
   });
 
   return new Promise((resolve, reject) => {
-    api.neonDB.getRPCEndpoint('http://localhost:5000').then((url) => {
+    api.neonDB.getRPCEndpoint(localHost).then((url) => {
       const response = query.execute(url)
         .then(res => {
           if (res.result) resolve(u.hexstring2str(res.result).split(','));

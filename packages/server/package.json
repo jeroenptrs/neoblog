@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src -d dist",
+    "build": "rm -rf dist && ./node_modules/.bin/babel src -d dist",
     "start": "node dist"
   },
   "author": "",
@@ -12,7 +12,6 @@
   "dependencies": {
     "@cityofzion/neon-js": "^3.2.0",
     "axios": "^0.17.1",
-    "compressjs": "^1.0.3",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
