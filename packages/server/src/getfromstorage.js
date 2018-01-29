@@ -5,7 +5,6 @@ import { scriptHash, localHost } from './blockchain/config';
 
 const client = Neon.create.rpcClient(localHost);
 const s2h = u.str2hexstring;
-const algorithm = compressjs.Bzip2
 
 const store_key = u.str2hexstring('testkey');
 

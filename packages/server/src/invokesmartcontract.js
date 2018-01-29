@@ -18,7 +18,7 @@ const args = param.string('testvalue');
 
   // Test invoke
   const testResponse = await testInvoke(invoke);
-  if (testResponse.result.state === 'HALT, BREAK') {
+  if (testResponse.result.state === 'HALT, BREAK' && testResponse.result.gas_consumed < 10) {
     const invokeResponse = await executeInvoke(account, invoke, gasCost, intents);
     console.log(invokeResponse);
   }
