@@ -1,2 +1,4 @@
 node_modules/
 dist/
+.idea/
+packages/server/node_modules/
