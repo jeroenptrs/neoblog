@@ -7,7 +7,7 @@ import { scriptHash, privnetWif, localHost, assets } from './blockchain/config';
 const operation = param.string('testkey');
 const args = param.string('testvalue');
 
-(async function main() {
+export default async function main() {
   // Actual invoke params
   const account = Neon.create.account(privnetWif);
   const invoke = createInvoke(operation, args);
@@ -22,4 +22,4 @@ const args = param.string('testvalue');
     const invokeResponse = await executeInvoke(account, invoke, gasCost, intents);
     console.log(invokeResponse);
   }
-})();
+};
