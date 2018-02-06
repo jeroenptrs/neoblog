@@ -1,17 +1,26 @@
 import * as React from 'react';
-import Button from 'antd/lib/button';
+import { Provider } from 'mobx-react';
+
+const {MobxRouter, RouterStore, startRouter} = require('mobx-router');
+// import { store } from 'store';
+import views from './components/views/views';
+
+const store = {
+  app: {
+    title: 'Welcome to Neoblog',
+    user: null
+  },
+  router: new RouterStore()
+};
+
+startRouter(views, store);
 
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, click this <Button type="primary">Button</Button>.
-        </p>
-      </div>
+      <Provider store={store}>      
+        <MobxRouter />
+      </Provider>
     );
   }
 }

@@ -1,4 +1,5 @@
 @import url(./fonts/stylesheet.css);
+@import url("https://rsms.me/inter/inter-ui.css");
 @import url(~antd/dist/antd.css);
 body {
   margin: 0;
