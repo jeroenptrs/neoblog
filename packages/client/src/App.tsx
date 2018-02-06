@@ -1,26 +1,36 @@
 import * as React from 'react';
-import { Provider } from 'mobx-react';
 
-const {MobxRouter, RouterStore, startRouter} = require('mobx-router');
-// import { store } from 'store';
+import { Provider } from 'mobx-react';
+const { MobxRouter, startRouter } = require('mobx-router');
+import store from './store';
 import views from './components/views/views';
 
-const store = {
-  app: {
-    title: 'Welcome to Neoblog',
-    user: null
-  },
-  router: new RouterStore()
-};
+// Components
+import { Layout } from 'antd';
+const { Content, Header } = Layout;
+
+const logo = require('./logo.svg');
 
 startRouter(views, store);
 
 class App extends React.Component {
   render() {
     return (
-      <Provider store={store}>      
-        <MobxRouter />
-      </Provider>
+      <Layout>
+        <Header style={{ padding: '0 32px' }}>
+          <span className="neoblog-logo">Neoblog</span>
+          <span className="neo-logo">
+            <img src={logo} alt="NEO logo" />
+          </span>
+        </Header>
+        <Layout>
+          <Content>
+            <Provider store={store}>      
+              <MobxRouter />
+            </Provider>
+          </Content>
+        </Layout>
+      </Layout>
     );
   }
 }

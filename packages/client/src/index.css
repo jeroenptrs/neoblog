@@ -2,5 +2,32 @@
 @import url("https://rsms.me/inter/inter-ui.css");
 @import url(~antd/dist/antd.css);
 body {
-  margin: 0;
   padding: 0; }
+
+.ant-layout-header {
+  display: flex;
+  justify-content: space-between; }
+
+.ant-layout-content {
+  padding: 32px; }
+
+.ant-layout-footer {
+  text-align: center; }
+
+.neoblog-logo {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 24px; }
+
+.neo-logo {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  padding: 0 4px 7px;
+  margin-top: 12px;
+  border: 1px solid #5c5c5c;
+  border-radius: 50%;
+  text-align: center; }
+  .neo-logo img {
+    margin-top: -3.5px;
+    height: 24px;
+    line-height: 64px; }
