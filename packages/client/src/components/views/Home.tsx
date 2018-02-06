@@ -1,6 +1,5 @@
 import * as React from 'react';
 import MobxComponent from './../MobxComponent';
-import { inject, observer } from 'mobx-react';
 
 class Home extends MobxComponent {
   render() {
@@ -13,4 +12,4 @@ class Home extends MobxComponent {
   }
 }
 
-export default inject('store')(observer(Home));
+export default Home;
