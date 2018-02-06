@@ -6,7 +6,8 @@ body {
 
 .ant-layout-header {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  box-shadow: 0 1px 2px 0 rgba(92, 92, 92, 0.1); }
 
 .ant-layout-content {
   padding: 32px; }
@@ -22,12 +23,19 @@ body {
   height: 40px;
   width: 40px;
   line-height: 40px;
-  padding: 0 4px 7px;
+  padding: 6px 4px 7px;
   margin-top: 12px;
   border: 1px solid #5c5c5c;
   border-radius: 50%;
-  text-align: center; }
-  .neo-logo img {
-    margin-top: -3.5px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .15s ease-in-out; }
+  .neo-logo svg {
     height: 24px;
-    line-height: 64px; }
+    line-height: 64px;
+    fill: #5c5c5c;
+    transition: fill .15s ease-in-out; }
+  .neo-logo:hover {
+    border-color: #8bc34a; }
+    .neo-logo:hover svg {
+      fill: #8bc34a; }

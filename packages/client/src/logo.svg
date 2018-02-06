@@ -2,8 +2,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 354 422" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
     <g id="图层_1-2">
-        <path d="M353.81,72.69L353.81,349.27L208.31,280.66L208.31,124.95L353.81,72.69Z" style="fill:rgb(92,92,92);fill-rule:nonzero;"/>
-        <path d="M0,354.37L142,421.34L142,146.05L0,79.04L0,354.37Z" style="fill:rgb(92,92,92);fill-rule:nonzero;"/>
-        <path d="M347.98,67.36L350.32,66.52L351.61,66.07L211.56,0L210.27,0.45L206.57,1.78L204.83,2.41L5.62,73.95L145.67,140.02L204.83,118.77L208.31,117.52L347.98,67.36Z" style="fill:rgb(92,92,92);fill-rule:nonzero;"/>
+        <path d="M353.81,72.69L353.81,349.27L208.31,280.66L208.31,124.95L353.81,72.69Z" style="fill:white;fill-rule:nonzero;"/>
+        <path d="M0,354.37L142,421.34L142,146.05L0,79.04L0,354.37Z" style="fill:white;fill-rule:nonzero;"/>
+        <path d="M347.98,67.36L350.32,66.52L351.61,66.07L211.56,0L210.27,0.45L206.57,1.78L204.83,2.41L5.62,73.95L145.67,140.02L204.83,118.77L208.31,117.52L347.98,67.36Z" style="fill:white;fill-rule:nonzero;"/>
     </g>
 </svg>

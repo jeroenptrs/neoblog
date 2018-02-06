@@ -6,10 +6,9 @@ import store from './store';
 import views from './components/views/views';
 
 // Components
+import NeoLogo from './components/icons/NeoLogo';
 import { Layout } from 'antd';
 const { Content, Header } = Layout;
-
-const logo = require('./logo.svg');
 
 startRouter(views, store);
 
@@ -20,10 +19,10 @@ class App extends React.Component {
         <Header style={{ padding: '0 32px' }}>
           <span className="neoblog-logo">Neoblog</span>
           <span className="neo-logo">
-            <img src={logo} alt="NEO logo" />
+            <NeoLogo />
           </span>
         </Header>
-        <Layout>
+        <Layout style={{ backgroundColor: 'transparent' }}>
           <Content>
             <Provider store={store}>      
               <MobxRouter />

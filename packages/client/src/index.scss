@@ -10,6 +10,7 @@ body {
 .ant-layout-header {
   display: flex;
   justify-content: space-between;
+  box-shadow: 0 1px 2px 0 rgba(92, 92, 92, 0.1);
 }
 
 .ant-layout-content {
@@ -29,16 +30,27 @@ body {
   height: 40px;
   width: 40px;
   line-height: 40px;
-  padding: 0 4px 7px;
+  padding: 6px 4px 7px;
   margin-top: 12px;
 
   border: 1px solid #5c5c5c;
   border-radius: 50%;
   text-align: center;
+  cursor: pointer;
 
-  img {
-    margin-top: -3.5px;
+  transition: border-color .15s ease-in-out;
+
+  svg {
     height: 24px;
     line-height: 64px;
+    fill: #5c5c5c;
+
+    transition: fill .15s ease-in-out;
+  }
+
+  &:hover {
+    border-color: #8bc34a;
+
+    svg { fill: #8bc34a; }
   }
 }

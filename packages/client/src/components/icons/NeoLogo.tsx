@@ -1,6 +1,7 @@
-import 'react';
+import * as React from 'react';
 
-class NeoLogo extends Component {
+/* tslint:disable */
+class NeoLogo extends React.Component {
   render() {
     return (
       <svg viewBox="0 0 353.81 421.34">
@@ -15,14 +16,15 @@ class NeoLogo extends Component {
         <title>NEO-logo</title>
         <g id="图层_2" data-name="图层 2">
           <g id="图层_1-2" data-name="图层 1">
-            <polygon class="cls-1" points="353.81 72.69 353.81 349.27 208.31 280.66 208.31 124.95 353.81 72.69"/>
-            <polygon class="cls-2" points="0 354.37 142 421.34 142 146.05 0 79.04 0 354.37"/>
-            <polygon class="cls-3" points="347.98 67.36 350.32 66.52 351.61 66.07 211.56 0 210.27 0.45 206.57 1.78 204.83 2.41 5.62 73.95 145.67 140.02 204.83 118.77 208.31 117.52 347.98 67.36"/>
+            <polygon points="353.81 72.69 353.81 349.27 208.31 280.66 208.31 124.95 353.81 72.69"/>
+            <polygon points="0 354.37 142 421.34 142 146.05 0 79.04 0 354.37"/>
+            <polygon points="347.98 67.36 350.32 66.52 351.61 66.07 211.56 0 210.27 0.45 206.57 1.78 204.83 2.41 5.62 73.95 145.67 140.02 204.83 118.77 208.31 117.52 347.98 67.36"/>
           </g>
         </g>
       </svg>
     );
   }
 }
+/* tslint:enable */
 
 export default NeoLogo;
