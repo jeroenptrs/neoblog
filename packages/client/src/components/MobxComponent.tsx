@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { inject, observer } from 'mobx-react';
 
 class MobxComponent extends React.Component {
   /* tslint:disable */props: any; /* tslint: enable */
@@ -8,4 +7,4 @@ class MobxComponent extends React.Component {
   router = this.store.router;
 }
 
-export default inject('store')(observer(MobxComponent));
+export default MobxComponent;
