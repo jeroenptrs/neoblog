@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Button from 'antd/lib/button';
 
 class App extends React.Component {
   render() {
@@ -8,7 +9,7 @@ class App extends React.Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
+          To get started, click this <Button type="primary">Button</Button>.
         </p>
       </div>
     );

@@ -3,21 +3,36 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.2.0",
+    "mobx": "^3.5.1",
+    "mobx-react": "^4.4.1",
+    "mobx-router": "^0.0.8",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts-ts": "2.13.0"
+    "react-scripts-ts": "2.13.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "build": "yarn styles:less && yarn styles:build && yarn react:build",
+    "react:start": "react-scripts-ts start",
+    "react:build": "react-scripts-ts build",
+    "react:test": "react-scripts-ts test --env=jsdom",
+    "react:eject": "react-scripts-ts eject",
+    "react:startWithLess": "yarn styles:less && yarn react:start", 
+    "styles:start": "yarn styles:build && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "styles:build": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "styles:less": "lessc ./src/theme/neoblog.less ./node_modules/antd/dist/antd.css && yarn styles:build"
   },
   "devDependencies": {
     "@types/jest": "^22.1.1",
     "@types/node": "^9.4.0",
     "@types/react": "^16.0.36",
     "@types/react-dom": "^16.0.3",
+    "less": "^2.7.3",
+    "node-sass-chokidar": "^0.0.3",
+    "nodemon": "^1.14.12",
+    "npm-run-all": "^4.1.2",
     "typescript": "^2.7.1"
   }
 }
