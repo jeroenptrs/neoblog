@@ -3,7 +3,8 @@ import {observable} from 'mobx';
 
 const store = {
   app: observable({
-    postMarkdown: ``,
+    postMarkdown: `Sample content`,
+    postTitle: `Sample title`,
   }),
   router: new RouterStore()
 };
