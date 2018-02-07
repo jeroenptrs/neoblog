@@ -1,7 +1,6 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 
-/* tslint:disable */
-class NeoLogo extends React.Component {
+class NeoLogo extends Component {
   render() {
     return (
       <svg viewBox="0 0 353.81 421.34">
@@ -25,6 +24,5 @@ class NeoLogo extends React.Component {
     );
   }
 }
-/* tslint:enable */
 
 export default NeoLogo;

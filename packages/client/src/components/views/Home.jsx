@@ -1,12 +1,12 @@
 // Imports
-import * as React from 'react';
+import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import views from './views';
 
 // Components
 import { Button } from 'antd';
 
-class Home extends React.Component {
+class Home extends Component {
   props: any;
 
   goToMarkdownEditor() {

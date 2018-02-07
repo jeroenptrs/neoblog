@@ -1,19 +1,20 @@
 // Imports
-import * as React from 'react';
+import React, { Component } from 'react';
 
 // Mobx
 import { Provider } from 'mobx-react';
-const { MobxRouter, startRouter } = require('mobx-router');
+import { MobxRouter, startRouter } from 'mobx-router';
 import store from './store';
 import views from './components/views/views';
-startRouter(views, store);
 
 // Components
 import NeoLogo from './components/icons/NeoLogo';
 import { Layout } from 'antd';
 const { Content, Header } = Layout;
 
-class App extends React.Component {
+startRouter(views, store);
+
+class App extends Component {
   render() {
     return (
       <Layout>

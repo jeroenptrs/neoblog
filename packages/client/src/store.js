@@ -1,5 +1,5 @@
-const { RouterStore } = require('mobx-router');
-import {observable} from 'mobx';
+import { observable } from 'mobx';
+import { RouterStore } from 'mobx-router';
 
 const store = {
   app: observable({

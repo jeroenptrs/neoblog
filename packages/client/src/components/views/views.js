@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 
 // models
-const { Route } = require('mobx-router');
+import { Route } from 'mobx-router';
 
 // views
 import Home from './Home';

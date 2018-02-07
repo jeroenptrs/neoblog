@@ -1,13 +1,11 @@
 // Imports
-import * as React from 'react';
+import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
 // Components
 import MarkdownEditor from '../MarkdownEditor/MarkdownEditor';
 
-class NewPost extends React.Component {
-  props: any;
-
+class NewPost extends Component {
   render() {
     return (
       <MarkdownEditor />
