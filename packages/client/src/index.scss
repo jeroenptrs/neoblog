@@ -28,6 +28,10 @@ body {
   .green {
     color: #8bc34a;
   }
+
+  &:hover, &:active, &:visited {
+    color: #5c5c5c;
+  }
 }
 
 .neo-logo {

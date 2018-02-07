@@ -20,6 +20,8 @@ body {
   color: #5c5c5c; }
   .neoblog-logo .green {
     color: #8bc34a; }
+  .neoblog-logo:hover, .neoblog-logo:active, .neoblog-logo:visited {
+    color: #5c5c5c; }
 
 .neo-logo {
   height: 40px;

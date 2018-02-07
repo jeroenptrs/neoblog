@@ -16,7 +16,7 @@ startRouter(views, store);
 const App = () => (
   <Layout>
     <Header style={{ padding: '0 32px' }}>
-      <span className="neoblog-logo">Neo<span className="green">blog</span></span>
+      <a href="/" className="neoblog-logo">Neo<span className="green">blog</span></a>
       <span className="neo-logo">
         <NeoLogo />
       </span>
