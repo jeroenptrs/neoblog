@@ -1,0 +1,43 @@
+@import url(./fonts/stylesheet.css);
+@import url("https://rsms.me/inter/inter-ui.css");
+@import url(~antd/dist/antd.css);
+body {
+  padding: 0; }
+
+.ant-layout-header {
+  display: flex;
+  justify-content: space-between; }
+
+.ant-layout-content {
+  padding: 0; }
+
+.ant-layout-footer {
+  text-align: center; }
+
+.neoblog-logo {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 24px;
+  color: #5c5c5c; }
+  .neoblog-logo .green {
+    color: #8bc34a; }
+
+.neo-logo {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  padding: 6px 4px 7px;
+  margin-top: 12px;
+  border: 1px solid #5c5c5c;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .15s ease-in-out; }
+  .neo-logo svg {
+    height: 24px;
+    line-height: 64px;
+    fill: #5c5c5c;
+    transition: fill .15s ease-in-out; }
+  .neo-logo:hover {
+    border-color: #8bc34a; }
+    .neo-logo:hover svg {
+      fill: #8bc34a; }
