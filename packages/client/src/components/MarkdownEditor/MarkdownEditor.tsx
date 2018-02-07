@@ -6,13 +6,13 @@ const ReactMarkdown = require('react-markdown');
 // Components
 import { Button, Row, Col, Layout } from 'antd';
 const { Header } = Layout;
-import MobxComponent from '../MobxComponent';
 
 // Styles
 import './MarkdownEditor.css';
 
-class MarkdownEditor extends MobxComponent {
-  /* tslint:disable */
+class MarkdownEditor extends React.Component {
+  props: any;
+
   handleMarkdown = (event: any) => {
     this.props.store.app.postMarkdown = event.target.value;
   }
@@ -20,7 +20,6 @@ class MarkdownEditor extends MobxComponent {
   handleTitle = (event: any) => {
     this.props.store.app.postTitle = event.target.value;
   }
-  /*tslint:enable */
 
   render() {
     return (

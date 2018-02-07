@@ -4,11 +4,11 @@ import { inject, observer } from 'mobx-react';
 
 // Components
 import MarkdownEditor from '../MarkdownEditor/MarkdownEditor';
-import MobxComponent from './../MobxComponent';
 
-class NewPost extends MobxComponent {
+class NewPost extends React.Component {
+  props: any;
+
   render() {
-    /* tslint:disable */console.log(this.props); /* tslint: enable */
     return (
       <MarkdownEditor />
     );

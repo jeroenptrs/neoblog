@@ -4,10 +4,11 @@ import { inject, observer } from 'mobx-react';
 import views from './views';
 
 // Components
-import MobxComponent from './../MobxComponent';
 import { Button } from 'antd';
 
-class Home extends MobxComponent {
+class Home extends React.Component {
+  props: any;
+
   goToMarkdownEditor() {
     this.props.store.router.goTo(views.newPost, {...this.props.store.router.params}, this.props.store);
   }
