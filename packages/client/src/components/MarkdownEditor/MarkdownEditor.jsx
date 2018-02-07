@@ -12,29 +12,30 @@ const { Header } = Layout;
 
 
 class MarkdownEditor extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleMarkdown = this.handleMarkdown.bind(this);
-  }
-
   handleMarkdown = (event) => {
-    this.props.store.app.postMarkdown = event.target.value;
+    const { app } = this.props.store;
+    app.postMarkdown = event.target.value;
   }
 
   handleTitle = (event) => {
-    this.props.store.app.postTitle = event.target.value;
+    const { app } = this.props.store;
+    app.postTitle = event.target.value;
   }
 
   render() {
+    const { app } = this.props.store;
+
     return (
       <React.Fragment>
         <Header className="markdownEditor" style={{ padding: '0' }}>
           <div className="title">
             <input
               type="text"
-              value={this.props.store.app.postTitle}
+              placeholder="Your title goes here"
+              value={app.postTitle}
               onChange={this.handleTitle}
+              tabIndex={1}
+              autoFocus
             />
           </div>
           <div className="options">
@@ -45,14 +46,16 @@ class MarkdownEditor extends Component {
           <Col span={12} className="input">
             <textarea
               className="ant-layout-content"
-              value={this.props.store.app.postMarkdown}
+              placeholder="Your article's content goes here"
+              value={app.postMarkdown}
               onChange={this.handleMarkdown}
+              tabIndex={2}
             />
           </Col>
           <Col span={12} className="result">
             <ReactMarkdown
               className="ant-layout-content"
-              source={`# ${this.props.store.app.postTitle}\n\n${this.props.store.app.postMarkdown}`}
+              source={`# ${app.postTitle}\n\n${app.postMarkdown}`}
             />
           </Col>
         </Row>
