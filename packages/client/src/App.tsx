@@ -18,7 +18,7 @@ class App extends React.Component {
     return (
       <Layout>
         <Header style={{ padding: '0 32px' }}>
-          <span className="neoblog-logo">Neoblog</span>
+          <span className="neoblog-logo">Neo<span className="green">blog</span></span>
           <span className="neo-logo">
             <NeoLogo />
           </span>

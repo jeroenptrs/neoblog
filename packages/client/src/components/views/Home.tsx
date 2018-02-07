@@ -9,11 +9,10 @@ import { Button } from 'antd';
 
 class Home extends MobxComponent {
   goToMarkdownEditor() {
-    this.router.goTo(views.newPost, {...this.router.params}, this.store);
+    this.props.store.router.goTo(views.newPost, {...this.props.store.router.params}, this.props.store);
   }
 
   render() {
-    /* tslint:disable */console.log(this.props); /* tslint: enable */
     return (
       <div>
         <br/>

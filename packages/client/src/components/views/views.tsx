@@ -5,7 +5,7 @@ const { Route } = require('mobx-router');
 
 // views
 import Home from './Home';
-import MarkdownEditor from './MarkdownEditor';
+import NewPost from './NewPost';
 
 const views = {
   home: new Route({
@@ -14,7 +14,7 @@ const views = {
   }),
   newPost: new Route({
     path: '/newPost',
-    component: <MarkdownEditor />
+    component: <NewPost />
   })
 };
 

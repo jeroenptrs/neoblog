@@ -18,6 +18,8 @@ body {
 .neoblog-logo {
   font-family: 'League Spartan', sans-serif;
   font-size: 24px; }
+  .neoblog-logo .green {
+    color: #8bc34a; }
 
 .neo-logo {
   height: 40px;

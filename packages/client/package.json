@@ -9,6 +9,7 @@
     "mobx-router": "^0.0.8",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-markdown": "^3.1.5",
     "react-scripts-ts": "2.13.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
@@ -19,7 +20,7 @@
     "react:build": "react-scripts-ts build",
     "react:test": "react-scripts-ts test --env=jsdom",
     "react:eject": "react-scripts-ts eject",
-    "react:startWithLess": "yarn styles:less && yarn react:start", 
+    "react:startWithLess": "yarn styles:less && yarn react:start",
     "styles:start": "yarn styles:build && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "styles:build": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "styles:less": "lessc ./src/theme/neoblog.less ./node_modules/antd/dist/antd.css && yarn styles:build"

@@ -1,0 +1,37 @@
+.markdownEditor {
+  .input {
+    height: calc(100vh - 65px);
+    max-height: calc(100vh - 64px);
+    overflow: hidden;
+    
+    textarea {
+      height: 100%;
+      max-height: 100%;
+      width: 100%;
+      padding: 32px;
+
+      resize: none;
+      outline: none;
+      border: none;
+      overflow-y: scroll;
+      overflow-x: hidden;
+
+      background: transparent;
+
+    }
+    
+  }
+  
+  .result {
+    height: calc(100vh - 64px);
+    max-height: calc(100vh - 64px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: none;
+    
+    .ant-layout-content {
+      border: none;
+      padding: 32px;
+    }
+  }
+}

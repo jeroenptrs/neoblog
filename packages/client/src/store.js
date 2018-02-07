@@ -1,9 +1,10 @@
 const { RouterStore } = require('mobx-router');
+import {observable} from 'mobx';
 
 const store = {
-  appState: {
-    title: 'Welcome to Neoblog'
-  },
+  app: observable({
+    postMarkdown: ``,
+  }),
   router: new RouterStore()
 };
 
