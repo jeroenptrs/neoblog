@@ -58,7 +58,7 @@ def submitPost(args):
 
 
   # Getting and increasing lastest index
-  latestPostIndex = Get(GetContext, postLatestDomain);
+  latestPostIndex = Get(GetContext, postLatestDomain)
   newLatestPostIndex = latestPostIndex + 1
   Put(GetContext, postLatestDomain, latestPostIndex)
 
@@ -70,8 +70,8 @@ def submitPost(args):
   Put(GetContext, userLatestDomain, postHash)
 
   # Insert the post on domain "post.{index}"
-  postKeyDomain = concat(postDomain, latestPostIndex)
-  Put(GetContext, postKey, postHash)
+  postKeyDomain = concat(postDomain, newLatestPostIndex)
+  Put(GetContext, postKeyDomain, postHash)
   return True
 
 
@@ -90,7 +90,7 @@ def addPostToCategory(args):
   postHash = args[1]
 
   # Getting all categories from args
-  categoryList = getCategories(args):
+  categoryList = getCategories(args)
 
   i = 0
   categoryList = []
@@ -104,12 +104,12 @@ def addPostToCategory(args):
     # Getting and increasing lastest index
     oldLatestIndex = Get(GetContext, categoryLatest)
     newLatestIndex = oldLatestIndex + 1
-    Put(GetContext, categoryValueLatest, newLatestIndex)
+    Put(GetContext, categoryLatest, newLatestIndex)
 
     # Insert the post on domain "category.{categoryName}.{index}"
     categoryNewIndex = concat(".", newLatestIndex)
     category = concat(categoryDomainAndName, categoryNewIndex)
-    Put(GetContext, category, FILE_HASH)
+    Put(GetContext, category, postHash)
   return True
 
 
@@ -151,12 +151,17 @@ def getLatestPost():
 ==========================
 """
 def getCategories(args):
-    i = 2
-    categoryList = []
+  i = 2
+  categoryList = []
 
-    while i<len(args - 2):
-      categoryList = concat(',', args[i])
-    return categoryList
+  argsLen = len(args) - 2
+
+  while i<argsLen:
+    element = args[i]
+    categoryList = concat(',', element)
+    i += 1
+    
+  return categoryList
 
 
 def IncrementIndexes():
@@ -197,9 +202,14 @@ def Main(operation, args):
     if operation == 'submitPost':
       submitPost(args)
       return True
-    if operation == 'addPostToCategory'
+    if operation == 'addPostToCategory':
       addPostToCategory(args)
       return True
+    if operation == 'getLatestPost':
+      getLatestPost(args)
+      return True
+    """
     if operation == 'getPost':
       getPost(args)
       return True
+    """
