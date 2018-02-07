@@ -1,8 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 
 // models
-const { Route } = require('mobx-router');
-
+import { Route } from 'mobx-router';
 // views
 import Home from './Home';
 import NewPost from './NewPost';
@@ -10,12 +9,12 @@ import NewPost from './NewPost';
 const views = {
   home: new Route({
     path: '/',
-    component: <Home />
+    component: <Home />,
   }),
   newPost: new Route({
     path: '/newPost',
-    component: <NewPost />
-  })
+    component: <NewPost />,
+  }),
 };
 
 export default views;

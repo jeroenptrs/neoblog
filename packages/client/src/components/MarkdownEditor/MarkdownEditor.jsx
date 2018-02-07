@@ -1,29 +1,34 @@
 // Imports
-import * as React from 'react';
+import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-const ReactMarkdown = require('react-markdown');
-
-// Components
+import ReactMarkdown from 'react-markdown';
 import { Button, Row, Col, Layout } from 'antd';
-const { Header } = Layout;
 
 // Styles
 import './MarkdownEditor.css';
 
-class MarkdownEditor extends React.Component {
-  props: any;
+// Components
+const { Header } = Layout;
 
-  handleMarkdown = (event: any) => {
+
+class MarkdownEditor extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleMarkdown = this.handleMarkdown.bind(this);
+  }
+
+  handleMarkdown = (event) => {
     this.props.store.app.postMarkdown = event.target.value;
   }
 
-  handleTitle = (event: any) => {
+  handleTitle = (event) => {
     this.props.store.app.postTitle = event.target.value;
   }
 
   render() {
     return (
-      <>
+      <React.Fragment>
         <Header className="markdownEditor" style={{ padding: '0' }}>
           <div className="title">
             <input
@@ -51,7 +56,7 @@ class MarkdownEditor extends React.Component {
             />
           </Col>
         </Row>
-      </>
+      </React.Fragment>
     );
   }
 }
