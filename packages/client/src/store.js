@@ -3,10 +3,10 @@ import { RouterStore } from 'mobx-router';
 
 const store = {
   app: observable({
-    postMarkdown: `Sample content`,
-    postTitle: `Sample title`,
+    postMarkdown: 'Sample content',
+    postTitle: 'Sample title',
   }),
-  router: new RouterStore()
+  router: new RouterStore(),
 };
 
 export default store;

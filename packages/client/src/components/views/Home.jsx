@@ -1,23 +1,29 @@
 // Imports
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import views from './views';
 
 // Components
 import { Button } from 'antd';
 
-class Home extends Component {
-  props: any;
+import views from './views';
 
-  goToMarkdownEditor() {
-    this.props.store.router.goTo(views.newPost, {...this.props.store.router.params}, this.props.store);
+class Home extends Component {
+  goToMarkdownEditor = () => {
+    this.props.store.router.goTo(
+      views.newPost,
+      { ...this.props.store.router.params },
+      this.props.store,
+    );
   }
 
   render() {
     return (
       <div>
-        <br/>
-        &emsp;Test content <Button onClick={() => this.goToMarkdownEditor()}>Markdown Editor</Button>
+        <br />
+        &emsp;Test content
+        <Button onClick={() => this.goToMarkdownEditor()}>
+          Markdown Editor
+        </Button>
       </div>
     );
   }

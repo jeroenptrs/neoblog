@@ -2,16 +2,22 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import ReactMarkdown from 'react-markdown';
+import { Button, Row, Col, Layout } from 'antd';
 
 // Styles
 import './MarkdownEditor.css';
 
 // Components
-import { Button, Row, Col, Layout } from 'antd';
 const { Header } = Layout;
 
 
 class MarkdownEditor extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleMarkdown = this.handleMarkdown.bind(this);
+  }
+
   handleMarkdown = (event) => {
     this.props.store.app.postMarkdown = event.target.value;
   }
