@@ -1,9 +1,6 @@
 // Imports
 import React from 'react';
 import { Layout } from 'antd';
-
-// Mobx
-import { Provider } from 'mobx-react';
 import { MobxRouter, startRouter } from 'mobx-router';
 
 import store from './store';
@@ -26,9 +23,7 @@ const App = () => (
     </Header>
     <Layout style={{ backgroundColor: 'transparent' }}>
       <Content>
-        <Provider store={store}>
-          <MobxRouter />
-        </Provider>
+        <MobxRouter />
       </Content>
     </Layout>
   </Layout>
