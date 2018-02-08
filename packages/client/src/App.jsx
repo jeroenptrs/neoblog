@@ -3,7 +3,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import { MobxRouter, startRouter } from 'mobx-router';
 
-import store from './store';
+import store from './lib/store';
 import views from './components/views/views';
 
 // Components
