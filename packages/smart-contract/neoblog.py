@@ -1,7 +1,7 @@
 from boa.blockchain.vm.Neo.Runtime import CheckWitness
 from boa.blockchain.vm.Neo.Storage import GetContext, Get, Put
 from boa.code.builtins import concat, substr
-
+from boa.blockchain.vm.System.ExecutionEngine import GetCallingScriptHash
 
 """
 # TODO:
@@ -22,19 +22,10 @@ category.{crypto}.latest        Latest index of a certain category
 category.{crypto}.{postIndex}   Getting a post from a certain category by index
 
 user.{userAddress}              User address of a user (Public key/hash)
-user.{userAddress}.latest       Getting the latest post of a certain user
+user.{userAddress}.latest       Getting the latest post index of a certain user
 user.{userAddress}.{postIndex}  Getting a post from a certain user by index
 
 user.{userId}.{userName}        ex: user.{userId}.jeroenptrs: jeroenptrs is an example user id
-
--> Pre-defined domains
-post.
-post.latest. -> setLatestPost
-post.data. -> 
-
-category.
-
-user.
 
 ==========================
 ===== MAIN FUNCTIONS =====
@@ -52,28 +43,61 @@ def submitPost(args):
 
   # Creating domains
   postDomain = "post."
-  postLatestDomain = concat(postDomain, "latest")
   userDomain = concat("user.", user)
+  postLatestDomain = concat(postDomain, "latest")
   userLatestDomain = concat(userDomain, ".latest")
 
-
-  # Getting and increasing lastest index
+  """
+  Adding to post domain
+  post.latest                     Latest index of a post in common
+  post.{postIndex}                Getting a post by index
+  post.data.{IPFS_PostHash}       Getting a post by Hash From IPFS
+  post.{IPFS_PostHash}            Getting post by Hash from IPFS (Optional)
+  """
+  # Setting post.latest = {postIndex} - increase afterwards
   latestPostIndex = Get(GetContext, postLatestDomain)
-  newLatestPostIndex = latestPostIndex + 1
-  Put(GetContext, postLatestDomain, latestPostIndex)
+  newLatestPostIndex = -1
+  if latestPostIndex == '':
+    newLatestPostIndex = 0
+    Put(GetContext, postLatestDomain, newLatestPostIndex)
+  else:
+    newLatestPostIndex = latestPostIndex + 1
+    Put(GetContext, postLatestDomain, newLatestPostIndex)
 
-  # Getting user posts, incrementing/updating/adding
-  latestUserPostIndex = Get(GetContext, userLatestDomain)
-  userPostIndexTemp = concat(userDomain, ".")
-  userPostIndex = concat(userPostIndexTemp, latestUserPostIndex)
-  Put(GetContext, userPostIndex, postHash)
-  Put(GetContext, userLatestDomain, postHash)
+  # Setting post.{postIndex} = {postHash}
+  postIndexDomain = concat(postDomain, newLatestPostIndex)
+  Put(GetContext, postIndexDomain, postHash)
+
+  # Setting post.data.{postHash} = {postIndex}
+  postDataDomainTemp = concat(postDomain, 'data.')
+  postDataDomain = concat(postDataDomainTemp, postHash)
+  Put(GetContext, postDataDomain, newLatestPostIndex)
+
 
   # Insert the post on domain "post.{index}"
   postKeyDomain = concat(postDomain, newLatestPostIndex)
   Put(GetContext, postKeyDomain, postHash)
-  return True
 
+  """
+    Adding to user domain
+    user.{userAddress}              User address of a user (Public key/hash)
+    user.{userAddress}.latest       Getting the latest post index of a certain user
+    user.{userAddress}.{postIndex}  Getting a post from a certain user by index
+  """
+  # Setting user.{userAddress}.latest = {postIndex}
+  latestUserPostIndex = Get(GetContext, userLatestDomain)
+  newLatestUserPostIndex = -1
+  if latestUserPostIndex == '':
+    newLatestUserPostIndex = 0
+    Put(GetContext, userLatestDomain, newLatestUserPostIndex)
+  else:
+    newLatestUserPostIndex = latestUserPostIndex + 1
+    Put(GetContext, userLatestDomain, newLatestUserPostIndex)
+
+  # Setting user.{userAddress}.{postIndex} = {postHash}
+  userIndexDomain = concat(userDomain, newLatestUserPostIndex)
+  Put(GetContext, userIndexDomain, postHash)
+  return True
 
 
 """
@@ -81,7 +105,7 @@ Add a post to a certain category
   :param args: list of arguments
     args[0] always sender hash
     args[1] post content hash on IPFS
-    args[2..11] extra categories (max 10)
+    args[2..11] extra categories (max 3)
   :param type: str
 """
 def addPostToCategory(args):
@@ -100,6 +124,7 @@ def addPostToCategory(args):
     # Creating domains
     categoryDomainAndName = concat("category.", categoryName)
     categoryLatest = concat(categoryDomainAndName, ".latest")
+
     
     # Getting and increasing lastest index
     oldLatestIndex = Get(GetContext, categoryLatest)
@@ -111,38 +136,6 @@ def addPostToCategory(args):
     category = concat(categoryDomainAndName, categoryNewIndex)
     Put(GetContext, category, postHash)
   return True
-
-
-"""
-Getting the post by index from the BC
-  :param args: list of arguments
-    args[0] always sender hash
-    args[1] post index
-  :param type: str
-"""
-def getPostByIndex(args):
-  # Default args
-  user = args[0]
-  postIndex = args[1]
-
-  # Getting the index and retrieving post
-  postIndexDomain = concat("post.", postIndex)
-  postByIndex = Get(GetContext, postIndexDomain)
-  return postByIndex
-
-
-"""
-Getting the latest post from the BC
-"""
-def getLatestPost():
-  # Get latest index
-  latestIndex = Get(GetContext, "post.latest")
-
-  # Getting the index and retrieving post
-  lastestPostDomain = concat("post.", latestIndex)
-  latestPost = Get(GetContext, lastestPostDomain)
-  return latestPost
-
 
 
 """
@@ -190,13 +183,21 @@ def Main(operation, args):
     :param args: list of arguments
       args[0] always sender hash
     :param type: str
-  """
 
-  user = args[0]
+  
   authorized = CheckWitness(user)
   if not authorized:
     print("Not authorized")
     return False
+  """
+  user = args[0]
+  result = GetCallingScriptHash()
+
+  print('===')
+  print(user)
+  print('===')
+  print(result)
+  print('===')
 
   if operation != None:
     if operation == 'submitPost':
@@ -205,11 +206,3 @@ def Main(operation, args):
     if operation == 'addPostToCategory':
       addPostToCategory(args)
       return True
-    if operation == 'getLatestPost':
-      getLatestPost(args)
-      return True
-    """
-    if operation == 'getPost':
-      getPost(args)
-      return True
-    """
