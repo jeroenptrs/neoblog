@@ -1,7 +1,7 @@
 // Imports
 import React from 'react';
 import { Layout } from 'antd';
-import { MobxRouter, startRouter } from 'mobx-router';
+import { MobxRouter, startRouter, Link } from 'mobx-router';
 
 import store from './lib/store';
 import views from './components/views/views';
@@ -13,20 +13,29 @@ const { Content, Header } = Layout;
 
 startRouter(views, store);
 
-const App = () => (
-  <Layout>
-    <Header style={{ padding: '0 32px' }}>
-      <a href="/" className="neoblog-logo">Neo<span className="green">blog</span></a>
-      <span className="neo-logo">
-        <NeoLogo />
-      </span>
-    </Header>
-    <Layout style={{ backgroundColor: 'transparent' }}>
-      <Content>
-        <MobxRouter />
-      </Content>
+const App = () => {
+  console.log(store);
+  return (
+    <Layout>
+      <Header style={{ padding: '0 32px' }}>
+        <Link
+          view={views.home}
+          store={store}
+          className="neoblog-logo"
+        >
+          Neo<span className="green">blog</span>
+        </Link>
+        <span className="neo-logo">
+          <NeoLogo />
+        </span>
+      </Header>
+      <Layout style={{ backgroundColor: 'transparent' }}>
+        <Content>
+          <MobxRouter />
+        </Content>
+      </Layout>
     </Layout>
-  </Layout>
-);
+  );
+};
 
 export default App;
