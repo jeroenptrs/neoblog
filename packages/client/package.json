@@ -1,0 +1,42 @@
+{
+  "name": "@neoblog/client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^3.2.0",
+    "async": "^2.6.0",
+    "ipfs": "^0.27.7",
+    "mobx": "^3.5.1",
+    "mobx-react": "^4.4.1",
+    "mobx-router": "^0.0.8",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-markdown": "^3.1.5",
+    "react-scripts": "1.1.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  },
+  "scripts": {
+    "build": "yarn styles:less && yarn styles:build && yarn react:build",
+    "react:build": "react-scripts build",
+    "react:eject": "react-scripts eject",
+    "react:start": "react-scripts start",
+    "react:startWithLess": "yarn styles:less && yarn react:start",
+    "react:test": "react-scripts test --env=jsdom",
+    "styles:build": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "styles:less": "lessc ./src/theme/neoblog.less ./node_modules/antd/dist/antd.css && yarn styles:build",
+    "styles:start": "yarn styles:build && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "less": "^2.7.3",
+    "node-sass-chokidar": "^0.0.3",
+    "nodemon": "^1.14.12",
+    "npm-run-all": "^4.1.2"
+  }
+}

@@ -1,0 +1,64 @@
+// Custom fonts: League Spartan and Inter UI
+@import './fonts/stylesheet.css';
+@import url('https://rsms.me/inter/inter-ui.css');
+@import '~antd/dist/antd.css';
+
+body {
+  padding: 0;
+}
+
+.ant-layout-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ant-layout-content {
+  padding: 0;
+}
+
+.ant-layout-footer {
+  text-align: center;
+}
+
+.neoblog-logo {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 24px;
+  color: #5c5c5c;
+
+  .green {
+    color: #8bc34a;
+  }
+
+  &:hover, &:active, &:visited {
+    color: #5c5c5c;
+  }
+}
+
+.neo-logo {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  padding: 6px 4px 7px;
+  margin-top: 12px;
+
+  border: 1px solid #5c5c5c;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+
+  transition: border-color .15s ease-in-out;
+
+  svg {
+    height: 24px;
+    line-height: 64px;
+    fill: #5c5c5c;
+
+    transition: fill .15s ease-in-out;
+  }
+
+  &:hover {
+    border-color: #8bc34a;
+
+    svg { fill: #8bc34a; }
+  }
+}
