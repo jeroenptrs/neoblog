@@ -5,6 +5,7 @@ import { Route } from 'mobx-router';
 // views
 import Home from './Home';
 import NewPost from './NewPost';
+import ArticleView from './ArticleView';
 
 const views = {
   home: new Route({
@@ -14,6 +15,10 @@ const views = {
   newPost: new Route({
     path: '/newPost',
     component: <NewPost />,
+  }),
+  articleView: new Route({
+    path: '/article/:fileHash',
+    component: <ArticleView />,
   }),
 };
 

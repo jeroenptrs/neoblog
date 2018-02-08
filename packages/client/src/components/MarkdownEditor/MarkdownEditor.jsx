@@ -39,6 +39,9 @@ class MarkdownEditor extends Component {
   }
 
   handlePost = async (article) => {
+    /**
+     * TODO: State management in between various stages of IPFS communication
+     */
     if (article) {
       const node = new IPFS();
 
