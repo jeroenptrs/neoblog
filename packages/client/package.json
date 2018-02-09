@@ -5,9 +5,11 @@
   "dependencies": {
     "antd": "^3.2.0",
     "async": "^2.6.0",
+    "less": "^2.7.3",
     "mobx": "^3.5.1",
     "mobx-react": "^4.4.1",
     "mobx-router": "^0.0.8",
+    "node-sass-chokidar": "^0.0.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-markdown": "^3.1.5",
@@ -16,7 +18,7 @@
     "request-promise": "^4.2.2"
   },
   "scripts": {
-    "build": "npm run styles:less && npm run styles:build && npm run react:build",
+    "build": "npm run styles:less && npm run react:build",
     "test": "echo \"Error: no test specified.\"",
     "react:build": "react-scripts build",
     "react:eject": "react-scripts eject",
@@ -37,8 +39,6 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
     "ipfs": "^0.27.7",
-    "less": "^2.7.3",
-    "node-sass-chokidar": "^0.0.3",
     "nodemon": "^1.14.12",
     "npm-run-all": "^4.1.2",
     "surge": "^0.19.0"
