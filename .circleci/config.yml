@@ -14,5 +14,8 @@ jobs:
       - run: yarn install
       - run: yarn test
       - run: yarn build
-      - deploy:
-        - command: surge --project /home/ubuntu/neoblog/packages/client/build domain testnet.neoblog.io
+    deployment:
+      development:
+        branch: development
+        commands:
+          - surge --project /home/ubuntu/neoblog/packages/client/build domain testnet.neoblog.io
