@@ -10,10 +10,11 @@ jobs:
     working_directory: /home/ubuntu/neoblog
     steps:
       - checkout
-      - run: cd /home/ubuntu/neoblog/packages/client
       - run: yarn install
+      - run: cd /home/ubuntu/neoblog/packages/client && yarn install
       - run: yarn test
-      - run: yarn build
+      - run: cd /home/ubuntu/neoblog/packages/client && yarn test
+      - run: cd /home/ubuntu/neoblog/packages/client && yarn build
     deployment:
       development:
         branch: development
