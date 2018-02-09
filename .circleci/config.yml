@@ -22,14 +22,3 @@ jobs:
     steps:
       - run: cp /home/ubuntu/neoblog/packages/client/build/index.html /home/ubuntu/neoblog/packages/client/build/200.html
       - run: npx surge --project /home/ubuntu/neoblog/packages/client/build domain testnet.neoblog.io
-workflows:
-  version: 2
-  testnet:
-    jobs:
-      - build
-      - deploy:
-        requires:
-          - build
-        filters:
-          branches:
-            only: development
