@@ -16,16 +16,16 @@
     "request-promise": "^4.2.2"
   },
   "scripts": {
-    "build": "yarn styles:less && yarn styles:build && yarn react:build",
+    "build": "npm run styles:less && npm run styles:build && npm run react:build",
     "test": "echo \"Error: no test specified.\"",
     "react:build": "react-scripts build",
     "react:eject": "react-scripts eject",
     "react:start": "react-scripts start",
-    "react:startWithLess": "yarn styles:less && yarn react:start",
+    "react:startWithLess": "npm run styles:less && npm run react:start",
     "react:test": "react-scripts test --env=jsdom",
     "styles:build": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-    "styles:less": "lessc ./src/theme/neoblog.less ./node_modules/antd/dist/antd.css && yarn styles:build",
-    "styles:start": "yarn styles:build && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
+    "styles:less": "lessc ./src/theme/neoblog.less ./node_modules/antd/dist/antd.css && npm run styles:build",
+    "styles:start": "npm run styles:build && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
