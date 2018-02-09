@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker: 
+      - image: node:8.9.4
+    working_directory: /home/ubuntu/neoblog
+    steps:
+      - checkout
+      - run: cd /home/ubuntu/neoblog/packages/client
+      - run: yarn install
+      - run: yarn test
+      - run: yarn build
+      - deploy:
+        - command: surge --project /home/ubuntu/neoblog/packages/client/build domain testnet.neoblog.io

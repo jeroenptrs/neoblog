@@ -18,6 +18,7 @@
   },
   "scripts": {
     "build": "yarn styles:less && yarn styles:build && yarn react:build",
+    "test": "echo \"Error: no test specified.\"",
     "react:build": "react-scripts build",
     "react:eject": "react-scripts eject",
     "react:start": "react-scripts start",
@@ -37,6 +38,7 @@
     "less": "^2.7.3",
     "node-sass-chokidar": "^0.0.3",
     "nodemon": "^1.14.12",
-    "npm-run-all": "^4.1.2"
+    "npm-run-all": "^4.1.2",
+    "surge": "^0.19.0"
   }
 }
