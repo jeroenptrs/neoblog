@@ -5,25 +5,22 @@ from boa.blockchain.vm.System.ExecutionEngine import GetCallingScriptHash
 
 """
 # TODO:
-- "Seed" smart contract -> .latest might not yet exist -> fill with 0
+- Uncomment CheckWitness, this is commented for easy testing purposes
 - Error handling when "out of bounds" -> ex: post.1234 which does not exist
-- Add user.post, user.xxx domains on every function (Get, Put)
-- String -> int conversion and vice versa?
-- GetIndexes(domaiName (ex: "post, user, category.categoryName")) returns latest index
-- UpdateIndexes (Same as above - but updates it)
 
 Example of domain trees
-post.latest                     Latest index of a post in common
-post.{postIndex}                Getting a post by index
-post.data.{IPFS_PostHash}       Getting a post by Hash From IPFS
+post.latest                     Latest index of a post in common - Done
+post.{postIndex}                Getting a post by index - Done
+post.data.{IPFS_PostHash}       Getting a post by Hash From IPFS - Done
+post.{postHash}.subCategories   Getting a list of subcategories -> [{s1,s2,..}] - Done
 post.{IPFS_PostHash}            Getting post by Hash from IPFS (Optional)
 
-category.{crypto}.latest        Latest index of a certain category
-category.{crypto}.{postIndex}   Getting a post from a certain category by index
+category.{categoryName}.latest        Latest index of a certain category - Done
+category.{CategoryName}.{postIndex}   Getting a post from a certain category by index - Done
 
-user.{userAddress}              User address of a user (Public key/hash)
-user.{userAddress}.latest       Getting the latest post index of a certain user
-user.{userAddress}.{postIndex}  Getting a post from a certain user by index
+user.{userAddress}              User address of a user (Public key/hash) - Done
+user.{userAddress}.latest       Getting the latest post index of a certain user - Done
+user.{userAddress}.{postIndex}  Getting a post from a certain user by index - Done
 
 user.{userId}.{userName}        ex: user.{userId}.jeroenptrs: jeroenptrs is an example user id
 
@@ -112,29 +109,50 @@ def addPostToCategory(args):
   # Default args
   user = args[0]
   postHash = args[1]
+  mainCategory = args[2]
+
+  # Creating domain
+  categoryDomain = 'category.'
+  categoryWithNameDomain = concat(categoryDomain, mainCategory)
+  categoryLatestDomain = concat(categoryWithNameDomain, '.latest')
 
   # Getting all categories from args
   categoryList = getCategories(args)
 
+  """
+    Adding to category domains
+    category.{categoryName}.latest        Latest index of a certain category
+    category.{CategoryName}.{postIndex}   Getting a post from a certain category by index
+    post.{postHash}.{subCategories}       Subcategories/tags of the post
+  """
+  # Setting category.{categoryName}.latest = {postIndex}
+  latestCategoryIndex = Get(GetContext, categoryLatestDomain)
+  newLatestCategoryIndex = -1
+  if latestCategoryIndex == '':
+    newLatestCategoryIndex = 0
+    Put(GetContext, categoryLatestDomain, newLatestCategoryIndex)
+  else:
+    newLatestCategoryIndex = latestCategoryIndex + 1
+    Put(GetContext, categoryLatestDomain, newLatestCategoryIndex)
+
+
+  # Setting category.{categoryName}.{postIndex} = {postHash}
+  categoryWithNameIndexDomain = concat(categoryWithNameDomain, newLatestCategoryIndex)
+  Put(GetContext, categoryWithNameIndexDomain, postHash)
+
+
+  # Setting post.{postHash}.subCategories = [{s1,s2,..}]
+  postSubcatsTempDomain = concat('post.', postHash)
+  postSubcatsDomain = concat(postSubcatsTempDomain, '.subCategories')
+
   i = 0
-  categoryList = []
+  categoryListResult = []
   while i<len(categoryList):
     categoryName = categoryList[i]
-
-    # Creating domains
-    categoryDomainAndName = concat("category.", categoryName)
-    categoryLatest = concat(categoryDomainAndName, ".latest")
-
-    
-    # Getting and increasing lastest index
-    oldLatestIndex = Get(GetContext, categoryLatest)
-    newLatestIndex = oldLatestIndex + 1
-    Put(GetContext, categoryLatest, newLatestIndex)
-
-    # Insert the post on domain "category.{categoryName}.{index}"
-    categoryNewIndex = concat(".", newLatestIndex)
-    category = concat(categoryDomainAndName, categoryNewIndex)
-    Put(GetContext, category, postHash)
+    categoryListResultItem = concat(categoryName, ',')
+    categoryListResult.pop(categoryListResultItem)
+  
+  Put(GetContext, postSubcatsDomain, categoryListResult)
   return True
 
 
@@ -144,10 +162,10 @@ def addPostToCategory(args):
 ==========================
 """
 def getCategories(args):
-  i = 2
+  i = 3
   categoryList = []
 
-  argsLen = len(args) - 2
+  argsLen = len(args) - 3
 
   while i<argsLen:
     element = args[i]
@@ -155,17 +173,6 @@ def getCategories(args):
     i += 1
     
   return categoryList
-
-
-def IncrementIndexes():
-  print('Incrementing indexes..')
-  return True
-
-def getIndexes():
-  print('Getting indexes..')
-  return True
-
-
 
 """
 ==========================
