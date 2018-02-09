@@ -1,6 +1,10 @@
 version: 2
+general:
+  branches:
+    only:
+      - development
 jobs:
-  build-dev:
+  build_testnet:
     docker: 
       - image: node:8.9.4
     working_directory: /home/ubuntu/neoblog
@@ -13,30 +17,3 @@ jobs:
       - run: cd /home/ubuntu/neoblog/packages/client && yarn build
       - run: cp /home/ubuntu/neoblog/packages/client/build/index.html /home/ubuntu/neoblog/packages/client/build/200.html
       - run: npx surge --project /home/ubuntu/neoblog/packages/client/build domain testnet.neoblog.io
-  build-prod:
-    docker: 
-      - image: node:8.9.4
-    working_directory: /home/ubuntu/neoblog
-    steps:
-      - checkout
-      - run: yarn install
-      - run: cd /home/ubuntu/neoblog/packages/client && yarn install
-      - run: yarn test
-      - run: cd /home/ubuntu/neoblog/packages/client && yarn test
-      - run: cd /home/ubuntu/neoblog/packages/client && yarn build
-      - run: cp /home/ubuntu/neoblog/packages/client/build/index.html /home/ubuntu/neoblog/packages/client/build/200.html
-      - run: npx surge --project /home/ubuntu/neoblog/packages/client/build domain app.neoblog.io
-workflows:
-  version: 2
-  build:
-    jobs:
-      - build-dev:
-        filters:
-          branches:
-            only:
-              - development
-      - build-prod:
-        filters:
-          branches:
-            only:
-              - master
