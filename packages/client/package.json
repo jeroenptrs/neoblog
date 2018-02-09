@@ -16,7 +16,7 @@
     "request-promise": "^4.2.2"
   },
   "scripts": {
-    "build:prod": "yarn build && mv ./build ./../../application",
+    "build:prod": "rm -rf ./../../application && yarn build && mv ./build ./../../application",
     "build": "yarn styles:less && yarn styles:build && yarn react:build",
     "test": "echo \"Error: no test specified.\"",
     "react:build": "react-scripts build",
