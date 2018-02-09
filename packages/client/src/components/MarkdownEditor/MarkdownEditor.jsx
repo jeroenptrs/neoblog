@@ -28,8 +28,6 @@ class MarkdownEditor extends Component {
   }
 
   handleFileHash = (file) => {
-    console.log('\nAdded file:', file.path, file.hash);
-
     const { newPost } = this.props.store.app;
     newPost.fileHash = file.hash;
 
