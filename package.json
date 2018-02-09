@@ -9,7 +9,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "cd ./packages/client && npm run build",
     "test": "echo \"Error: no test specified\""
   },
   "repository": {
