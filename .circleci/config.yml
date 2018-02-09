@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build_testnet:
+  buildjob:
     docker: 
       - image: node:8.9.4
     working_directory: /home/ubuntu/neoblog
@@ -13,11 +13,12 @@ jobs:
       - run: cd /home/ubuntu/neoblog/packages/client && yarn build
       - run: cp /home/ubuntu/neoblog/packages/client/build/index.html /home/ubuntu/neoblog/packages/client/build/200.html
       - run: npx surge --project /home/ubuntu/neoblog/packages/client/build domain testnet.neoblog.io
+
 workflows:
   version: 2
-  build_and_deploy_testnet:
+  build-testnet:
     jobs:
-      - build_testnet:
+      - build-job:
         filters:
           branches:
             only:
