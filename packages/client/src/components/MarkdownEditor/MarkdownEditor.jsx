@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import ReactMarkdown from 'react-markdown';
 import { Button, Row, Col, Layout } from 'antd';
-import * as IPFS from 'ipfs';
 import { series } from 'async';
 
 // Styles
@@ -41,10 +40,10 @@ class MarkdownEditor extends Component {
      * TODO: State management in between various stages of IPFS communication
      */
     if (article) {
-      const node = new IPFS();
+      const node = new window.Ipfs();
 
       await series([
-        cb => node.on('ready', cb),
+        cb => node.once('ready', cb),
         cb => node.version((err, version) => {
           if (err) { return cb(err); }
           console.log(`Version ${version.version}`);
@@ -59,6 +58,7 @@ class MarkdownEditor extends Component {
           path: `${'neoblog'}.md`,
           content: Buffer.from(article),
         }, (err, filesAdded) => {
+          console.log(filesAdded[0]);
           this.handleFileHash(filesAdded[0]);
           cb(filesAdded[0].hash);
         }),

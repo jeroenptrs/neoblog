@@ -16,11 +16,21 @@ class Home extends Component {
     );
   }
 
+  goToMockPage = () => {
+    this.props.store.router.goTo(
+      views.articleView,
+      { ...this.props.store.router.params, fileHash: this.props.store.mockPost },
+      this.props.store,
+    );
+  }
+
   render() {
     return (
       <div>
         <br />
-        &emsp;Test content
+        <Button onClick={() => this.goToMockPage()}>
+          Article
+        </Button>
         <Button onClick={() => this.goToMarkdownEditor()}>
           Markdown Editor
         </Button>

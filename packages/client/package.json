@@ -5,7 +5,6 @@
   "dependencies": {
     "antd": "^3.2.0",
     "async": "^2.6.0",
-    "ipfs": "^0.27.7",
     "mobx": "^3.5.1",
     "mobx-react": "^4.4.1",
     "mobx-router": "^0.0.8",
@@ -29,12 +28,15 @@
     "styles:start": "yarn styles:build && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "eslint": "^4.17.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
+    "ipfs": "^0.27.7",
     "less": "^2.7.3",
     "node-sass-chokidar": "^0.0.3",
     "nodemon": "^1.14.12",

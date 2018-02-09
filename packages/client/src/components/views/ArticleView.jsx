@@ -6,7 +6,6 @@
 // Imports
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import * as IPFS from 'ipfs';
 import { series } from 'async';
 
 // Components
@@ -19,9 +18,9 @@ class ArticleView extends Component {
   }
 
   handleCat = async (fileHash) => {
-    const node = new IPFS();
+    const node = new window.Ipfs();
     await series([
-      cb => node.on('ready', cb),
+      cb => node.once('ready', cb),
       cb => node.version((err, version) => {
         if (err) { return cb(err); }
         console.log(`Version ${version.version}`);

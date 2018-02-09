@@ -14,7 +14,6 @@ const { Content, Header } = Layout;
 startRouter(views, store);
 
 const App = () => {
-  console.log(store);
   return (
     <Layout>
       <Header style={{ padding: '0 32px' }}>
