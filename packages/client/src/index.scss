@@ -24,13 +24,15 @@ body {
   font-family: 'League Spartan', sans-serif;
   font-size: 24px;
   color: #5c5c5c;
-
+  text-decoration: none;
+  
   .green {
     color: #8bc34a;
   }
-
-  &:hover, &:active, &:visited {
+  
+  &:hover, &:active, &:visited, &:focus {
     color: #5c5c5c;
+    text-decoration: none;
   }
 }
 

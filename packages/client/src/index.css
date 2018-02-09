@@ -17,11 +17,13 @@ body {
 .neoblog-logo {
   font-family: 'League Spartan', sans-serif;
   font-size: 24px;
-  color: #5c5c5c; }
+  color: #5c5c5c;
+  text-decoration: none; }
   .neoblog-logo .green {
     color: #8bc34a; }
-  .neoblog-logo:hover, .neoblog-logo:active, .neoblog-logo:visited {
-    color: #5c5c5c; }
+  .neoblog-logo:hover, .neoblog-logo:active, .neoblog-logo:visited, .neoblog-logo:focus {
+    color: #5c5c5c;
+    text-decoration: none; }
 
 .neo-logo {
   height: 40px;
