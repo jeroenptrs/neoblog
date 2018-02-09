@@ -13,28 +13,26 @@ const { Content, Header } = Layout;
 
 startRouter(views, store);
 
-const App = () => {
-  return (
-    <Layout>
-      <Header style={{ padding: '0 32px' }}>
-        <Link
-          view={views.home}
-          store={store}
-          className="neoblog-logo"
-        >
-          Neo<span className="green">blog</span>
-        </Link>
-        <span className="neo-logo">
-          <NeoLogo />
-        </span>
-      </Header>
-      <Layout style={{ backgroundColor: 'transparent' }}>
-        <Content>
-          <MobxRouter />
-        </Content>
-      </Layout>
+const App = () => (
+  <Layout>
+    <Header style={{ padding: '0 32px' }}>
+      <Link
+        view={views.home}
+        store={store}
+        className="neoblog-logo"
+      >
+        Neo<span className="green">blog</span>
+      </Link>
+      <span className="neo-logo">
+        <NeoLogo />
+      </span>
+    </Header>
+    <Layout style={{ backgroundColor: 'transparent' }}>
+      <Content>
+        <MobxRouter />
+      </Content>
     </Layout>
-  );
-};
+  </Layout>
+);
 
 export default App;
