@@ -16,4 +16,4 @@ jobs:
       - run: cd /home/ubuntu/neoblog/packages/client && yarn test
       - run: cd /home/ubuntu/neoblog/packages/client && yarn build
       - run: cp /home/ubuntu/neoblog/packages/client/build/index.html /home/ubuntu/neoblog/packages/client/build/200.html
-      - run: npx surge --project /home/ubuntu/neoblog/packages/client/build domain testnet.neoblog.io
+      - run: npx surge --project /home/ubuntu/neoblog/packages/client/build domain https://testnet.neoblog.io
