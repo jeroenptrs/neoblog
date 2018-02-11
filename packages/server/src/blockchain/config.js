@@ -3,5 +3,5 @@ module.exports = {
   assets: {
     GAS: '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7'
   },
-  scriptHash: 'e767425941bce4887a354827f95a3a5c3ca1f6a0'
+  scriptHash: 'baa0da3f8d3b4657d9a3e650e7f7aa11045970e8'
 }
