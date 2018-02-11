@@ -32,6 +32,6 @@ def addPostToCategory(args):
   categoryDomain = concat("category.", category)
 
   # Add to category domain
-  submitPost(categoryDomain, postHash)
+  addToDomain(categoryDomain, postHash)
   
   return True

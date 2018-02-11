@@ -1,6 +1,10 @@
 from boa.blockchain.vm.Neo.Storage import GetContext, Get, Put
 from boa.code.builtins import concat
 
+"""
+Sets {domain}.latest = {newLatest}
+Sets {domain}.{newLatestIndex} = {postHash}
+"""
 def addToDomain(domain, postHash):
   latestDomain = concat(domain, ".latest")
 

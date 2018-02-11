@@ -37,7 +37,7 @@ def submitPost(args):
   """
 
   # Add to post domain
-  submitPost("post", postHash)
+  addToDomain("post", postHash)
 
   # Setting post.data.{postHash} = {postIndex}
   # TODO: serialize data from https://github.com/be-neo/neoblog/issues/1 into data
@@ -52,11 +52,11 @@ def submitPost(args):
     user.{userAddress}.{postIndex}  Getting a post from a certain user by index
   """
 
-  # Creating user domain
+  # Creating user domain 
   userDomain = concat("user.", user)
 
-  # Add to user domain
-  submitPost(userDomain, postHash)
+  # Add to user domain - {user}.latest && {user}.{latestIndex}
+  addToDomain(userDomain, postHash)
 
   """
     Adding to category domain
@@ -67,7 +67,7 @@ def submitPost(args):
   # Creating category domain
   categoryDomain = concat("category.", category)
 
-  # Add to category domain
-  submitPost(categoryDomain, postHash)
+  # Add to category domain - {category}.latest && {category}.{latestIndex}
+  addToDomain(categoryDomain, postHash)
 
   return True
