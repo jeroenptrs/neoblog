@@ -1,5 +1,6 @@
 from boa.blockchain.vm.Neo.Runtime import CheckWitness
 from boa.blockchain.vm.System.ExecutionEngine import GetCallingScriptHash
+from boa.code.builtins import hash160
 from neoblog.submitPost import submitPost
 from neoblog.manageUser import insertUser, updateUser
 from neoblog.addToCategory import addPostToCategory
@@ -30,25 +31,27 @@ def Main(operation, args):
     print("Not authorized")
     return False
 
+  argLen = len(args)
+
   if operation != None:
     # Requires: user, postHash, category
     if operation == 'submitPost':
-      if len(args) == 3:
+      if argLen == 3:
         submitPost(args)
 
     # Requires: user, postHash, category - optionally more categories
     if operation == 'addPostToCategory':
-      if len(args) >= 3:
+      if argLen >= 3:
         addPostToCategory(args)
     
     # Requires: user, userName
     if operation == 'insertUser':
-      if len(args) == 2:
+      if argLen == 2:
         insertUser(args)
 
     # Requires user, userName
     if operation == 'updateUser':
-      if leng(args) == 2:
+      if argLen == 2:
         updateUser(args)    
   return False
   # Signals a bad request has been made without a known or even any operation
