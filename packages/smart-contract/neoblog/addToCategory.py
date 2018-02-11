@@ -1,6 +1,6 @@
 from boa.blockchain.vm.Neo.Storage import GetContext, Get, Put
 from boa.code.builtins import concat
-from neoblog.addToDomain import addToDomain
+from neoblog.lib.addToDomain import addToDomain
 
 """
 Add a post to a certain category
