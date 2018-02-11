@@ -4,11 +4,8 @@ import { getAddressFromScriptHash } from './blockchain/conversion';
 
 (async function execute() {
   try {
-
     const userHash = 'AQH5ezqtD7VRHBMrLaeBeSTW22vZEREMoL';
     const postHash = 'QmQK9ucWGFjbo2hnJGK2C7nTJY5jF4QXnm131p2gq2u7sK';
-    console.log(`Userhash: ${userHash} with length ${userHash.length}`);
-    console.log(`Posthash: ${postHash} with length ${postHash.length}`);
     
     const getLatestArticle = parseInt(await getFromStorage(u.str2hexstring('post.latest')));
     console.log(`Latest article is at index ${getLatestArticle}`);
@@ -21,8 +18,8 @@ import { getAddressFromScriptHash } from './blockchain/conversion';
     const formattedArticleData = getAddressFromScriptHash(getArticleData); // !!! muy importante
     console.log(`It's written by a user with address ${formattedArticleData}`);
     
-    const getUserData = await getFromStorage(u.str2hexstring('user.') + formattedArticleData);
-    console.log(getUserData);
+    const getUserData = await getFromStorage(u.str2hexstring('user.') + getArticleData);
+    console.log(`And this user also has a fancy userid: ${u.hexstring2str(getUserData)}`);
   } catch(e) {
     console.log(e);
   }

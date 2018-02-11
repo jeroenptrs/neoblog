@@ -47,7 +47,7 @@ def Main(operation, args):
     # Requires: user, userName
     if operation == 'manageUser':
       if argLen == 2:
-        insertUser(args)
+        manageUser(args)
 
   return False
   # Signals a bad request has been made without a known or even any operation

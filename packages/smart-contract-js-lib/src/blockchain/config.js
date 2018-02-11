@@ -3,6 +3,6 @@ module.exports = {
   assets: {
     GAS: '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7'
   },
-  scriptHash: '522d7dfb6180a573e9a978f8a8962cd5b669046a',
+  scriptHash: '41c6042a48c1e1d172fb5da08adf707f3c0609bf',
   ADDR_VERSION: '17'
 }
