@@ -31,13 +31,24 @@ def Main(operation, args):
     return False
 
   if operation != None:
+    # Requires: user, postHash, category
     if operation == 'submitPost':
-      submitPost(args)
+      if len(args) == 3:
+        submitPost(args)
+
+    # Requires: user, postHash, category - optionally more categories
     if operation == 'addPostToCategory':
-      addPostToCategory(args)
+      if len(args) >= 3:
+        addPostToCategory(args)
+    
+    # Requires: user, userName
     if operation == 'insertUser':
-      insertUser(args)
+      if len(args) == 2:
+        insertUser(args)
+
+    # Requires user, userName
     if operation == 'updateUser':
-      updateUser(args)    
+      if leng(args) == 2:
+        updateUser(args)    
   return False
   # Signals a bad request has been made without a known or even any operation
