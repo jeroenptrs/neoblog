@@ -1,5 +1,4 @@
-from boa.blockchain.vm.Neo.Storage import GetContext, Get, Put
-from boa.code.builtins import concat
+from neoblog.lib.upsert import upsert
 
 """
 Inserting a username at user.userid.{userAddress} = {displayName}
@@ -19,10 +18,4 @@ def updateUser(args):
     userName = args[1]
 
     upsert(user, userName)
-    return True
-
-
-def upsert(user, userName):
-    upsertDomain = concat("user.userId.", userName)
-    Put(GetContext, upsertDomain, user)
     return True
