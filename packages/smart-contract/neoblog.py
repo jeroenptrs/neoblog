@@ -1,6 +1,7 @@
 from boa.blockchain.vm.Neo.Runtime import CheckWitness
 from boa.blockchain.vm.System.ExecutionEngine import GetCallingScriptHash
 from neoblog.submitPost import submitPost
+from neoblog.manageUser import insertUser, updateUser
 from neoblog.addToCategory import addPostToCategory
 
 """
@@ -34,5 +35,9 @@ def Main(operation, args):
       submitPost(args)
     if operation == 'addPostToCategory':
       addPostToCategory(args)
+    if operation == 'insertUser':
+      insertUser(args)
+    if operation == 'updateUser':
+      updateUser(args)    
   return False
   # Signals a bad request has been made without a known or even any operation

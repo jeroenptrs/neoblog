@@ -45,6 +45,7 @@ def submitPost(args):
   Put(GetContext, postDataDomain, user)
   # Temporarily storing user hash till it's a serialized array
 
+
   """
     Adding to user domain
     user.{userAddress}              User address of a user (Public key/hash)
