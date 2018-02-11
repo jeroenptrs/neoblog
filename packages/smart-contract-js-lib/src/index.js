@@ -3,19 +3,27 @@ import getFromStorage from './getFromStorage';
 import { getAddressFromScriptHash } from './blockchain/conversion';
 
 (async function execute() {
-  const userHash = 'AQH5ezqtD7VRHBMrLaeBeSTW22vZEREMoL';
-  const postHash = 'QmQK9ucWGFjbo2hnJGK2C7nTJY5jF4QXnm131p2gq2u7sK';
-  console.log(`Userhash: ${userHash} with length ${userHash.length}`);
-  console.log(`Posthash: ${postHash} with length ${postHash.length}`);
+  try {
 
-  const getLatestArticle = parseInt(await getFromStorage(u.str2hexstring('post.latest')));
-  console.log(`Latest article is at index ${getLatestArticle}`);
-
-  const getArticle = await getFromStorage(u.str2hexstring('post.') + u.int2hex(getLatestArticle));
-  const formattedArticle = u.hexstring2str(getArticle);
-  console.log(`That article hash is ${formattedArticle}`);
-  
-  const getArticleData = await getFromStorage(u.str2hexstring('post.data.' + formattedArticle));
-  const formattedArticleData = getAddressFromScriptHash(getArticleData); // !!! muy importante
-  console.log(`It's written by a user with address ${formattedArticleData}`);
+    const userHash = 'AQH5ezqtD7VRHBMrLaeBeSTW22vZEREMoL';
+    const postHash = 'QmQK9ucWGFjbo2hnJGK2C7nTJY5jF4QXnm131p2gq2u7sK';
+    console.log(`Userhash: ${userHash} with length ${userHash.length}`);
+    console.log(`Posthash: ${postHash} with length ${postHash.length}`);
+    
+    const getLatestArticle = parseInt(await getFromStorage(u.str2hexstring('post.latest')));
+    console.log(`Latest article is at index ${getLatestArticle}`);
+    
+    const getArticle = await getFromStorage(u.str2hexstring('post.') + u.int2hex(getLatestArticle));
+    const formattedArticle = u.hexstring2str(getArticle);
+    console.log(`That article hash is ${formattedArticle}`);
+    
+    const getArticleData = await getFromStorage(u.str2hexstring('post.data.' + formattedArticle));
+    const formattedArticleData = getAddressFromScriptHash(getArticleData); // !!! muy importante
+    console.log(`It's written by a user with address ${formattedArticleData}`);
+    
+    const getUserData = await getFromStorage(u.str2hexstring('user.') + formattedArticleData);
+    console.log(getUserData);
+  } catch(e) {
+    console.log(e);
+  }
 })();
