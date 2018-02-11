@@ -6,7 +6,7 @@ import { scriptHash, localHost } from './blockchain/config';
 const client = Neon.create.rpcClient(localHost);
 const s2h = u.str2hexstring;
 
-const store_key = u.str2hexstring('post.latest');
+const store_key = u.str2hexstring('post.')+u.int2hex(10);
 
 (async function main() {
   queryBlockchain().then((result) => {
@@ -29,7 +29,7 @@ function queryBlockchain() {
     api.neonDB.getRPCEndpoint(localHost).then((url) => {
       const response = query.execute(url)
         .then(res => {
-          if (res.result) resolve(u.hexstring2str(res.result).split(','));
+          if (res.result) resolve(u.hexstring2str(res.result));
           else reject({ error: 'No result found!' })
         })
         .catch(e => {
