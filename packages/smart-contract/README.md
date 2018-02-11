@@ -6,4 +6,4 @@ The initial aim is that a single smart contract should suffice, but multiple con
 
 The current phase will be tested on a private network.
 
-Current smart contract script hash is: baa0da3f8d3b4657d9a3e650e7f7aa11045970e8
+Current smart contract script hash is: cf83f10b1776d74e4559ef703640b6f8ceceebf3
