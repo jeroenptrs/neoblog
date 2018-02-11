@@ -1,5 +1,6 @@
 from boa.blockchain.vm.Neo.Storage import GetContext, Get, Put
 from boa.code.builtins import concat
+from neoblog.addToDomain import addToDomain
 
 """
 Storing a post hash on the BC
@@ -35,27 +36,14 @@ def submitPost(args):
   post.data.{IPFS_PostHash}       Getting a post by Hash From IPFS
   """
 
-  # Creating post domains
-  postDomain = "post."
-  postLatestDomain = "post.latest"
-
-  # Setting post.latest = {postIndex} - increase afterwards
-  latestPostIndex = Get(GetContext, postLatestDomain)
-  if latestPostIndex == '':
-    newLatestPostIndex = 1
-  else:
-    newLatestPostIndex = latestPostIndex + 1
-  Put(GetContext, postLatestDomain, newLatestPostIndex)
-
-  # Setting post.{postIndex} = {postHash}
-  postIndexDomain = concat(postDomain, newLatestPostIndex)
-  Put(GetContext, postIndexDomain, postHash)
+  # Add to post domain
+  submitPost("post", postHash)
 
   # Setting post.data.{postHash} = {postIndex}
   # TODO: serialize data from https://github.com/be-neo/neoblog/issues/1 into data
-  postDataDomainTemp = concat(postDomain, 'data.')
-  postDataDomain = concat(postDataDomainTemp, postHash)
-  Put(GetContext, postDataDomain, newLatestPostIndex)
+  postDataDomain = concat("post.data.", postHash)
+  Put(GetContext, postDataDomain, user)
+  # Temporarily storing user hash till it's a serialized array
 
   """
     Adding to user domain
@@ -64,22 +52,11 @@ def submitPost(args):
     user.{userAddress}.{postIndex}  Getting a post from a certain user by index
   """
 
-  # Creating user domains
+  # Creating user domain
   userDomain = concat("user.", user)
-  userLatestDomain = concat(userDomain, ".latest")
-  userDomain = concat(userDomain, ".")
 
-  # Setting user.{userAddress}.latest = {postIndex}
-  latestUserPostIndex = Get(GetContext, userLatestDomain)
-  if latestUserPostIndex == '':
-    newLatestUserPostIndex = 1
-  else:
-    newLatestUserPostIndex = latestUserPostIndex + 1
-  Put(GetContext, userLatestDomain, newLatestUserPostIndex)
-
-  # Setting user.{userAddress}.{postIndex} = {postHash}
-  userIndexDomain = concat(userDomain, newLatestUserPostIndex)
-  Put(GetContext, userIndexDomain, postHash)
+  # Add to user domain
+  submitPost(userDomain, postHash)
 
   """
     Adding to category domain
@@ -87,21 +64,10 @@ def submitPost(args):
     category.{category}.{postIndex}  Getting a post from a certain category by index
   """
 
-  # Creating category domains
+  # Creating category domain
   categoryDomain = concat("category.", category)
-  categoryLatestDomain = concat(categoryDomain, ".latest")
-  categoryDomain = concat(categoryDomain, ".")
 
-  # Setting category.{category}.latest = {postIndex}
-  latestCategoryPostIndex = Get(GetContext, categoryLatestDomain)
-  if latestCategoryPostIndex == '':
-    newLatestCategoryPostIndex = 1
-  else:
-    newLatestCategoryPostIndex = latestCategoryPostIndex + 1
-  Put(GetContext, categoryLatestDomain, newLatestCategoryPostIndex)
-
-  # Setting category.{category}.{postIndex} = {postHash}
-  categoryIndexDomain = concat(categoryDomain, newLatestCategoryPostIndex)
-  Put(GetContext, categoryIndexDomain, postHash)
+  # Add to category domain
+  submitPost(categoryDomain, postHash)
 
   return True
