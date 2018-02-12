@@ -9,7 +9,7 @@ var _bs = _interopRequireDefault(require("bs58"));
 
 var _neonJs = require("@cityofzion/neon-js");
 
-var _config = require("./../../config");
+var _config = require("./../config");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

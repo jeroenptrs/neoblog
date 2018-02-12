@@ -4,7 +4,7 @@ import { u, sc } from "@cityofzion/neon-js";
 const { hash256 } = u;
 
 // Config
-import { ADDR_VERSION } from "./../../config";
+import { ADDR_VERSION } from "./../config";
 
 /**
  * Converts a script hash, returned from the Neoblog smart contract, to an address
