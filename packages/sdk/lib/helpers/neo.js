@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.executeInvoke = exports.testInvoke = exports.createInvoke = exports.getBalance = exports.getStorage = void 0;
 
-require("@babel/polyfill");
-
 var axios = _interopRequireWildcard(require("axios"));
 
 var _neonJs = _interopRequireWildcard(require("@cityofzion/neon-js"));
@@ -218,7 +216,6 @@ function () {
 }();
 /* INVOKE SMART CONTRACT FUNCTIONS
 
-import "@babel/polyfill";
 import Neon, { sc, u } from "@cityofzion/neon-js";
 import {
   createInvoke,

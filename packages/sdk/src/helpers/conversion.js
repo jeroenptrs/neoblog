@@ -1,6 +1,3 @@
-// Babel
-import "@babel/polyfill";
-
 // Module imports
 import base58 from "bs58";
 import { u, sc } from "@cityofzion/neon-js";

@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.param = exports.scriptHashToAddress = void 0;
 
-require("@babel/polyfill");
-
 var _bs = _interopRequireDefault(require("bs58"));
 
 var _neonJs = require("@cityofzion/neon-js");
@@ -15,7 +13,6 @@ var _config = require("./../../config");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Babel
 // Module imports
 var hash256 = _neonJs.u.hash256; // Config
 

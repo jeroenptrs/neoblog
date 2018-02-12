@@ -1,6 +1,3 @@
-// Babel
-import "@babel/polyfill";
-
 // Imports
 import { u } from "@cityofzion/neon-js";
 import { getStorage } from "./../../helpers/neo";

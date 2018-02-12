@@ -1,6 +1,3 @@
-// Babel
-import "@babel/polyfill";
-
 // Imports
 import * as axios from "axios";
 import Neon, { api, rpc, tx, u, wallet } from "@cityofzion/neon-js";
@@ -135,7 +132,6 @@ export const executeInvoke = async (
 
 /* INVOKE SMART CONTRACT FUNCTIONS
 
-import "@babel/polyfill";
 import Neon, { sc, u } from "@cityofzion/neon-js";
 import {
   createInvoke,

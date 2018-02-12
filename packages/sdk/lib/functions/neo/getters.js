@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getAddressFromUserId = exports.getUserData = exports.getArticleData = exports.getArticle = exports.getLatestPost = exports.getLatest = void 0;
 
-require("@babel/polyfill");
-
 var _neonJs = require("@cityofzion/neon-js");
 
 var _neo = require("./../../helpers/neo");
