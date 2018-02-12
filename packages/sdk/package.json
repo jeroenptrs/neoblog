@@ -1,13 +1,13 @@
 {
-  "name": "@neoblog/server",
-  "version": "1.0.0",
+  "name": "@neoblog/sdk",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && ./node_modules/.bin/babel src -d dist",
     "start": "node dist"
   },
-  "author": "",
+  "author": "Jeroen Peeters <jeroen.peeters@evance.be>",
   "license": "MIT",
   "dependencies": {
     "@cityofzion/neon-js": "^3.2.0",
