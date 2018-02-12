@@ -20,6 +20,7 @@
     "build:prod": "rm -rf ./../../application && yarn build && mv ./build ./../../application",
     "build": "yarn styles:less && yarn styles:build && yarn react:build",
     "test": "echo \"Error: no test specified.\"",
+    "prettier:watch": "onchange 'src/**/*.js*' -- prettier --write {{changed}}",
     "react:build": "react-scripts build",
     "react:eject": "react-scripts eject",
     "react:start": "react-scripts start",
@@ -45,6 +46,7 @@
     "node-sass-chokidar": "^0.0.3",
     "nodemon": "^1.14.12",
     "npm-run-all": "^4.1.2",
+    "onchange": "^3.3.0",
     "prettier": "^1.10.2",
     "surge": "^0.19.0"
   }

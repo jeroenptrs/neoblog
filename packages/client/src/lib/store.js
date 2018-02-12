@@ -1,6 +1,6 @@
+import Neoblog from "@neoblog/sdk";
 import { observable } from "mobx";
 import { RouterStore } from "mobx-router";
-import Neoblog from "@neoblog/sdk";
 
 const store = {
   app: observable({
@@ -23,7 +23,7 @@ const store = {
   router: new RouterStore(),
   instance: new Neoblog(
     "http://localhost:5000",
-    "41c6042a48c1e1d172fb5da08adf707f3c0609bf"
+    "ab2bb39fa618f497999806a688c81fcf23ce0275"
   )
 };
 
