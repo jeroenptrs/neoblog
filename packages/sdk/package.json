@@ -1,0 +1,29 @@
+{
+  "name": "@neoblog/sdk",
+  "version": "0.1.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "rm -rf lib && ./node_modules/.bin/babel src -d lib",
+    "start": "node dist",
+    "prettier:watch": "onchange 'src/**/*.js' -- prettier --write {{changed}}"
+  },
+  "author": "Jeroen Peeters <jeroen.peeters@evance.be>",
+  "license": "MIT",
+  "dependencies": {
+    "@cityofzion/neon-js": "^3.2.0",
+    "axios": "^0.17.1",
+    "binascii": "^0.0.2",
+    "bs58": "^4.0.1",
+    "crypto-js": "^3.1.9-1",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.38",
+    "@babel/core": "^7.0.0-beta.38",
+    "@babel/polyfill": "^7.0.0-beta.38",
+    "@babel/preset-env": "^7.0.0-beta.38",
+    "onchange": "^3.3.0",
+    "prettier": "^1.10.2"
+  }
+}
