@@ -1,6 +1,7 @@
-import { wallet } from '@cityofzion/neon-js';
+import { wallet, u } from '@cityofzion/neon-js';
 import * as axios from 'axios';
-import { localHost } from './config';
+import { localHost, ADDR_VERSION } from './config';
+
 module.exports = {
   getBalance: async (neoAddress) => {
     const query = await axios.get(`${localHost}/v2/address/balance/${neoAddress}`);
