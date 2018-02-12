@@ -1,14 +1,37 @@
-import React from 'react';
+import React from "react";
 
 const NeoLogo = () => (
   <svg viewBox="0 0 353.81 421.34">
     <defs>
-      <linearGradient id="未命名的渐变_112" x1="17.85" y1="385.36" x2="838.96" y2="-77.11" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stopColor="#beeb00" /><stop offset="0.23" stopColor="#58bf00" /><stop offset="0.42" stopColor="#58bf00" />
-        <stop offset="0.61" stopColor="#29b800" /><stop offset="0.78" stopColor="#00ae1d" /><stop offset="0.99" stopColor="#00a62c" />
+      <linearGradient
+        id="未命名的渐变_112"
+        x1="17.85"
+        y1="385.36"
+        x2="838.96"
+        y2="-77.11"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0" stopColor="#beeb00" />
+        <stop offset="0.23" stopColor="#58bf00" />
+        <stop offset="0.42" stopColor="#58bf00" />
+        <stop offset="0.61" stopColor="#29b800" />
+        <stop offset="0.78" stopColor="#00ae1d" />
+        <stop offset="0.99" stopColor="#00a62c" />
       </linearGradient>
-      <linearGradient id="未命名的渐变_112-2" x1="-27.15" y1="305.47" x2="793.96" y2="-156.99" />
-      <linearGradient id="未命名的渐变_112-3" x1="-78.27" y1="214.69" x2="742.84" y2="-247.77" />
+      <linearGradient
+        id="未命名的渐变_112-2"
+        x1="-27.15"
+        y1="305.47"
+        x2="793.96"
+        y2="-156.99"
+      />
+      <linearGradient
+        id="未命名的渐变_112-3"
+        x1="-78.27"
+        y1="214.69"
+        x2="742.84"
+        y2="-247.77"
+      />
     </defs>
     <title>NEO-logo</title>
     <g id="图层_2" data-name="图层 2">

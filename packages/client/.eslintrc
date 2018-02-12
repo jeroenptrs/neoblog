@@ -4,7 +4,10 @@
         "browser": true,
         "node": true
     },
-    "extends": "airbnb",
+    "extends": [
+        "airbnb",
+        "plugin:prettier/recommended"
+    ],
     "rules": {
       "react/prop-types": 0,
       "react/jsx-filename-extension": 0,
