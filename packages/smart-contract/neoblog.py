@@ -31,23 +31,18 @@ def Main(operation, args):
     print("Not authorized")
     return False
 
-  argLen = len(args)
-
   if operation != None:
     # Requires: user, postHash, category
-    if operation == 'submitPost':
-      if argLen == 3:
-        submitPost(args)
+    if operation == 'submitPost' and len(args) == 3:
+      submitPost(args)
 
     # Requires: user, postHash, category - optionally more categories
-    if operation == 'addPostToCategory':
-      if argLen >= 3:
-        addPostToCategory(args)
+    if operation == 'addPostToCategory' and len(args) >= 3:
+      addPostToCategory(args)
     
     # Requires: user, userName
-    if operation == 'manageUser':
-      if argLen == 2:
-        manageUser(args)
+    if operation == 'manageUser' and len(args) == 2:
+      manageUser(args)
 
   return False
   # Signals a bad request has been made without a known or even any operation
