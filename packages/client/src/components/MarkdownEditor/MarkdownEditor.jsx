@@ -1,12 +1,12 @@
 // Imports
-import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
-import ReactMarkdown from 'react-markdown';
-import { Button, Row, Col, Layout } from 'antd';
-import { series } from 'async';
+import React, { Component } from "react";
+import { inject, observer } from "mobx-react";
+import ReactMarkdown from "react-markdown";
+import { Button, Row, Col, Layout } from "antd";
+import { series } from "async";
 
 // Styles
-import './MarkdownEditor.css';
+import "./MarkdownEditor.css";
 
 // Components
 const { Header } = Layout;
@@ -16,26 +16,26 @@ class MarkdownEditor extends Component {
    * TODO: all handleX files should go to a separate library!
    */
 
-  handleMarkdown = (event) => {
+  handleMarkdown = event => {
     const { newPost } = this.props.store.app;
     newPost.postMarkdown = event.target.value;
-  }
+  };
 
-  handleTitle = (event) => {
+  handleTitle = event => {
     const { newPost } = this.props.store.app;
     newPost.postTitle = event.target.value;
-  }
+  };
 
-  handleFileHash = (file) => {
+  handleFileHash = file => {
     const { newPost } = this.props.store.app;
     newPost.fileHash = file.hash;
 
     /**
      * TODO: handle posting to blockchain!
      */
-  }
+  };
 
-  handlePost = async (article) => {
+  handlePost = async article => {
     /**
      * TODO: State management in between various stages of IPFS communication
      */
@@ -43,28 +43,35 @@ class MarkdownEditor extends Component {
       const node = new window.Ipfs();
 
       await series([
-        cb => node.once('ready', cb),
-        cb => node.version((err, version) => {
-          if (err) { return cb(err); }
-          console.log(`Version ${version.version}`);
-          cb();
-          return true;
-        }),
-        cb => node.files.add({
-          /**
-           * TODO: add wordphrase as article file name.
-           * And figure out the use of adding a path.
-           */
-          path: `${'neoblog'}.md`,
-          content: Buffer.from(article),
-        }, (err, filesAdded) => {
-          console.log(filesAdded[0]);
-          this.handleFileHash(filesAdded[0]);
-          cb(filesAdded[0].hash);
-        }),
+        cb => node.once("ready", cb),
+        cb =>
+          node.version((err, version) => {
+            if (err) {
+              return cb(err);
+            }
+            console.log(`Version ${version.version}`);
+            cb();
+            return true;
+          }),
+        cb =>
+          node.files.add(
+            {
+              /**
+               * TODO: add wordphrase as article file name.
+               * And figure out the use of adding a path.
+               */
+              path: `${"neoblog"}.md`,
+              content: Buffer.from(article)
+            },
+            (err, filesAdded) => {
+              console.log(filesAdded[0]);
+              this.handleFileHash(filesAdded[0]);
+              cb(filesAdded[0].hash);
+            }
+          )
       ]);
     }
-  }
+  };
 
   render() {
     const { newPost } = this.props.store.app;
@@ -72,7 +79,7 @@ class MarkdownEditor extends Component {
 
     return (
       <React.Fragment>
-        <Header className="markdownEditor" style={{ padding: '0' }}>
+        <Header className="markdownEditor" style={{ padding: "0" }}>
           <div className="title">
             <input
               type="text"
@@ -84,7 +91,9 @@ class MarkdownEditor extends Component {
             />
           </div>
           <div className="options">
-            <Button type="primary" onClick={() => this.handlePost(fullArticle)}>Post Article</Button>
+            <Button type="primary" onClick={() => this.handlePost(fullArticle)}>
+              Post Article
+            </Button>
           </div>
         </Header>
         <Row className="markdownEditor">
@@ -109,4 +118,4 @@ class MarkdownEditor extends Component {
   }
 }
 
-export default inject('store')(observer(MarkdownEditor));
+export default inject("store")(observer(MarkdownEditor));
