@@ -8,11 +8,11 @@ export const getLatest = async (host, contract, domain) =>
   parseInt(await getStorage(host, contract, s2h(domain + "latest")));
 
 export const getLatestPost = async (host, contract) =>
-  await getLatest(host, contract, "post");
+  await getLatest(host, contract, "post.");
 
 export const getArticle = async (host, contract, index) => {
   const domain = s2h("post.") + i2h(index);
-  const result = await getStorage(domain);
+  const result = await getStorage(host, contract, domain);
   return h2s(result);
 };
 

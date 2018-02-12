@@ -2,6 +2,20 @@
 @import './fonts/stylesheet.css';
 @import url('https://rsms.me/inter/inter-ui.css');
 @import '~antd/dist/antd.css';
+@import './lib/fluidVerticality.scss';
+
+$minScreen: 20rem;
+$maxScreen: 50rem;
+$minFont: .8rem;
+$maxFont: 2rem;
+
+html {
+  box-sizing: border-box;
+	height: 100%;
+	font-smooth: antialiased;
+  text-rendering: optimizeLegibility;
+  @include fluid-type(font-size, $minScreen, $maxScreen, $minFont, $maxFont);
+}
 
 body {
   padding: 0;
@@ -14,6 +28,12 @@ body {
 
 .ant-layout-content {
   padding: 0;
+}
+
+.text-content {
+  width: 22rem;
+  margin: 0 auto;
+  padding: 32px 0;
 }
 
 .ant-layout-footer {

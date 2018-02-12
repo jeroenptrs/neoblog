@@ -61,7 +61,7 @@ function () {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return getLatest(host, contract, "post");
+            return getLatest(host, contract, "post.");
 
           case 2:
             return _context2.abrupt("return", _context2.sent);
@@ -94,7 +94,7 @@ function () {
           case 0:
             domain = s2h("post.") + i2h(index);
             _context3.next = 3;
-            return (0, _neo.getStorage)(domain);
+            return (0, _neo.getStorage)(host, contract, domain);
 
           case 3:
             result = _context3.sent;

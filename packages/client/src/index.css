@@ -1,6 +1,20 @@
 @import url(./fonts/stylesheet.css);
 @import url("https://rsms.me/inter/inter-ui.css");
 @import url(~antd/dist/antd.css);
+html {
+  box-sizing: border-box;
+  height: 100%;
+  font-smooth: antialiased;
+  text-rendering: optimizeLegibility; }
+  html {
+    font-size: 0.8rem; }
+    @media screen and (min-width: 20rem) {
+      html {
+        font-size: calc(0.8rem + 1.2 * ((100vw - 20rem) / 30)); } }
+    @media screen and (min-width: 50rem) {
+      html {
+        font-size: 2rem; } }
+
 body {
   padding: 0; }
 
@@ -10,6 +24,11 @@ body {
 
 .ant-layout-content {
   padding: 0; }
+
+.text-content {
+  width: 22rem;
+  margin: 0 auto;
+  padding: 32px 0; }
 
 .ant-layout-footer {
   text-align: center; }
