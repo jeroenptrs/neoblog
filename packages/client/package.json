@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@neoblog/sdk": "^0.1.0",
     "antd": "^3.2.0",
     "async": "^2.6.0",
     "mobx": "^3.5.1",
