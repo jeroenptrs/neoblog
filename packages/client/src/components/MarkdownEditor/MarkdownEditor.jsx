@@ -52,7 +52,7 @@ class MarkdownEditor extends Component {
           <Col span={12} className="input">
             <textarea
               className="ant-layout-content"
-              placeholder="Your article's content goes here"
+              placeholder="The content of your article goes here"
               value={newPost.postMarkdown}
               onChange={this.handleMarkdown}
               tabIndex={2}
