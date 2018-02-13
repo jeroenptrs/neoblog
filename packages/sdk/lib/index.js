@@ -3,11 +3,19 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+Object.defineProperty(exports, "scriptHashToAddress", {
+  enumerable: true,
+  get: function get() {
+    return _conversion.scriptHashToAddress;
+  }
+});
 exports.default = void 0;
 
 require("@babel/polyfill");
 
 var _getters = require("./functions/neo/getters");
+
+var _conversion = require("./helpers/conversion");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -23,6 +31,12 @@ function () {
 
     this.host = host;
     this.contract = contract;
+    this.getLatest = this.getLatest.bind(this);
+    this.getLatestPost = this.getLatestPost.bind(this);
+    this.getArticle = this.getArticle.bind(this);
+    this.getArticleData = this.getArticleData.bind(this);
+    this.getUserData = this.getUserData.bind(this);
+    this.getAddressFromUserId = this.getAddressFromUserId.bind(this);
   }
 
   _createClass(Neoblog, [{
@@ -42,8 +56,12 @@ function () {
     }
   }, {
     key: "getArticle",
-    value: function getArticle(index) {
-      return this.executeGetter(_getters.getArticle, index);
+    value: function getArticle(domainPre, index) {
+      var data = {
+        domainPre: domainPre,
+        index: index
+      };
+      return this.executeGetter(_getters.getArticle, data);
     }
   }, {
     key: "getArticleData",

@@ -37,7 +37,7 @@ class ArticleView extends Component {
           }
           const { app } = this.props.store;
           app.currentArticle = new TextDecoder("utf-8").decode(data);
-          app.states.ipfsStates.loadingArticles = false;
+          app.states.loadingArticles = false;
           return true;
         })
     ]);
@@ -45,10 +45,10 @@ class ArticleView extends Component {
 
   render() {
     const { app } = this.props.store;
-    const { ipfsStates } = app.states;
+    const { loadingArticles } = app.states;
     const { currentArticle } = app;
 
-    return ipfsStates.loadingArticles ? (
+    return loadingArticles ? (
       <div>Loading...</div>
     ) : (
       <Article source={currentArticle} />

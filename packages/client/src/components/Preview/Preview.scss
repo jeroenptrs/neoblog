@@ -1,0 +1,72 @@
+.preview {
+  cursor: pointer;
+
+  .title {
+    margin-bottom: 16px;
+    color: #5c5c5c;
+  }
+  .content {
+    overflow: hidden;
+    max-height: 3rem;
+    overflow-wrap: break-word; 
+    text-overflow: ellipsis;
+  }
+}
+
+.previewGhost {
+  cursor: pointer;
+
+  .title {
+    margin-bottom: 16px;
+    width: 33%;
+
+    background: linear-gradient(90deg, darken(#fafafa, 10), #fafafa);
+    background-size: 400% 400%;
+    -webkit-animation: loadingAnimation 5s ease infinite;
+    -moz-animation: loadingAnimation 5s ease infinite;
+    -o-animation: loadingAnimation 5s ease infinite;
+    animation: loadingAnimation 5s ease infinite;
+  }
+  .content {
+    height: 3rem;
+    width: 75%;
+    background: linear-gradient(90deg, darken(#fafafa, 10), #fafafa);
+    background-size: 400% 400%;
+    -webkit-animation: loadingAnimation 5s ease infinite;
+    -moz-animation: loadingAnimation 5s ease infinite;
+    -o-animation: loadingAnimation 5s ease infinite;
+    animation: loadingAnimation 5s ease infinite;
+
+    &:after{
+      position: absolute;
+      height: 4px;
+      width: 75%;
+
+      margin-top: calc(1.5rem - 2px);
+      margin-left: -1rem;
+
+      content: " ";
+      background-color: #fff;
+    }
+  }
+}
+
+.preview ~ .preview, .preview ~ .previewGhost, .previewGhost ~.previewGhost, .previewGhost ~ .preview {
+  margin-top: 2rem;
+}
+
+@-webkit-keyframes loadingAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes loadingAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes loadingAnimation { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 5%}
+    100%{background-position:0% 50%}
+}

@@ -10,25 +10,26 @@ const sb = Neon.create.scriptBuilder;
  * @param {string} contract Contract address
  * @param {string} key Key - to - search
  */
-export const getStorage = (host, contract, key) => {
+export const getStorage = async (host, contract, key) => {
+  // Get local RPC
+  const client = await api.neonDB.getRPCEndpoint(host);
+
   const query = Neon.create.query({
     method: "getstorage",
     params: [contract, key]
   });
 
-  return new Promise((resolve, reject) => {
-    api.neonDB.getRPCEndpoint(host).then(url => {
-      const response = query
-        .execute(url)
-        .then(res => {
-          if (res.result) resolve(res.result);
-          else reject({ error: "No result found!" });
-        })
-        .catch(e => {
-          console.log("error!");
-          reject(e);
-        });
-    });
+  return new Promise(async (resolve, reject) => {
+    const response = query
+      .execute(client)
+      .then(res => {
+        if (res.result) resolve(res.result);
+        else reject({ error: "No result found!" });
+      })
+      .catch(e => {
+        console.log("error!");
+        reject(e);
+      });
   });
 };
 

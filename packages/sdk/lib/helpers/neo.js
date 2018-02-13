@@ -22,25 +22,71 @@ var sb = _neonJs.default.create.scriptBuilder;
  * @param {string} key Key - to - search
  */
 
-var getStorage = function getStorage(host, contract, key) {
-  var query = _neonJs.default.create.query({
-    method: "getstorage",
-    params: [contract, key]
-  });
+var getStorage =
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee2(host, contract, key) {
+    var client, query;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return _neonJs.api.neonDB.getRPCEndpoint(host);
 
-  return new Promise(function (resolve, reject) {
-    _neonJs.api.neonDB.getRPCEndpoint(host).then(function (url) {
-      var response = query.execute(url).then(function (res) {
-        if (res.result) resolve(res.result);else reject({
-          error: "No result found!"
-        });
-      }).catch(function (e) {
-        console.log("error!");
-        reject(e);
-      });
-    });
-  });
-};
+          case 2:
+            client = _context2.sent;
+            query = _neonJs.default.create.query({
+              method: "getstorage",
+              params: [contract, key]
+            });
+            return _context2.abrupt("return", new Promise(
+            /*#__PURE__*/
+            function () {
+              var _ref2 = _asyncToGenerator(
+              /*#__PURE__*/
+              regeneratorRuntime.mark(function _callee(resolve, reject) {
+                var response;
+                return regeneratorRuntime.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        response = query.execute(client).then(function (res) {
+                          if (res.result) resolve(res.result);else reject({
+                            error: "No result found!"
+                          });
+                        }).catch(function (e) {
+                          console.log("error!");
+                          reject(e);
+                        });
+
+                      case 1:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee, this);
+              }));
+
+              return function (_x4, _x5) {
+                return _ref2.apply(this, arguments);
+              };
+            }()));
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, this);
+  }));
+
+  return function getStorage(_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+}();
 /**
  * Queries the Blockchain DB for a user's current balance
  * @param {string} host Host endpoint
@@ -53,20 +99,20 @@ exports.getStorage = getStorage;
 var getBalance =
 /*#__PURE__*/
 function () {
-  var _ref = _asyncToGenerator(
+  var _ref3 = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(host, neoAddress) {
+  regeneratorRuntime.mark(function _callee3(host, neoAddress) {
     var query, _query$data, net, address, balances;
 
-    return regeneratorRuntime.wrap(function _callee$(_context) {
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
-            _context.next = 2;
+            _context3.next = 2;
             return axios.get("".concat(host, "/v2/address/balance/").concat(neoAddress));
 
           case 2:
-            query = _context.sent;
+            query = _context3.sent;
             _query$data = query.data, net = _query$data.net, address = _query$data.address; // Create Balance object
 
             balances = new _neonJs.wallet.Balance({
@@ -75,18 +121,18 @@ function () {
             });
             balances.addAsset("NEO", query.data.NEO);
             balances.addAsset("GAS", query.data.GAS);
-            return _context.abrupt("return", balances);
+            return _context3.abrupt("return", balances);
 
           case 8:
           case "end":
-            return _context.stop();
+            return _context3.stop();
         }
       }
-    }, _callee, this);
+    }, _callee3, this);
   }));
 
-  return function getBalance(_x, _x2) {
-    return _ref.apply(this, arguments);
+  return function getBalance(_x6, _x7) {
+    return _ref3.apply(this, arguments);
   };
 }();
 /**
@@ -118,38 +164,38 @@ exports.createInvoke = createInvoke;
 var testInvoke =
 /*#__PURE__*/
 function () {
-  var _ref2 = _asyncToGenerator(
+  var _ref4 = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee2(host, invoke) {
+  regeneratorRuntime.mark(function _callee4(host, invoke) {
     var client;
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
-            _context2.next = 2;
+            _context4.next = 2;
             return _neonJs.api.neonDB.getRPCEndpoint(host);
 
           case 2:
-            client = _context2.sent;
+            client = _context4.sent;
             // Create SC script
             sb().emitAppCall(invoke.scriptHash, invoke.operation.value, invoke.args, false); // Execute
 
-            _context2.next = 6;
+            _context4.next = 6;
             return _neonJs.rpc.Query.invokeScript(sb.str).execute(client);
 
           case 6:
-            return _context2.abrupt("return", _context2.sent);
+            return _context4.abrupt("return", _context4.sent);
 
           case 7:
           case "end":
-            return _context2.stop();
+            return _context4.stop();
         }
       }
-    }, _callee2, this);
+    }, _callee4, this);
   }));
 
-  return function testInvoke(_x3, _x4) {
-    return _ref2.apply(this, arguments);
+  return function testInvoke(_x8, _x9) {
+    return _ref4.apply(this, arguments);
   };
 }();
 /**
@@ -167,36 +213,36 @@ exports.testInvoke = testInvoke;
 var executeInvoke =
 /*#__PURE__*/
 function () {
-  var _ref3 = _asyncToGenerator(
+  var _ref5 = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee3(host, account, invoke, gasCost, intents) {
+  regeneratorRuntime.mark(function _callee5(host, account, invoke, gasCost, intents) {
     var client, script, balances, unsignedTx, signedTx;
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context5.prev = _context5.next) {
           case 0:
-            _context3.next = 2;
+            _context5.next = 2;
             return _neonJs.api.neonDB.getRPCEndpoint(host);
 
           case 2:
-            client = _context3.sent;
+            client = _context5.sent;
             // Create SC script
             sb().emitAppCall(invoke.scriptHash, invoke.operation.value, invoke.args, false); // toString()
 
             script = sb.str; // Create TX
 
-            _context3.next = 7;
+            _context5.next = 7;
             return getBalance(account.address);
 
           case 7:
-            balances = _context3.sent;
+            balances = _context5.sent;
             unsignedTx = _neonJs.tx.Transaction.createInvocationTx(balances, intents, script, gasCost, {
               version: 1
             }); // Sign TX
 
             signedTx = _neonJs.tx.signTransaction(unsignedTx, account.privateKey); // Invoke
 
-            return _context3.abrupt("return", _neonJs.rpc.queryRPC(client, {
+            return _context5.abrupt("return", _neonJs.rpc.queryRPC(client, {
               method: "sendrawtransaction",
               params: [_neonJs.tx.serializeTransaction(signedTx)],
               id: 1
@@ -204,14 +250,14 @@ function () {
 
           case 11:
           case "end":
-            return _context3.stop();
+            return _context5.stop();
         }
       }
-    }, _callee3, this);
+    }, _callee5, this);
   }));
 
-  return function executeInvoke(_x5, _x6, _x7, _x8, _x9) {
-    return _ref3.apply(this, arguments);
+  return function executeInvoke(_x10, _x11, _x12, _x13, _x14) {
+    return _ref5.apply(this, arguments);
   };
 }();
 /* INVOKE SMART CONTRACT FUNCTIONS

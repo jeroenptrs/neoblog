@@ -1,8 +1,23 @@
 @import url(./fonts/stylesheet.css);
 @import url("https://rsms.me/inter/inter-ui.css");
 @import url(~antd/dist/antd.css);
+html {
+  box-sizing: border-box;
+  height: 100%;
+  font-smooth: antialiased;
+  text-rendering: optimizeLegibility; }
+  html {
+    font-size: 18px; }
+    @media screen and (min-width: 400px) {
+      html {
+        font-size: calc(18px + 3 * ((100vw - 400px) / 364)); } }
+    @media screen and (min-width: 764px) {
+      html {
+        font-size: 21px; } }
+
 body {
-  padding: 0; }
+  padding: 0;
+  font-size: inherit !important; }
 
 .ant-layout-header {
   display: flex;
@@ -13,6 +28,11 @@ body {
 
 .ant-layout-footer {
   text-align: center; }
+
+.text-overview {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem; }
 
 .neoblog-logo {
   font-family: 'League Spartan', sans-serif;

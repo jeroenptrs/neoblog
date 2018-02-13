@@ -1,6 +1,9 @@
+import Neoblog from "@neoblog/sdk";
 import { observable } from "mobx";
 import { RouterStore } from "mobx-router";
-import Neoblog from "@neoblog/sdk";
+
+const host = "http://localhost:5000";
+const contract = "ab2bb39fa618f497999806a688c81fcf23ce0275";
 
 const store = {
   app: observable({
@@ -11,20 +14,17 @@ const store = {
     },
     currentArticle: undefined,
     states: {
+      fetchingArticles: true, // RE-SET THIS TO TRUE BEFORE ENTERING!
       ipfsStates: {
         postingData: false,
-        postingFinished: false,
-        fetchingArticles: true // RE-SET THIS TO TRUE BEFORE ENTERING!
+        postingFinished: false
       }
     }
   }),
+  api: new Neoblog(host, contract),
   ipfsEndpoint: "https://ipfs.io/ipfs/",
   mockPost: "QmQK9ucWGFjbo2hnJGK2C7nTJY5jF4QXnm131p2gq2u7sK",
-  router: new RouterStore(),
-  instance: new Neoblog(
-    "http://localhost:5000",
-    "41c6042a48c1e1d172fb5da08adf707f3c0609bf"
-  )
+  router: new RouterStore()
 };
 
 export default store;
