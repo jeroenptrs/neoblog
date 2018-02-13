@@ -8,6 +8,8 @@ import { series } from "async";
 // Styles
 import "./MarkdownEditor.css";
 
+import views from "./../views/views";
+
 // Components
 const { Header } = Layout;
 
@@ -29,6 +31,15 @@ class MarkdownEditor extends Component {
   handleFileHash = file => {
     const { newPost } = this.props.store.app;
     newPost.fileHash = file.hash;
+
+    this.props.store.router.goTo(
+      views.articleView,
+      {
+        ...this.props.store.router.params,
+        fileHash: newPost.fileHash
+      },
+      this.props.store
+    );
 
     /**
      * TODO: handle posting to blockchain!
