@@ -11,10 +11,6 @@ import "./MarkdownEditor.css";
 const { Header } = Layout;
 
 class MarkdownEditor extends Component {
-  /**
-   * TODO: all handleX files should go to a separate library!
-   */
-
   handleMarkdown = event => {
     const { newPost } = this.props;
     newPost.postMarkdown = event.target.value;
@@ -28,7 +24,6 @@ class MarkdownEditor extends Component {
   render() {
     const { handlePost, newPost } = this.props;
     const fullArticle = `# ${newPost.postTitle}\n\n${newPost.postMarkdown}`;
-    console.log(newPost.postTitle);
     return (
       <React.Fragment>
         <Header className="markdownEditor" style={{ padding: "0" }}>
