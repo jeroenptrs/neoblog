@@ -3,6 +3,7 @@ import "@babel/polyfill";
 
 // Imports
 import {
+  getBestRPCNode,
   getLatest,
   getLatestPost,
   getArticle,
@@ -56,4 +57,4 @@ export default class Neoblog {
     return this.executeGetter(getAddressFromUserId, userId);
   }
 }
-export { scriptHashToAddress };
+export { scriptHashToAddress, getBestRPCNode };

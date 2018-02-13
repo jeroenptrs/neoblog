@@ -3,6 +3,12 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+Object.defineProperty(exports, "getBestRPCNode", {
+  enumerable: true,
+  get: function get() {
+    return _getters.getBestRPCNode;
+  }
+});
 Object.defineProperty(exports, "scriptHashToAddress", {
   enumerable: true,
   get: function get() {

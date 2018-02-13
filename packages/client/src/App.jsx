@@ -9,7 +9,7 @@ import views from "./components/views/views";
 // Components
 import NeoLogo from "./components/icons/NeoLogo";
 
-const { Content, Header } = Layout;
+const { Content, Header, Footer } = Layout;
 
 startRouter(views, store);
 
@@ -28,6 +28,7 @@ const App = () => (
         <MobxRouter />
       </Content>
     </Layout>
+    <Footer />
   </Layout>
 );
 
