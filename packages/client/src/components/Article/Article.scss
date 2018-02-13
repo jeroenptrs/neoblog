@@ -4,4 +4,14 @@
   padding: 2rem 1rem;
   word-wrap: break-word;
   color: #5c5c5c;
+
+  h1 {
+    font-family: 'League Spartan';
+    margin-bottom: 1em;
+  }
+
+  h2, h3, h4, h5, h6 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
 }
