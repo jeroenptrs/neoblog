@@ -1,14 +1,11 @@
 // Imports
 import React, { Component } from "react";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import ReactMarkdown from "react-markdown";
 import { Button, Row, Col, Layout } from "antd";
-import { series } from "async";
 
 // Styles
 import "./MarkdownEditor.css";
-
-import views from "./../views/views";
 
 // Components
 const { Header } = Layout;
@@ -19,75 +16,19 @@ class MarkdownEditor extends Component {
    */
 
   handleMarkdown = event => {
-    const { newPost } = this.props.store.app;
+    const { newPost } = this.props;
     newPost.postMarkdown = event.target.value;
   };
 
   handleTitle = event => {
-    const { newPost } = this.props.store.app;
+    const { newPost } = this.props;
     newPost.postTitle = event.target.value;
   };
 
-  handleFileHash = file => {
-    const { newPost } = this.props.store.app;
-    newPost.fileHash = file.hash;
-
-    this.props.store.router.goTo(
-      views.articleView,
-      {
-        ...this.props.store.router.params,
-        fileHash: newPost.fileHash
-      },
-      this.props.store
-    );
-
-    /**
-     * TODO: handle posting to blockchain!
-     */
-  };
-
-  handlePost = async article => {
-    /**
-     * TODO: State management in between various stages of IPFS communication
-     */
-    if (article) {
-      const node = new window.Ipfs();
-
-      await series([
-        cb => node.once("ready", cb),
-        cb =>
-          node.version((err, version) => {
-            if (err) {
-              return cb(err);
-            }
-            console.log(`Version ${version.version}`);
-            cb();
-            return true;
-          }),
-        cb =>
-          node.files.add(
-            {
-              /**
-               * TODO: add wordphrase as article file name.
-               * And figure out the use of adding a path.
-               */
-              path: `${"neoblog"}.md`,
-              content: Buffer.from(article)
-            },
-            (err, filesAdded) => {
-              console.log(filesAdded[0]);
-              this.handleFileHash(filesAdded[0]);
-              cb(filesAdded[0].hash);
-            }
-          )
-      ]);
-    }
-  };
-
   render() {
-    const { newPost } = this.props.store.app;
+    const { handlePost, newPost } = this.props;
     const fullArticle = `# ${newPost.postTitle}\n\n${newPost.postMarkdown}`;
-
+    console.log(newPost.postTitle);
     return (
       <React.Fragment>
         <Header className="markdownEditor" style={{ padding: "0" }}>
@@ -102,7 +43,7 @@ class MarkdownEditor extends Component {
             />
           </div>
           <div className="options">
-            <Button type="primary" onClick={() => this.handlePost(fullArticle)}>
+            <Button type="primary" onClick={() => handlePost(fullArticle)}>
               Post Article
             </Button>
           </div>
@@ -129,4 +70,4 @@ class MarkdownEditor extends Component {
   }
 }
 
-export default inject("store")(observer(MarkdownEditor));
+export default observer(MarkdownEditor);
