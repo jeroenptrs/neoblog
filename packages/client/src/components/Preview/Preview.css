@@ -1,5 +1,7 @@
 .preview {
-  cursor: pointer; }
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 16px; }
   .preview .title {
     margin-bottom: 16px;
     color: #5c5c5c; }
@@ -8,9 +10,12 @@
     max-height: 3rem;
     overflow-wrap: break-word;
     text-overflow: ellipsis; }
+  .preview:hover {
+    box-shadow: 2px 2px 4px 2px rgba(30, 30, 30, 0.05); }
 
 .previewGhost {
-  cursor: pointer; }
+  cursor: pointer;
+  padding: 1rem; }
   .previewGhost .title {
     margin-bottom: 16px;
     width: 33%;
@@ -37,9 +42,6 @@
       margin-left: -1rem;
       content: " ";
       background-color: #fff; }
-
-.preview ~ .preview, .preview ~ .previewGhost, .previewGhost ~ .previewGhost, .previewGhost ~ .preview {
-  margin-top: 2rem; }
 
 @-webkit-keyframes loadingAnimation {
   0% {

@@ -1,5 +1,7 @@
 .preview {
   cursor: pointer;
+  padding: 1rem;
+  border-radius: 16px;
 
   .title {
     margin-bottom: 16px;
@@ -11,10 +13,15 @@
     overflow-wrap: break-word; 
     text-overflow: ellipsis;
   }
+
+  &:hover {
+    box-shadow: 2px 2px 4px 2px rgba(30,30,30,0.05);
+  }
 }
 
 .previewGhost {
   cursor: pointer;
+  padding: 1rem;
 
   .title {
     margin-bottom: 16px;
@@ -49,10 +56,6 @@
       background-color: #fff;
     }
   }
-}
-
-.preview ~ .preview, .preview ~ .previewGhost, .previewGhost ~.previewGhost, .previewGhost ~ .preview {
-  margin-top: 2rem;
 }
 
 @-webkit-keyframes loadingAnimation {

@@ -10,3 +10,15 @@
   .text-content h2, .text-content h3, .text-content h4, .text-content h5, .text-content h6 {
     margin-top: 1em;
     margin-bottom: 0.5em; }
+  .text-content pre {
+    padding: 16px;
+    background-color: #5c5c5c;
+    color: #fafafa;
+    border-radius: 16px; }
+    .text-content pre code {
+      max-width: 100%;
+      display: inline-block;
+      white-space: normal;
+      overflow-wrap: break-word; }
+  .text-content p > code, .text-content li > code {
+    background-color: #e8e8e8; }
