@@ -7,16 +7,17 @@ html {
   font-smooth: antialiased;
   text-rendering: optimizeLegibility; }
   html {
-    font-size: 0.8rem; }
-    @media screen and (min-width: 20rem) {
+    font-size: 18px; }
+    @media screen and (min-width: 400px) {
       html {
-        font-size: calc(0.8rem + 1.2 * ((100vw - 20rem) / 30)); } }
-    @media screen and (min-width: 50rem) {
+        font-size: calc(18px + 3 * ((100vw - 400px) / 364)); } }
+    @media screen and (min-width: 764px) {
       html {
-        font-size: 2rem; } }
+        font-size: 21px; } }
 
 body {
-  padding: 0; }
+  padding: 0;
+  font-size: inherit !important; }
 
 .ant-layout-header {
   display: flex;
@@ -24,11 +25,6 @@ body {
 
 .ant-layout-content {
   padding: 0; }
-
-.text-content {
-  width: 22rem;
-  margin: 0 auto;
-  padding: 32px 0; }
 
 .ant-layout-footer {
   text-align: center; }
