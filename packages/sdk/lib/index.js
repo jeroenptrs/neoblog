@@ -56,8 +56,12 @@ function () {
     }
   }, {
     key: "getArticle",
-    value: function getArticle(index) {
-      return this.executeGetter(_getters.getArticle, index);
+    value: function getArticle(domainPre, index) {
+      var data = {
+        domainPre: domainPre,
+        index: index
+      };
+      return this.executeGetter(_getters.getArticle, data);
     }
   }, {
     key: "getArticleData",

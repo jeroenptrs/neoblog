@@ -1,20 +1,18 @@
 // Imports
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { series } from "async";
-import ReactMarkdown from "react-markdown";
 // import { scriptHashToAddress } from "@neoblog/sdk";
-
-// Components
-import { Button } from "antd";
 
 import views from "./views";
 
+// Components
+import Preview from "../Preview/Preview";
+
 class Home extends Component {
-  async componentWillMount() {
+  async componentDidMount() {
     const { states } = this.props.store.app;
-    const data = await this.handleFetchLatest();
-    this.data = data;
+    const articleIndex = await this.handleFetchLatest();
+    this.articleIndex = articleIndex;
     states.fetchingArticles = false;
   }
 
@@ -26,62 +24,30 @@ class Home extends Component {
     );
   };
 
-  goToMockPage = () => {
-    this.props.store.router.goTo(
-      views.articleView,
-      {
-        ...this.props.store.router.params,
-        fileHash: this.props.store.mockPost
-      },
-      this.props.store
-    );
-  };
-
   handleFetchLatest = async () => {
     const { api } = this.props.store;
     const postIndex = await api.getLatestPost();
-    const postHash = await api.getArticle(postIndex);
-    return this.handleCat(postHash);
+    return postIndex;
   };
 
-  handleCat = async fileHash =>
-    new Promise(async resolve => {
-      const node = new window.Ipfs();
-      await series([
-        cb => node.once("ready", cb),
-        cb =>
-          node.version((err, version) => {
-            if (err) {
-              return cb(err);
-            }
-            console.log(`Version ${version.version}`);
-            cb();
-            return true;
-          }),
-        cb =>
-          node.files.cat(fileHash, (err, data) => {
-            if (err) {
-              return cb(err);
-            }
-            resolve(new TextDecoder("utf-8").decode(data));
-            return true;
-          })
-      ]);
-    });
+  renderPreviews = index => {
+    if (index > 0) {
+      const previews = [];
+      for (let i = index; i > 0; i -= 1)
+        previews.push(<Preview key={`post.${i}`} index={i} domain="post." />);
+      return previews;
+    }
+
+    return "There are no articles yet";
+  };
 
   render() {
     const { fetchingArticles } = this.props.store.app.states;
-    return fetchingArticles ? (
-      <div className="text-content">
-        <Button onClick={() => this.goToMockPage()}>Article</Button>
-        &emsp;
-        <Button onClick={() => this.goToMarkdownEditor()}>
-          Markdown Editor
-        </Button>
-      </div>
+    return fetchingArticles && !this.articleIndex ? (
+      <div className="text-overview">Loading articles...</div>
     ) : (
-      <div className="text-content">
-        <ReactMarkdown source={this.data} />
+      <div className="text-overview">
+        {this.renderPreviews(this.articleIndex)}
       </div>
     );
   }

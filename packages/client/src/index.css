@@ -29,6 +29,11 @@ body {
 .ant-layout-footer {
   text-align: center; }
 
+.text-overview {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem; }
+
 .neoblog-logo {
   font-family: 'League Spartan', sans-serif;
   font-size: 24px;

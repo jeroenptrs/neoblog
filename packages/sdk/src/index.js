@@ -16,7 +16,7 @@ export default class Neoblog {
   constructor(host, contract) {
     this.host = host;
     this.contract = contract;
-    
+
     this.getLatest = this.getLatest.bind(this);
     this.getLatestPost = this.getLatestPost.bind(this);
     this.getArticle = this.getArticle.bind(this);
@@ -39,8 +39,9 @@ export default class Neoblog {
     return this.executeGetter(getLatestPost);
   }
 
-  getArticle(index) {
-    return this.executeGetter(getArticle, index);
+  getArticle(domainPre, index) {
+    const data = { domainPre, index };
+    return this.executeGetter(getArticle, data);
   }
 
   getArticleData(article) {
