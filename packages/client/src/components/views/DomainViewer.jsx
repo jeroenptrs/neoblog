@@ -9,7 +9,7 @@ import views from "./views";
 // Components
 import Preview from "../Preview/Preview";
 
-const PAGE_COUNT = 2;
+const PAGE_COUNT = 5;
 
 class DomainViewer extends Component {
   async componentDidMount() {
