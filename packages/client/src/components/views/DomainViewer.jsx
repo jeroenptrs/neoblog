@@ -21,7 +21,7 @@ class DomainViewer extends Component {
     const articleIndex =
       category || user
         ? await this.handleFetchLatest(
-            category ? domain + category : domain + user
+            `${domain + category ? category : domain}.`
           )
         : await this.handleFetchLatest(domain);
     states.articleIndex = this.handleArticleIndex(
@@ -47,7 +47,7 @@ class DomainViewer extends Component {
     const articleIndex =
       nextCategory || nextUser
         ? await this.handleFetchLatest(
-            nextCategory ? nextDomain + nextCategory : nextDomain + nextUser
+            `${nextDomain + nextCategory ? nextCategory : nextUser}.`
           )
         : await this.handleFetchLatest(nextDomain);
 

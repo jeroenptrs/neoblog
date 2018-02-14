@@ -14,7 +14,7 @@ import ArticleView from "./ArticleView";
 const views = {
   home: new Route({
     path: "/",
-    component: <DomainViewer domain="post." home />,
+    component: <Redirect to="post" />,
     beforeEnter: () => {
       store.app.states.fetchingArticles = true;
     }
@@ -37,16 +37,9 @@ const views = {
       store.app.states.fetchingArticles = true;
     }
   }),
-  incompletePost: new Route({
-    path: "/posts",
-    component: <Redirect to="post" />,
-    beforeEnter: () => {
-      store.app.states.fetchingArticles = true;
-    }
-  }),
-  incompletePosts: new Route({
-    path: "/posts/page",
-    component: <Redirect to="post" />,
+  categoryPage: new Route({
+    path: "/category/:category/page/:page",
+    component: <DomainViewer domain="category." />,
     beforeEnter: () => {
       store.app.states.fetchingArticles = true;
     }
