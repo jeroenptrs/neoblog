@@ -1,6 +1,9 @@
 from boa.blockchain.vm.Neo.Storage import GetContext, Get, Put
 from boa.code.builtins import concat
+
 from neoblog.lib.addToDomain import addToDomain
+from neoblog.lib.serializeHelper import serialize_array, deserialize_bytearray
+
 
 """
 Storing a post hash on the BC
@@ -28,6 +31,7 @@ def submitPost(args):
   user = args[0]
   postHash = args[1]
   category = args[2]
+  postData = args[3] # optional?
 
   """
   Adding to post domain
@@ -39,11 +43,10 @@ def submitPost(args):
   # Add to post domain
   addToDomain("post", postHash)
 
-  # Setting post.data.{postHash} = {postIndex}
-  # TODO: serialize data from https://github.com/be-neo/neoblog/issues/1 into data
+  # Setting post.data.{postHash} = {serializedPostData}
+  to_save = serialize_array(postData)
   postDataDomain = concat("post.data.", postHash)
-  Put(GetContext, postDataDomain, user)
-  # Temporarily storing user hash till it's a serialized array
+  Put(GetContext, postDataDomain, to_save)
 
 
   """
