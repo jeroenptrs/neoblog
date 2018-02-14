@@ -11,7 +11,7 @@
     overflow-wrap: break-word;
     text-overflow: ellipsis; }
   .preview:hover {
-    box-shadow: 2px 2px 4px 2px rgba(30, 30, 30, 0.05); }
+    box-shadow: 2px 2px 4px 2px rgba(30, 30, 30, 0.1); }
 
 .previewGhost {
   cursor: pointer;
@@ -19,21 +19,21 @@
   .previewGhost .title {
     margin-bottom: 16px;
     width: 33%;
-    background: linear-gradient(90deg, #e1e1e1, #fafafa);
+    background: linear-gradient(270deg, #bababa, #fafafa);
     background-size: 400% 400%;
-    -webkit-animation: loadingAnimation 5s ease infinite;
-    -moz-animation: loadingAnimation 5s ease infinite;
-    -o-animation: loadingAnimation 5s ease infinite;
-    animation: loadingAnimation 5s ease infinite; }
+    -webkit-animation: loadingAnimation 4s ease infinite;
+    -moz-animation: loadingAnimation 4s ease infinite;
+    -o-animation: loadingAnimation 4s ease infinite;
+    animation: loadingAnimation 4s ease infinite; }
   .previewGhost .content {
     height: 3rem;
     width: 75%;
-    background: linear-gradient(90deg, #e1e1e1, #fafafa);
+    background: linear-gradient(270deg, #bababa, #fafafa);
     background-size: 400% 400%;
-    -webkit-animation: loadingAnimation 5s ease infinite;
-    -moz-animation: loadingAnimation 5s ease infinite;
-    -o-animation: loadingAnimation 5s ease infinite;
-    animation: loadingAnimation 5s ease infinite; }
+    -webkit-animation: loadingAnimation 4s ease infinite;
+    -moz-animation: loadingAnimation 4s ease infinite;
+    -o-animation: loadingAnimation 4s ease infinite;
+    animation: loadingAnimation 4s ease infinite; }
     .previewGhost .content:after {
       position: absolute;
       height: 4px;
@@ -63,6 +63,9 @@
   0% {
     background-position: 0% 50%; }
   50% {
-    background-position: 100% 5%; }
+    background-position: 100% 50%; }
   100% {
     background-position: 0% 50%; } }
+
+.preview ~ .preview, .preview ~ .previewGhost, .previewGhost ~ .previewGhost, .previewGhost ~ .preview {
+  margin-top: .5rem; }

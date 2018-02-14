@@ -6,14 +6,15 @@ import { Route } from "mobx-router";
 import store from "./../../lib/store";
 
 // views
-import Home from "./Home";
+import Redirect from "./../Redirect/Redirect";
+import DomainViewer from "./DomainViewer";
 import NewPost from "./NewPost";
 import ArticleView from "./ArticleView";
 
 const views = {
   home: new Route({
     path: "/",
-    component: <Home />,
+    component: <DomainViewer domain="post." home />,
     beforeEnter: () => {
       store.app.states.fetchingArticles = true;
     }
@@ -27,6 +28,27 @@ const views = {
     component: <ArticleView />,
     beforeEnter: () => {
       store.app.currentArticle = undefined;
+    }
+  }),
+  postPage: new Route({
+    path: "/posts/page/:page",
+    component: <DomainViewer domain="post." />,
+    beforeEnter: () => {
+      store.app.states.fetchingArticles = true;
+    }
+  }),
+  incompletePost: new Route({
+    path: "/posts",
+    component: <Redirect to="post" />,
+    beforeEnter: () => {
+      store.app.states.fetchingArticles = true;
+    }
+  }),
+  incompletePosts: new Route({
+    path: "/posts/page",
+    component: <Redirect to="post" />,
+    beforeEnter: () => {
+      store.app.states.fetchingArticles = true;
     }
   })
 };
