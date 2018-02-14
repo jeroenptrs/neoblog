@@ -14,7 +14,9 @@ const store = {
     },
     currentArticle: undefined,
     states: {
+      totalArticles: undefined,
       articleIndex: undefined,
+      currentPage: undefined,
       fetchingArticles: true, // RE-SET THIS TO TRUE BEFORE ENTERING!
       ipfsStates: {
         postingData: false,

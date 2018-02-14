@@ -34,7 +34,6 @@ class Preview extends Component {
     this.props.store.router.goTo(
       views.articleView,
       {
-        ...this.props.store.router.params,
         fileHash
       },
       this.props.store

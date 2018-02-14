@@ -2,32 +2,18 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 // import { scriptHashToAddress } from "@neoblog/sdk";
+import { Pagination } from "antd";
 
 import views from "./views";
 
 // Components
 import Preview from "../Preview/Preview";
 
-const PAGE_COUNT = 5;
+const PAGE_COUNT = 2;
 
 class DomainViewer extends Component {
   async componentDidMount() {
-    const { domain, home, store } = this.props;
-    const {
-      app: { states },
-      router: { params: { page, category, user } }
-    } = store;
-
-    const articleIndex =
-      category || user
-        ? await this.handleFetchLatest(`${domain + (category || domain)}.`)
-        : await this.handleFetchLatest(domain);
-    states.articleIndex = this.handleArticleIndex(
-      articleIndex,
-      home ? 1 : page
-    );
-
-    states.fetchingArticles = false;
+    await this.mountingComponent();
   }
 
   async componentWillReceiveProps(nextProps) {
@@ -48,32 +34,66 @@ class DomainViewer extends Component {
             `${nextDomain + (nextCategory || nextUser)}.`
           )
         : await this.handleFetchLatest(nextDomain);
+    states.totalArticles = articleIndex;
 
     if (
+      // Different domain
+      propsDomain !== nextDomain ||
       // Same domain, different page
-      propsDomain === nextDomain &&
-      (propsHome !== nextHome || propsPage !== nextPage)
+      (propsDomain === nextDomain &&
+        (propsHome !== nextHome || propsPage !== nextPage))
     ) {
       states.fetchingArticles = true;
 
-      states.articleIndex = this.handleArticleIndex(
+      const result = this.handleArticleIndex(
         articleIndex,
         nextHome ? 1 : nextPage
       );
+      states.articleIndex = result.index;
 
-      states.fetchingArticles = false;
-    } else if (propsDomain !== nextDomain) {
-      // Different domain, so different page altogether
-      states.fetchingArticles = true;
-
-      states.articleIndex = this.handleArticleIndex(
-        articleIndex,
-        nextHome ? 1 : nextPage
-      );
+      if (result.moveTo) {
+        const newPath = window.location.href.replace(
+          window.location.href.substr(window.location.href.indexOf("/page")),
+          `/page/${result.moveTo}`
+        );
+        window.history.replaceState(window.history.state, "Neoblog", newPath);
+        states.currentPage = result.moveTo;
+      } else {
+        states.currentPage = nextHome ? 1 : parseInt(nextPage, 10);
+      }
 
       states.fetchingArticles = false;
     }
   }
+
+  mountingComponent = async () => {
+    const { domain, home, store } = this.props;
+    const {
+      app: { states },
+      router: { params: { page, category, user } }
+    } = store;
+
+    const articleIndex =
+      category || user
+        ? await this.handleFetchLatest(`${domain + (category || domain)}.`)
+        : await this.handleFetchLatest(domain);
+    states.totalArticles = articleIndex;
+    const result = this.handleArticleIndex(articleIndex, home ? 1 : page);
+    states.articleIndex = result.index;
+
+    if (result.moveTo) {
+      const newPath = window.location.href.replace(
+        window.location.href.substr(window.location.href.indexOf("/page")),
+        `/page/${result.moveTo}`
+      );
+      window.history.replaceState(window.history.state, "Neoblog", newPath);
+      states.currentPage = result.moveTo;
+    } else {
+      states.currentPage = home ? 1 : parseInt(page, 10);
+    }
+
+    states.fetchingArticles = false;
+  };
 
   goToMarkdownEditor = () => {
     this.props.store.router.goTo(
@@ -91,22 +111,24 @@ class DomainViewer extends Component {
     if (page < TOTAL_PAGES && page > 0) {
       const RESULT =
         articleIndex % PAGE_COUNT + PAGE_COUNT * (TOTAL_PAGES - page);
-      return RESULT;
-    } else if (page < 1) {
-      page = 1; // Less than 1 => back to page 1
-      const RESULT =
-        articleIndex % PAGE_COUNT + PAGE_COUNT * (TOTAL_PAGES - page);
-      return RESULT;
+      return { index: RESULT };
     } else if (page >= TOTAL_PAGES) {
-      page = TOTAL_PAGES; // Larger than total pages => total pages, this can be set in 1 if clause
       const RESULT =
         articleIndex % PAGE_COUNT > 0 ? articleIndex % PAGE_COUNT : PAGE_COUNT;
-      return RESULT;
+      return {
+        index: RESULT,
+        moveTo: page > TOTAL_PAGES ? TOTAL_PAGES : undefined
+      };
       /**
        * If F.E. PAGE_COUNT = 5 and articleIndex % PAGE_COUNT equals 4,
        * that means that there are 4 articles left to list.
        * If the equasion equals 0 however, that means that there are FIVE (5) articles left to list!
        */
+    } else if (page < 1) {
+      page = 1; // Less than 1 => back to page 1
+      const RESULT =
+        articleIndex % PAGE_COUNT + PAGE_COUNT * (TOTAL_PAGES - page);
+      return { index: RESULT, moveTo: page };
     }
     return articleIndex;
   };
@@ -115,6 +137,21 @@ class DomainViewer extends Component {
     const { api } = this.props.store;
     const postIndex = await api.getLatest(domain);
     return postIndex;
+  };
+
+  handlePagination = async page => {
+    const { router, app } = this.props.store;
+    const { category, user } = router.params;
+    router.goTo(
+      category || user ? views.categoryPage : views.postPage,
+      {
+        ...router.params,
+        page
+      },
+      this.props.store
+    );
+    app.states.fetchingArticles = true;
+    await this.mountingComponent();
   };
 
   renderPreviews = index => {
@@ -141,12 +178,28 @@ class DomainViewer extends Component {
   };
 
   render() {
-    const { fetchingArticles, articleIndex } = this.props.store.app.states;
+    const {
+      fetchingArticles,
+      articleIndex,
+      totalArticles,
+      currentPage
+    } = this.props.store.app.states;
 
     return fetchingArticles || !articleIndex ? (
       <div className="text-overview">Loading articles...</div>
     ) : (
-      <div className="text-overview">{this.renderPreviews(articleIndex)}</div>
+      <React.Fragment>
+        <div className="text-overview">{this.renderPreviews(articleIndex)}</div>
+        <div className="text-pagination">
+          <Pagination
+            defaultCurrent={currentPage}
+            showTotal={total => `${total} articles`}
+            onChange={this.handlePagination}
+            pageSize={PAGE_COUNT}
+            total={totalArticles}
+          />
+        </div>
+      </React.Fragment>
     );
   }
 }
