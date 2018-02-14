@@ -6,7 +6,7 @@ import { Route } from "mobx-router";
 import store from "./../../lib/store";
 
 // views
-import Redirect from "./../Redirect/Redirect";
+// import Redirect from "./../Redirect/Redirect";
 import DomainViewer from "./DomainViewer";
 import NewPost from "./NewPost";
 import ArticleView from "./ArticleView";
@@ -14,7 +14,7 @@ import ArticleView from "./ArticleView";
 const views = {
   home: new Route({
     path: "/",
-    component: <Redirect to="post" />,
+    component: <DomainViewer domain="post." home />,
     beforeEnter: () => {
       store.app.states.fetchingArticles = true;
     }
