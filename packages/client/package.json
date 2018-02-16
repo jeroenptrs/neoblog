@@ -25,10 +25,9 @@
     "react:build": "react-scripts build",
     "react:eject": "react-scripts eject",
     "react:start": "react-scripts start",
-    "react:startWithLess": "yarn styles:less && yarn react:start",
     "react:test": "react-scripts test --env=jsdom",
-    "styles:build": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-    "styles:less": "lessc ./src/theme/neoblog.less ./node_modules/antd/dist/antd.css && yarn styles:build",
+    "styles:build": "yarn styles:less && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "styles:less": "lessc ./src/theme/neoblog.less ./node_modules/antd/dist/antd.css",
     "styles:start": "yarn styles:build && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
