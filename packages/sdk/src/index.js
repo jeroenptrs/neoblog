@@ -12,6 +12,7 @@ import {
   getAddressFromUserId
 } from "./functions/neo/getters";
 import { scriptHashToAddress } from "./helpers/conversion";
+import { processAuthentication, createWallet } from "./functions/neo/account";
 
 export default class Neoblog {
   constructor(host, contract) {
@@ -56,5 +57,13 @@ export default class Neoblog {
   getAddressFromUserId(userId) {
     return this.executeGetter(getAddressFromUserId, userId);
   }
+
+  processAuthentication(token, password) {
+    return processAuthentication(token, password);
+  }
+
+  createWallet(password) {
+    return createWallet(password);
+  }
 }
-export { scriptHashToAddress, getBestRPCNode };
+export { scriptHashToAddress, getBestRPCNode, processAuthentication, createWallet };

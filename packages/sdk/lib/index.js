@@ -15,6 +15,18 @@ Object.defineProperty(exports, "scriptHashToAddress", {
     return _conversion.scriptHashToAddress;
   }
 });
+Object.defineProperty(exports, "processAuthentication", {
+  enumerable: true,
+  get: function get() {
+    return _account.processAuthentication;
+  }
+});
+Object.defineProperty(exports, "createWallet", {
+  enumerable: true,
+  get: function get() {
+    return _account.createWallet;
+  }
+});
 exports.default = void 0;
 
 require("@babel/polyfill");
@@ -22,6 +34,8 @@ require("@babel/polyfill");
 var _getters = require("./functions/neo/getters");
 
 var _conversion = require("./helpers/conversion");
+
+var _account = require("./functions/neo/account");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -83,6 +97,16 @@ function () {
     key: "getAddressFromUserId",
     value: function getAddressFromUserId(userId) {
       return this.executeGetter(_getters.getAddressFromUserId, userId);
+    }
+  }, {
+    key: "processAuthentication",
+    value: function processAuthentication(token, password) {
+      return (0, _account.processAuthentication)(token, password);
+    }
+  }, {
+    key: "createWallet",
+    value: function createWallet(password) {
+      return (0, _account.createWallet)(password);
     }
   }]);
 
