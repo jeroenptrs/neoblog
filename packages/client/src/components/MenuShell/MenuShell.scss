@@ -1,9 +1,18 @@
 .neoblogMenu {
   position: absolute;
   top: 64px;
-  right: 0;
+  right: 16px;
+  padding: 16px;
 
-  height: 400px;
-  width: 200px;
+  max-height: 400px;
+  max-width: 292px;
   background-color: #fff;
+  border-radius: 16px;
+
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
+
+  .ctaSignIn {
+    font-size: 0.75rem;
+    margin-bottom: 16px;
+  }
 }

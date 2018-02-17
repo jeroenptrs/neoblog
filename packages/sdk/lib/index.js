@@ -9,12 +9,6 @@ Object.defineProperty(exports, "getBestRPCNode", {
     return _getters.getBestRPCNode;
   }
 });
-Object.defineProperty(exports, "scriptHashToAddress", {
-  enumerable: true,
-  get: function get() {
-    return _conversion.scriptHashToAddress;
-  }
-});
 Object.defineProperty(exports, "processAuthentication", {
   enumerable: true,
   get: function get() {
@@ -27,15 +21,29 @@ Object.defineProperty(exports, "createWallet", {
     return _account.createWallet;
   }
 });
+Object.defineProperty(exports, "scriptHashToAddress", {
+  enumerable: true,
+  get: function get() {
+    return _conversion.scriptHashToAddress;
+  }
+});
+Object.defineProperty(exports, "determineKey", {
+  enumerable: true,
+  get: function get() {
+    return _neo.determineKey;
+  }
+});
 exports.default = void 0;
 
 require("@babel/polyfill");
 
 var _getters = require("./functions/neo/getters");
 
+var _account = require("./functions/neo/account");
+
 var _conversion = require("./helpers/conversion");
 
-var _account = require("./functions/neo/account");
+var _neo = require("./helpers/neo");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
