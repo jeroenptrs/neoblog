@@ -25,7 +25,7 @@ var createWallet = function createWallet(password) {
   var WIF = new _neonJs.wallet.Account(privateKey).WIF;
   return {
     WIF: WIF,
-    NEP2: _neonJs.wallet.encrypt(WIF, 'coz')
+    NEP2: _neonJs.wallet.encrypt(WIF, password)
   };
 };
 

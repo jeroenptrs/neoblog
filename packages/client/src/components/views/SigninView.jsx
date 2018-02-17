@@ -6,7 +6,7 @@ import Signin from "../Signin/Signin";
 
 class SignInView extends Component {
   render() {
-    return <Signin />;
+    return <Signin {...this.props} />;
   }
 }
 
