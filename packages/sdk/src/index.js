@@ -11,8 +11,9 @@ import {
   getUserData,
   getAddressFromUserId
 } from "./functions/neo/getters";
-import { scriptHashToAddress } from "./helpers/conversion";
 import { processAuthentication, createWallet, generateJwt } from "./functions/neo/account";
+import { scriptHashToAddress } from "./helpers/conversion";
+import { determineKey } from "./helpers/neo";
 
 export default class Neoblog {
   constructor(host, contract) {
@@ -70,4 +71,4 @@ export default class Neoblog {
     return generateJwt(userObject, secret, expirationTime);
   };
 }
-export { scriptHashToAddress, getBestRPCNode, processAuthentication, createWallet };
+export { determineKey, scriptHashToAddress, getBestRPCNode, processAuthentication, createWallet };

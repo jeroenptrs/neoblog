@@ -2,7 +2,7 @@ import React from "react";
 import { inject, observer } from "mobx-react";
 
 // Components
-import Signin from "../Signin/Signin";
+import Signin from "./../Signin/Signin";
 
 // Styles
 import "./MenuShell.css";
