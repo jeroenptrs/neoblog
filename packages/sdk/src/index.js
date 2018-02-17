@@ -58,16 +58,15 @@ export default class Neoblog {
     return this.executeGetter(getAddressFromUserId, userId);
   }
 
-  processAuthentication = (token, password) => {
-    const res = processAuthentication(token, password);
+  processAuthentication(token, password) {
     return processAuthentication(token, password);
   };
 
-  createWallet = (password) => {
+  createWallet(password) {
     return createWallet(password);
   };
 
-  generateJwt = (userObject, secret = 'no-so-super-secret', expirationTime = '10000h') => {
+  generateJwt(userObject, secret = 'no-so-super-secret', expirationTime = '10000h') {
     return generateJwt(userObject, secret, expirationTime);
   };
 }
