@@ -3,7 +3,6 @@ import React from "react";
 import { observer } from "mobx-react";
 import { processAuthentication } from "@neoblog/sdk";
 import { Button, Checkbox, Form, Icon, Input } from "antd";
-import views from "../views/views";
 
 // Styles
 import "./Signin.css";
@@ -30,24 +29,19 @@ class SigninForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { router, app } = this.props.store;
+    const { app } = this.props.store;
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
         try {
           app.user.WIF = processAuthentication(values.token, values.password);
-
-          router.goTo(
-            views.home,
-            {
-              ...router.params
-            },
-            this.props.store
-          );
         } catch (error) {
-          // TODO catch en display error to the user
-          // Possible errors: not a valid token (No WIF or NEP2-token)
-          //                  wrong password (when entering only a WIF)
+          /**
+           * TODO catch en display error to the user
+           * Possible errors:
+           * not a valid token (No WIF or NEP2-token)
+           * wrong password (when entering only a WIF)
+           */
           console.log(error);
         }
       }
