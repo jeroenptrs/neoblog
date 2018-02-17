@@ -1,13 +1,12 @@
 // Imports
 import React from "react";
 import { observer } from "mobx-react";
-// Styles
-import "./Signin.css";
-// Import from SDK
 import { processAuthentication } from "@neoblog/sdk";
-// Ant imports
 import { Button, Checkbox, Form, Icon, Input } from "antd";
 import views from "../views/views";
+
+// Styles
+import "./Signin.css";
 
 const FormItem = Form.Item;
 
@@ -20,6 +19,14 @@ class SigninForm extends React.Component {
       tokenChoiceMessage: "Use NEP-2 Token"
     };
   }
+
+  onChange = e => {
+    const text = e.target.checked ? "Use NEP-2 Token" : "Use WIF";
+    this.setState({
+      tokenChoiceNEP: e.target.checked,
+      tokenChoiceMessage: text
+    });
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -37,21 +44,14 @@ class SigninForm extends React.Component {
             },
             this.props.store
           );
-        } catch (e) {
+          console.log(authResult);
+        } catch (error) {
           // TODO catch en display error to the user
           // Possible errors: not a valid token (No WIF or NEP2-token)
           //                  wrong password (when entering only a WIF)
-          console.log(e);
+          console.log(error);
         }
       }
-    });
-  };
-
-  onChange = e => {
-    const text = e.target.checked ? "Use NEP-2 Token" : "Use WIF";
-    this.setState({
-      tokenChoiceNEP: e.target.checked,
-      tokenChoiceMessage: text
     });
   };
 
@@ -70,7 +70,7 @@ class SigninForm extends React.Component {
       <Form
         onSubmit={this.handleSubmit}
         className="login-form"
-        layout={"horizontal"}
+        layout="horizontal"
       >
         <FormItem {...formItemLayout}>
           {getFieldDecorator("token", {
