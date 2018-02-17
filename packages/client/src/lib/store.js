@@ -14,10 +14,12 @@ const store = {
     },
     currentArticle: undefined,
     states: {
+      menuOpened: false,
+      signedIn: false,
       totalArticles: undefined,
       articleIndex: undefined,
       currentPage: undefined,
-      fetchingArticles: true, // RE-SET THIS TO TRUE BEFORE ENTERING!
+      fetchingArticles: true,
       ipfsStates: {
         postingData: false,
         postingFinished: false

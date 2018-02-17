@@ -10,7 +10,6 @@ import store from "./../../lib/store";
 import DomainViewer from "./DomainViewer";
 import NewPost from "./NewPost";
 import ArticleView from "./ArticleView";
-import SignInView from "./SigninView";
 
 const views = {
   home: new Route({
@@ -43,13 +42,6 @@ const views = {
     component: <DomainViewer domain="category." />,
     beforeEnter: () => {
       store.app.states.fetchingArticles = true;
-    }
-  }),
-  signIn: new Route({
-    path: "/signin",
-    component: <SignInView domain="" />,
-    beforeEnter: () => {
-      store.app.states.fetchingArticles = false;
     }
   })
 };
