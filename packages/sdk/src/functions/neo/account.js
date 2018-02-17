@@ -1,13 +1,16 @@
 import { wallet } from '@cityofzion/neon-js'
+import jwt from 'jsonwebtoken';
 
 export const processAuthentication = (key, password) => {
-  if(wallet.isNEP2(key)) {
-    return wallet.decrypt(key, password);
-  } else if (wallet.isWIF(key)) {
-    return key;
-  } else {
-    throw new Error('No valid NEP-2 or WIF entered.')
-  }
+  return new Promise((resolve, reject) => {
+    if(wallet.isNEP2(key)) {
+      resolve(wallet.decrypt(key, password));
+    } else if (wallet.isWIF(key)) {
+      resolve(key);
+    } else {
+      reject('No valid NEP-2 or WIF entered.');
+    }
+  });
 };
 
 export const createWallet = (password) => {
@@ -17,4 +20,10 @@ export const createWallet = (password) => {
     WIF: WIF,
     NEP2: wallet.encrypt(WIF, password)
   };
+};
+
+export const generateJwt = (userObject, secret, expirationTime) => {
+  jwt.sign({
+    data: userObject
+  }, secret, { expiresIn: expirationTime });
 };

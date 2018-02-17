@@ -24,7 +24,7 @@ const store = {
       }
     },
     user: {
-      WIF: undefineda
+      WIF: undefined
     }
   }),
   api: new Neoblog(host, contract),

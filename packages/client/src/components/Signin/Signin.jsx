@@ -44,7 +44,6 @@ class SigninForm extends React.Component {
             },
             this.props.store
           );
-          console.log(authResult);
         } catch (error) {
           // TODO catch en display error to the user
           // Possible errors: not a valid token (No WIF or NEP2-token)

@@ -12,7 +12,7 @@ import {
   getAddressFromUserId
 } from "./functions/neo/getters";
 import { scriptHashToAddress } from "./helpers/conversion";
-import { processAuthentication, createWallet } from "./functions/neo/account";
+import { processAuthentication, createWallet, generateJwt } from "./functions/neo/account";
 
 export default class Neoblog {
   constructor(host, contract) {
@@ -58,12 +58,17 @@ export default class Neoblog {
     return this.executeGetter(getAddressFromUserId, userId);
   }
 
-  processAuthentication(token, password) {
+  processAuthentication = (token, password) => {
+    const res = processAuthentication(token, password);
     return processAuthentication(token, password);
-  }
+  };
 
-  createWallet(password) {
+  createWallet = (password) => {
     return createWallet(password);
-  }
+  };
+
+  generateJwt = (userObject, secret = 'no-so-super-secret', expirationTime = '10000h') => {
+    return generateJwt(userObject, secret, expirationTime);
+  };
 }
 export { scriptHashToAddress, getBestRPCNode, processAuthentication, createWallet };
