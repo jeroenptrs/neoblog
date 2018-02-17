@@ -24,6 +24,9 @@ const store = {
         postingData: false,
         postingFinished: false
       }
+    },
+    user: {
+      WIF: undefineda
     }
   }),
   api: new Neoblog(host, contract),

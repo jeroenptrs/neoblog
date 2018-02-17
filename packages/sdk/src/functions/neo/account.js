@@ -15,6 +15,6 @@ export const createWallet = (password) => {
   const WIF = new wallet.Account(privateKey).WIF;
   return {
     WIF: WIF,
-    NEP2: wallet.encrypt(WIF, 'coz')
+    NEP2: wallet.encrypt(WIF, password)
   };
 };
