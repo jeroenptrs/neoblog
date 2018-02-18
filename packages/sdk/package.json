@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rm -rf lib && ./node_modules/.bin/babel src -d lib",
     "start": "node dist",
-    "prettier:watch": "onchange 'src/**/*.js' -- prettier --write {{changed}}"
+    "prettier:watch": "onchange 'src/**/*.js' -- prettier --write {{changed}}",
+    "build:watch": "onchange 'src/**/*.js' -- yarn build"
   },
   "author": "Jeroen Peeters <jeroen.peeters@evance.be>",
   "license": "MIT",
@@ -16,6 +17,7 @@
     "binascii": "^0.0.2",
     "bs58": "^4.0.1",
     "crypto-js": "^3.1.9-1",
+    "jsonwebtoken": "^8.1.1",
     "lodash": "^4.17.4"
   },
   "devDependencies": {

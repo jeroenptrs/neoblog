@@ -1,7 +1,7 @@
 // Imports
 import { u } from "@cityofzion/neon-js";
 import { getStorage } from "./../../helpers/neo";
-import { scriptHashToAddress } from "./../../helpers/conversion";
+
 const { str2hexstring: s2h, int2hex: i2h, hexstring2str: h2s } = u;
 
 export const getBestRPCNode = async host =>

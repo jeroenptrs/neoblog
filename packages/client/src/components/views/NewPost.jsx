@@ -11,15 +11,22 @@ import MarkdownEditor from "./../MarkdownEditor/MarkdownEditor";
 class NewPost extends Component {
   handleFileHash = file => {
     const { newPost } = this.props.store.app;
+    const { api } = this.props.store;
     newPost.fileHash = file.hash;
 
-    this.props.store.router.goTo(
-      views.articleView,
-      {
-        ...this.props.store.router.params,
-        fileHash: newPost.fileHash
-      },
-      this.props.store
+    // this.props.store.router.goTo(
+    //   views.articleView,
+    //   {
+    //     ...this.props.store.router.params,
+    //     fileHash: newPost.fileHash
+    //   },
+    //   this.props.store
+    // );
+
+    api.submitPost(
+      "L3BiBoAuPj4AFbWry6n7wTqzbP28kZPX1RUgDgrrZq2Z6WuFtup7",
+      file.hash,
+      "categoryXXX"
     );
 
     /**

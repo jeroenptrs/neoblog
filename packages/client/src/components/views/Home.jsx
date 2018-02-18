@@ -33,8 +33,20 @@ class Home extends Component {
   renderPreviews = index => {
     if (index > 0) {
       const previews = [];
-      for (let i = index; i > 0; i -= 1)
-        previews.push(<Preview key={`post.${i}`} index={i} domain="post." />);
+      let tabIndex = 1;
+
+      for (let i = index; i > 0 && i > index - 5; i -= 1) {
+        tabIndex += 1;
+        previews.push(
+          <Preview
+            key={`post.${i}`}
+            index={i}
+            tabbing={tabIndex}
+            domain="post."
+          />
+        );
+      }
+
       return previews;
     }
 

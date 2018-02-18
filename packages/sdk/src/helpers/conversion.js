@@ -21,5 +21,8 @@ export const scriptHashToAddress = scriptHash => {
 export const param = {
   string: c => {
     return sc.ContractParam.string(c);
+  },
+  array: c => {
+    return sc.ContractParam.array(c);
   }
 };

@@ -5,6 +5,11 @@ import { RouterStore } from "mobx-router";
 const host = "http://localhost:5000";
 const contract = "ab2bb39fa618f497999806a688c81fcf23ce0275";
 
+let account;
+if (typeof Storage !== "undefined") {
+  account = localStorage.getItem("neoblogAccount");
+}
+
 const store = {
   app: observable({
     newPost: {
@@ -14,14 +19,29 @@ const store = {
     },
     currentArticle: undefined,
     states: {
-      fetchingArticles: true, // RE-SET THIS TO TRUE BEFORE ENTERING!
+      totalArticles: undefined,
+      articleIndex: undefined,
+      currentPage: undefined,
+      fetchingArticles: true,
       ipfsStates: {
         postingData: false,
         postingFinished: false
+      },
+      menuStates: {
+        signedIn: account !== null,
+        menuOpened: false,
+        submitting: false
+      }
+    },
+    user: {
+      authentication: {
+        key: undefined,
+        passPhrase: undefined,
+        signInType: undefined
       }
     }
   }),
-  api: new Neoblog(host, contract),
+  api: new Neoblog(host, contract, account),
   ipfsEndpoint: "https://ipfs.io/ipfs/",
   mockPost: "QmQK9ucWGFjbo2hnJGK2C7nTJY5jF4QXnm131p2gq2u7sK",
   router: new RouterStore()

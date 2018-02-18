@@ -1,5 +1,7 @@
 .preview {
   cursor: pointer;
+  padding: 1rem;
+  border-radius: 16px;
 
   .title {
     margin-bottom: 16px;
@@ -11,31 +13,36 @@
     overflow-wrap: break-word; 
     text-overflow: ellipsis;
   }
+
+  &:hover {
+    box-shadow: 2px 2px 4px 2px rgba(30,30,30,0.1);
+  }
 }
 
 .previewGhost {
   cursor: pointer;
+  padding: 1rem;
 
   .title {
     margin-bottom: 16px;
     width: 33%;
 
-    background: linear-gradient(90deg, darken(#fafafa, 10), #fafafa);
+    background: linear-gradient(270deg, darken(#fafafa, 25%), #fafafa);
     background-size: 400% 400%;
-    -webkit-animation: loadingAnimation 5s ease infinite;
-    -moz-animation: loadingAnimation 5s ease infinite;
-    -o-animation: loadingAnimation 5s ease infinite;
-    animation: loadingAnimation 5s ease infinite;
+    -webkit-animation: loadingAnimation 4s ease infinite;
+    -moz-animation: loadingAnimation 4s ease infinite;
+    -o-animation: loadingAnimation 4s ease infinite;
+    animation: loadingAnimation 4s ease infinite;
   }
   .content {
     height: 3rem;
     width: 75%;
-    background: linear-gradient(90deg, darken(#fafafa, 10), #fafafa);
+    background: linear-gradient(270deg, darken(#fafafa, 25%), #fafafa);
     background-size: 400% 400%;
-    -webkit-animation: loadingAnimation 5s ease infinite;
-    -moz-animation: loadingAnimation 5s ease infinite;
-    -o-animation: loadingAnimation 5s ease infinite;
-    animation: loadingAnimation 5s ease infinite;
+    -webkit-animation: loadingAnimation 4s ease infinite;
+    -moz-animation: loadingAnimation 4s ease infinite;
+    -o-animation: loadingAnimation 4s ease infinite;
+    animation: loadingAnimation 4s ease infinite;
 
     &:after{
       position: absolute;
@@ -51,10 +58,6 @@
   }
 }
 
-.preview ~ .preview, .preview ~ .previewGhost, .previewGhost ~.previewGhost, .previewGhost ~ .preview {
-  margin-top: 2rem;
-}
-
 @-webkit-keyframes loadingAnimation {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
@@ -67,6 +70,10 @@
 }
 @keyframes loadingAnimation { 
     0%{background-position:0% 50%}
-    50%{background-position:100% 5%}
+    50%{background-position:100% 50%}
     100%{background-position:0% 50%}
+}
+
+.preview ~ .preview, .preview ~ .previewGhost, .previewGhost ~ .previewGhost, .previewGhost ~ .preview {
+  margin-top: .5rem;
 }

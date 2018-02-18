@@ -30,6 +30,9 @@ exports.scriptHashToAddress = scriptHashToAddress;
 var param = {
   string: function string(c) {
     return _neonJs.sc.ContractParam.string(c);
+  },
+  array: function array(c) {
+    return _neonJs.sc.ContractParam.array(c);
   }
 };
 exports.param = param;

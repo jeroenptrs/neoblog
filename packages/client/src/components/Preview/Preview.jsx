@@ -34,7 +34,6 @@ class Preview extends Component {
     this.props.store.router.goTo(
       views.articleView,
       {
-        ...this.props.store.router.params,
         fileHash
       },
       this.props.store
@@ -111,7 +110,7 @@ class Preview extends Component {
         key={this.state.fileHash}
         role="link"
         onClick={() => this.goToPage(this.state.fileHash)}
-        tabIndex={-1 * this.props.index}
+        tabIndex={this.props.tabbing}
       >
         {this.renderPreview(this.state.article)}
       </div>

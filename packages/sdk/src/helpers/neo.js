@@ -4,6 +4,12 @@ import Neon, { api, rpc, tx, u, wallet } from "@cityofzion/neon-js";
 const s2h = u.str2hexstring;
 const sb = Neon.create.scriptBuilder;
 
+export const determineKey = key => {
+  if (wallet.isNEP2(key)) return "NEP2";
+  if (wallet.isWIF(key)) return "WIF";
+  return false;
+};
+
 /**
  * Gets the value out of a key from a contract on the NEO Blockchain
  * @param {string} host Host endpoint
@@ -134,13 +140,8 @@ export const executeInvoke = async (
 /* INVOKE SMART CONTRACT FUNCTIONS
 
 import Neon, { sc, u } from "@cityofzion/neon-js";
-import {
-  createInvoke,
-  executeInvoke,
-  testInvoke,
-  param
-} from "./blockchain/contract";
-import { scriptHash, privnetWif, localHost, assets } from "./blockchain/config";
+
+import { assets } from "./../config";
 
 const operation = param.string("testkey");
 const args = param.string("testvalue");
@@ -170,5 +171,4 @@ export default async function main() {
     console.log(invokeResponse);
   }
 }
-
 */

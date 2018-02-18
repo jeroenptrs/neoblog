@@ -3,6 +3,7 @@ import "@babel/polyfill";
 
 // Imports
 import {
+  getBestRPCNode,
   getLatest,
   getLatestPost,
   getArticle,
@@ -10,12 +11,25 @@ import {
   getUserData,
   getAddressFromUserId
 } from "./functions/neo/getters";
+import {
+  processAuthentication,
+  createAccount,
+  generateJwt,
+  decodeJwt
+} from "./functions/neo/account";
 import { scriptHashToAddress } from "./helpers/conversion";
+import { determineKey } from "./helpers/neo";
+import { submitPost } from "./functions/neo/setters";
 
 export default class Neoblog {
-  constructor(host, contract) {
+  constructor(host, contract, account = undefined) {
     this.host = host;
     this.contract = contract;
+
+    if (account) {
+      const decodedAccount = decodeJwt(account);
+      this.account = decodedAccount;
+    } else this.account = undefined;
 
     this.getLatest = this.getLatest.bind(this);
     this.getLatestPost = this.getLatestPost.bind(this);
@@ -23,12 +37,17 @@ export default class Neoblog {
     this.getArticleData = this.getArticleData.bind(this);
     this.getUserData = this.getUserData.bind(this);
     this.getAddressFromUserId = this.getAddressFromUserId.bind(this);
+    this.processAuthentication = this.processAuthentication.bind(this);
   }
 
   executeGetter(getter, param) {
     return param
       ? getter(this.host, this.contract, param)
       : getter(this.host, this.contract);
+  }
+
+  executeSetter(setter, operation, args) {
+    return setter(this.host, this.contract, operation, args);
   }
 
   getLatest(domain) {
@@ -55,5 +74,38 @@ export default class Neoblog {
   getAddressFromUserId(userId) {
     return this.executeGetter(getAddressFromUserId, userId);
   }
+
+  processAuthentication(token, password) {
+    const WIF = processAuthentication(token, password);
+    if (WIF) {
+      const account = createAccount(WIF);
+      const address = account.address;
+      this.account = { WIF, address };
+
+      if (typeof Storage !== "undefined") {
+        const jwt = this.generateJwt(this.account);
+        localStorage.setItem("neoblogAccount", jwt);
+      }
+      return true;
+    }
+
+    return false;
+  }
+
+  // createWallet(password) {
+  //   return createWallet(password);
+  // };
+
+  generateJwt(userObject, secret = "neoblog") {
+    return generateJwt(userObject, secret);
+  }
+
+  submitPost(WIF, postHash, category) {
+    return this.executeSetter(submitPost, "submitPost", [
+      WIF,
+      postHash,
+      category
+    ]);
+  }
 }
-export { scriptHashToAddress };
+export { determineKey, scriptHashToAddress, getBestRPCNode };

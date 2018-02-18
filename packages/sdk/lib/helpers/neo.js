@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.executeInvoke = exports.testInvoke = exports.createInvoke = exports.getBalance = exports.getStorage = void 0;
+exports.executeInvoke = exports.testInvoke = exports.createInvoke = exports.getBalance = exports.getStorage = exports.determineKey = void 0;
 
 var axios = _interopRequireWildcard(require("axios"));
 
@@ -15,12 +15,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var s2h = _neonJs.u.str2hexstring;
 var sb = _neonJs.default.create.scriptBuilder;
+
+var determineKey = function determineKey(key) {
+  if (_neonJs.wallet.isNEP2(key)) return "NEP2";
+  if (_neonJs.wallet.isWIF(key)) return "WIF";
+  return false;
+};
 /**
  * Gets the value out of a key from a contract on the NEO Blockchain
  * @param {string} host Host endpoint
  * @param {string} contract Contract address
  * @param {string} key Key - to - search
  */
+
+
+exports.determineKey = determineKey;
 
 var getStorage =
 /*#__PURE__*/
@@ -263,13 +272,8 @@ function () {
 /* INVOKE SMART CONTRACT FUNCTIONS
 
 import Neon, { sc, u } from "@cityofzion/neon-js";
-import {
-  createInvoke,
-  executeInvoke,
-  testInvoke,
-  param
-} from "./blockchain/contract";
-import { scriptHash, privnetWif, localHost, assets } from "./blockchain/config";
+
+import { assets } from "./../config";
 
 const operation = param.string("testkey");
 const args = param.string("testvalue");
@@ -299,7 +303,6 @@ export default async function main() {
     console.log(invokeResponse);
   }
 }
-
 */
 
 
