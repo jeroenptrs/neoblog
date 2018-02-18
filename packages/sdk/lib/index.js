@@ -145,7 +145,7 @@ function () {
   }, {
     key: "submitPost",
     value: function submitPost(WIF, postHash, category) {
-      return this.executeSetter(_setters.submitPost, 'submitPost', [WIF, postHash, category]);
+      return this.executeSetter(_setters.submitPost, "submitPost", [WIF, postHash, category]);
     }
   }]);
 

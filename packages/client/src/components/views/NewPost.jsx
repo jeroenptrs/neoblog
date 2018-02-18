@@ -23,8 +23,11 @@ class NewPost extends Component {
     //   this.props.store
     // );
 
-    
-    api.submitPost("L3BiBoAuPj4AFbWry6n7wTqzbP28kZPX1RUgDgrrZq2Z6WuFtup7", file.hash, 'categoryXXX');
+    api.submitPost(
+      "L3BiBoAuPj4AFbWry6n7wTqzbP28kZPX1RUgDgrrZq2Z6WuFtup7",
+      file.hash,
+      "categoryXXX"
+    );
 
     /**
      * TODO: handle posting to blockchain!

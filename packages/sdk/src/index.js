@@ -101,7 +101,11 @@ export default class Neoblog {
   }
 
   submitPost(WIF, postHash, category) {
-    return this.executeSetter(submitPost, 'submitPost', [WIF, postHash, category]);
+    return this.executeSetter(submitPost, "submitPost", [
+      WIF,
+      postHash,
+      category
+    ]);
   }
 }
 export { determineKey, scriptHashToAddress, getBestRPCNode };
