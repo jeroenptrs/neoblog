@@ -24,7 +24,7 @@
     "prettier:watch": "onchange 'src/**/*.js*' -- prettier --write {{changed}}",
     "react:build": "react-scripts build",
     "react:eject": "react-scripts eject",
-    "react:start": "react-scripts start",
+    "react:start": "yarn styles:less && react-scripts start",
     "react:test": "react-scripts test --env=jsdom",
     "styles:build": "yarn styles:less && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "styles:less": "lessc ./src/theme/neoblog.less ./node_modules/antd/dist/antd.css",
