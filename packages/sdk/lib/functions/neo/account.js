@@ -3,44 +3,42 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.generateJwt = exports.createWallet = exports.processAuthentication = void 0;
+exports.decodeJwt = exports.generateJwt = exports.createAccount = exports.processAuthentication = void 0;
 
-var _neonJs = require("@cityofzion/neon-js");
+var _neonJs = _interopRequireWildcard(require("@cityofzion/neon-js"));
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
+var _neo = require("./../../helpers/neo");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var processAuthentication = function processAuthentication(key, password) {
-  if (_neonJs.wallet.isNEP2(key)) {
-    return _neonJs.wallet.decrypt(key, password);
-  } else if (_neonJs.wallet.isWIF(key)) {
-    return key;
-  }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-  return false;
+var processAuthentication = function processAuthentication(key, password) {
+  var determination = (0, _neo.determineKey)(key);
+  if (determination === "NEP2") return _neonJs.wallet.decrypt(key, password);
+  if (determination) return key;
+  return determination;
 };
 
 exports.processAuthentication = processAuthentication;
 
-var createWallet = function createWallet(password) {
-  var privateKey = _neonJs.wallet.generatePrivateKey();
-
-  var WIF = new _neonJs.wallet.Account(privateKey).WIF;
-  return {
-    WIF: WIF,
-    NEP2: _neonJs.wallet.encrypt(WIF, password)
-  };
+var createAccount = function createAccount(WIF) {
+  if (_neonJs.wallet.isWIF(WIF)) return _neonJs.default.create.account(WIF);
+  return WIF;
 };
 
-exports.createWallet = createWallet;
+exports.createAccount = createAccount;
 
-var generateJwt = function generateJwt(userObject, secret, expirationTime) {
-  _jsonwebtoken.default.sign({
-    data: userObject
-  }, secret, {
-    expiresIn: expirationTime
-  });
+var generateJwt = function generateJwt(account, secret) {
+  return _jsonwebtoken.default.sign(account, secret);
 };
 
 exports.generateJwt = generateJwt;
+
+var decodeJwt = function decodeJwt(token) {
+  return _jsonwebtoken.default.decode(token);
+};
+
+exports.decodeJwt = decodeJwt;
