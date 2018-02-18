@@ -40,6 +40,12 @@ class App extends Component {
             ) : (
               <NeoLogo />
             )}
+            {menuOpened ? (
+              <React.Fragment>
+                <div className="neoblogArrow" />
+                <div className="neoblogArrowFront" />
+              </React.Fragment>
+            ) : null}
           </a>
         </Header>
         {menuOpened ? <MenuShell /> : null}

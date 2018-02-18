@@ -25,6 +25,20 @@ body {
 .ant-layout-header {
   display: flex;
   justify-content: space-between;
+
+  .identicon {
+    height: 64px;
+    img {
+      margin: 12px 0;
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+    }
+  }
+}
+
+.identicon {
+  img {
+    border-radius: 50%;
+  }
 }
 
 .ant-layout-content {
