@@ -11,14 +11,25 @@ import {
   getUserData,
   getAddressFromUserId
 } from "./functions/neo/getters";
-import { processAuthentication, createWallet, generateJwt } from "./functions/neo/account";
+import {
+  processAuthentication,
+  createAccount,
+  generateJwt,
+  decodeJwt
+} from "./functions/neo/account";
 import { scriptHashToAddress } from "./helpers/conversion";
 import { determineKey } from "./helpers/neo";
 
 export default class Neoblog {
-  constructor(host, contract) {
+  constructor(host, contract, account = undefined) {
     this.host = host;
     this.contract = contract;
+
+    if (account) {
+      const decodedAccount = decodeJwt(account);
+      console.log(decodedAccount);
+      this.account = decodedAccount;
+    } else this.account = undefined;
 
     this.getLatest = this.getLatest.bind(this);
     this.getLatestPost = this.getLatestPost.bind(this);
@@ -26,6 +37,7 @@ export default class Neoblog {
     this.getArticleData = this.getArticleData.bind(this);
     this.getUserData = this.getUserData.bind(this);
     this.getAddressFromUserId = this.getAddressFromUserId.bind(this);
+    this.processAuthentication = this.processAuthentication.bind(this);
   }
 
   executeGetter(getter, param) {
@@ -60,15 +72,29 @@ export default class Neoblog {
   }
 
   processAuthentication(token, password) {
-    return processAuthentication(token, password);
-  };
+    const WIF = processAuthentication(token, password);
+    if (WIF) {
+      const account = createAccount(WIF);
+      const address = account.address;
+      this.account = { WIF, address };
 
-  createWallet(password) {
-    return createWallet(password);
-  };
+      if (typeof Storage !== "undefined") {
+        const jwt = this.generateJwt(this.account);
+        localStorage.setItem("neoblogAccount", jwt);
+      }
 
-  generateJwt(userObject, secret = 'no-so-super-secret', expirationTime = '10000h') {
-    return generateJwt(userObject, secret, expirationTime);
-  };
+      return true;
+    }
+
+    return WIF;
+  }
+
+  // createWallet(password) {
+  //   return createWallet(password);
+  // };
+
+  generateJwt(userObject, secret = "neoblog") {
+    return generateJwt(userObject, secret);
+  }
 }
-export { determineKey, scriptHashToAddress, getBestRPCNode, processAuthentication, createWallet };
+export { determineKey, scriptHashToAddress, getBestRPCNode };

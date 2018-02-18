@@ -1,30 +1,23 @@
-import { wallet } from "@cityofzion/neon-js";
+import Neon, { wallet } from "@cityofzion/neon-js";
 import jwt from "jsonwebtoken";
+import { determineKey } from "./../../helpers/neo";
 
 export const processAuthentication = (key, password) => {
-  if (wallet.isNEP2(key)) {
-    return wallet.decrypt(key, password);
-  } else if (wallet.isWIF(key)) {
-    return key;
-  }
-  return false;
+  const determination = determineKey(key);
+  if (determination === "NEP2") return wallet.decrypt(key, password);
+  if (determination) return key;
+  return determination;
 };
 
-export const createWallet = password => {
-  const privateKey = wallet.generatePrivateKey();
-  const WIF = new wallet.Account(privateKey).WIF;
-  return {
-    WIF: WIF,
-    NEP2: wallet.encrypt(WIF, password)
-  };
+export const createAccount = WIF => {
+  if (wallet.isWIF(WIF)) return Neon.create.account(WIF);
+  return WIF;
 };
 
-export const generateJwt = (userObject, secret, expirationTime) => {
-  jwt.sign(
-    {
-      data: userObject
-    },
-    secret,
-    { expiresIn: expirationTime }
-  );
+export const generateJwt = (account, secret) => {
+  return jwt.sign(account, secret);
+};
+
+export const decodeJwt = token => {
+  return jwt.decode(token);
 };

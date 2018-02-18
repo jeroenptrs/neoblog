@@ -5,10 +5,10 @@ const s2h = u.str2hexstring;
 const sb = Neon.create.scriptBuilder;
 
 export const determineKey = key => {
-  if(wallet.isNEP2(key)) return "NEP2";
-  if(wallet.isWIF(key)) return "WIF";
+  if (wallet.isNEP2(key)) return "NEP2";
+  if (wallet.isWIF(key)) return "WIF";
   return false;
-}
+};
 
 /**
  * Gets the value out of a key from a contract on the NEO Blockchain
