@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { series } from "async";
 
-import views from "./../views/views";
+// import views from "./../views/views";
 
 // Components
 import MarkdownEditor from "./../MarkdownEditor/MarkdownEditor";
@@ -23,11 +23,7 @@ class NewPost extends Component {
     //   this.props.store
     // );
 
-    api.submitPost(
-      "L3BiBoAuPj4AFbWry6n7wTqzbP28kZPX1RUgDgrrZq2Z6WuFtup7",
-      file.hash,
-      "categoryXXX"
-    );
+    api.submitPost(file.hash, "NeObLoG");
 
     /**
      * TODO: handle posting to blockchain!

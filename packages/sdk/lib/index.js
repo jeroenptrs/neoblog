@@ -74,7 +74,7 @@ function () {
   }, {
     key: "executeSetter",
     value: function executeSetter(setter, operation, args) {
-      return setter(this.host, this.contract, operation, args);
+      return setter(this.host, this.contract, this.account, operation, args);
     }
   }, {
     key: "getLatest",
@@ -144,8 +144,8 @@ function () {
     }
   }, {
     key: "submitPost",
-    value: function submitPost(WIF, postHash, category) {
-      return this.executeSetter(_setters.submitPost, "submitPost", [WIF, postHash, category]);
+    value: function submitPost(postHash, category) {
+      return this.executeSetter(_setters.submitPost, "submitPost", [_conversion.param.string(this.account.address), _conversion.param.string(postHash), _conversion.param.string(category)]);
     }
   }]);
 

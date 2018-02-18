@@ -75,6 +75,7 @@ export const testInvoke = async (host, invoke) => {
   // Get local RPC
   const client = await api.neonDB.getRPCEndpoint(host);
 
+  console.log("before appcall");
   // Create SC script
   sb().emitAppCall(
     invoke.scriptHash,
@@ -82,9 +83,13 @@ export const testInvoke = async (host, invoke) => {
     invoke.args,
     false
   );
-
+  console.log("before testinvoke");
   // Execute
-  return await rpc.Query.invokeScript(sb.str).execute(client);
+  rpc.Query.invokeScript(sb.str)
+    .execute(client)
+    .then(data => console.log(data))
+    .catch(e => console.log(e));
+  return null;
 };
 
 /**

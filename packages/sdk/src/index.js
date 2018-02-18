@@ -17,7 +17,7 @@ import {
   generateJwt,
   decodeJwt
 } from "./functions/neo/account";
-import { scriptHashToAddress } from "./helpers/conversion";
+import { scriptHashToAddress, param } from "./helpers/conversion";
 import { determineKey } from "./helpers/neo";
 import { submitPost } from "./functions/neo/setters";
 
@@ -47,7 +47,7 @@ export default class Neoblog {
   }
 
   executeSetter(setter, operation, args) {
-    return setter(this.host, this.contract, operation, args);
+    return setter(this.host, this.contract, this.account, operation, args);
   }
 
   getLatest(domain) {
@@ -100,11 +100,11 @@ export default class Neoblog {
     return generateJwt(userObject, secret);
   }
 
-  submitPost(WIF, postHash, category) {
+  submitPost(postHash, category) {
     return this.executeSetter(submitPost, "submitPost", [
-      WIF,
-      postHash,
-      category
+      param.string(this.account.address),
+      param.string(postHash),
+      param.string(category)
     ]);
   }
 }

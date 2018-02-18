@@ -9,7 +9,7 @@ import views from "./views";
 // Components
 import Preview from "../Preview/Preview";
 
-const PAGE_COUNT = 5;
+const PAGE_COUNT = 2;
 
 class DomainViewer extends Component {
   async componentDidMount() {
@@ -35,7 +35,6 @@ class DomainViewer extends Component {
           )
         : await this.handleFetchLatest(nextDomain);
     states.totalArticles = articleIndex;
-
     if (
       // Different domain
       propsDomain !== nextDomain ||
@@ -78,6 +77,7 @@ class DomainViewer extends Component {
         ? await this.handleFetchLatest(`${domain + (category || domain)}.`)
         : await this.handleFetchLatest(domain);
     states.totalArticles = articleIndex;
+
     const result = this.handleArticleIndex(articleIndex, home ? 1 : page);
     states.articleIndex = result.index;
 

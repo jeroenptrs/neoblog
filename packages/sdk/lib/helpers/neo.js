@@ -186,16 +186,20 @@ function () {
 
           case 2:
             client = _context4.sent;
-            // Create SC script
-            sb().emitAppCall(invoke.scriptHash, invoke.operation.value, invoke.args, false); // Execute
+            console.log("before appcall"); // Create SC script
 
-            _context4.next = 6;
-            return _neonJs.rpc.Query.invokeScript(sb.str).execute(client);
+            sb().emitAppCall(invoke.scriptHash, invoke.operation.value, invoke.args, false);
+            console.log("before testinvoke"); // Execute
 
-          case 6:
-            return _context4.abrupt("return", _context4.sent);
+            _neonJs.rpc.Query.invokeScript(sb.str).execute(client).then(function (data) {
+              return console.log(data);
+            }).catch(function (e) {
+              return console.log(e);
+            });
 
-          case 7:
+            return _context4.abrupt("return", null);
+
+          case 8:
           case "end":
             return _context4.stop();
         }

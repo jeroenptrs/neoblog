@@ -3,7 +3,7 @@ import { observable } from "mobx";
 import { RouterStore } from "mobx-router";
 
 const host = "http://localhost:5000";
-const contract = "ab2bb39fa618f497999806a688c81fcf23ce0275";
+const contract = "d468a80f608973debd813fb5b496304fbea39b6d";
 
 let account;
 if (typeof Storage !== "undefined") {
