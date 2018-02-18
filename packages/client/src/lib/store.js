@@ -28,7 +28,7 @@ const store = {
         postingFinished: false
       },
       menuStates: {
-        signedIn: false,
+        signedIn: account !== null,
         menuOpened: false,
         submitting: false
       }

@@ -10,6 +10,7 @@ import views from "./components/views/views";
 // Components
 import NeoLogo from "./components/icons/NeoLogo";
 import MenuShell from "./components/MenuShell/MenuShell";
+import NeoblogIdenticon from "./components/Identicon/Identicon";
 
 const { Content, Header, Footer } = Layout;
 
@@ -23,7 +24,8 @@ class App extends Component {
 
   render() {
     const { signedIn, menuOpened } = this.props.store.app.states.menuStates;
-
+    const { address } = this.props.store.api.account;
+    console.log(address);
     return (
       <Layout>
         <Header style={{ padding: "0 32px" }}>
@@ -34,7 +36,11 @@ class App extends Component {
             className={signedIn ? "identicon" : "neo-logo"}
             onClick={this.onChange}
           >
-            {signedIn ? "U" : <NeoLogo />}
+            {signedIn ? (
+              <NeoblogIdenticon address={address} size={40} />
+            ) : (
+              <NeoLogo />
+            )}
           </a>
         </Header>
         {menuOpened ? <MenuShell /> : null}
