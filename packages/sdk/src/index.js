@@ -19,6 +19,7 @@ import {
 } from "./functions/neo/account";
 import { scriptHashToAddress } from "./helpers/conversion";
 import { determineKey } from "./helpers/neo";
+import { submitPost } from "./functions/neo/setters";
 
 export default class Neoblog {
   constructor(host, contract, account = undefined) {
@@ -43,6 +44,10 @@ export default class Neoblog {
     return param
       ? getter(this.host, this.contract, param)
       : getter(this.host, this.contract);
+  }
+
+  executeSetter(setter, operation, args) {
+    return setter(this.host, this.contract, operation, args);
   }
 
   getLatest(domain) {
@@ -81,7 +86,6 @@ export default class Neoblog {
         const jwt = this.generateJwt(this.account);
         localStorage.setItem("neoblogAccount", jwt);
       }
-
       return true;
     }
 
@@ -94,6 +98,10 @@ export default class Neoblog {
 
   generateJwt(userObject, secret = "neoblog") {
     return generateJwt(userObject, secret);
+  }
+
+  submitPost(WIF, postHash, category) {
+    return this.executeSetter(submitPost, 'submitPost', [WIF, postHash, category]);
   }
 }
 export { determineKey, scriptHashToAddress, getBestRPCNode };

@@ -272,13 +272,8 @@ function () {
 /* INVOKE SMART CONTRACT FUNCTIONS
 
 import Neon, { sc, u } from "@cityofzion/neon-js";
-import {
-  createInvoke,
-  executeInvoke,
-  testInvoke,
-  param
-} from "./blockchain/contract";
-import { scriptHash, privnetWif, localHost, assets } from "./blockchain/config";
+
+import { assets } from "./../config";
 
 const operation = param.string("testkey");
 const args = param.string("testvalue");
@@ -308,7 +303,6 @@ export default async function main() {
     console.log(invokeResponse);
   }
 }
-
 */
 
 
