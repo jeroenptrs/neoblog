@@ -7,7 +7,8 @@
   max-width: 292px;
   background-color: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25); }
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  z-index: 100; }
   .neoblogMenu .ctaSignIn {
     font-size: 0.75rem;
     margin-bottom: 16px; }
