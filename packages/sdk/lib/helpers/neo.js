@@ -176,7 +176,7 @@ function () {
   var _ref4 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee4(host, invoke) {
-    var client;
+    var client, vmScript;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
@@ -186,12 +186,10 @@ function () {
 
           case 2:
             client = _context4.sent;
-            console.log("before appcall"); // Create SC script
+            // Create SC script
+            vmScript = sb().emitAppCall(invoke.scriptHash, invoke.operation.value, invoke.args, false); // Execute
 
-            sb().emitAppCall(invoke.scriptHash, invoke.operation.value, invoke.args, false);
-            console.log("before testinvoke"); // Execute
-
-            _neonJs.rpc.Query.invokeScript(sb.str).execute(client).then(function (data) {
+            _neonJs.rpc.Query.invokeScript(vmScript.str).execute(client).then(function (data) {
               return console.log(data);
             }).catch(function (e) {
               return console.log(e);
@@ -199,7 +197,7 @@ function () {
 
             return _context4.abrupt("return", null);
 
-          case 8:
+          case 6:
           case "end":
             return _context4.stop();
         }
