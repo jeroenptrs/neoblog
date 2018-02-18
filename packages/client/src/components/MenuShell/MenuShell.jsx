@@ -3,21 +3,27 @@ import { inject, observer } from "mobx-react";
 
 // Components
 import Signin from "./../Signin/Signin";
+import Account from "../Account/Account";
 
 // Styles
 import "./MenuShell.css";
 
 const MenuShell = props => {
   const { signedIn } = props.store.app.states.menuStates;
-  if (signedIn) return <div className="neoblogMenu">U mama boi</div>;
+  if (signedIn)
+    return (
+      <div className="neoblogMenu">
+        <Account />
+      </div>
+    );
   return (
     <div className="neoblogMenu">
       <div className="ctaSignIn">
         <p>Use a WIF or NEP-2 key to sign in.</p>
         <p>
           <strong>
-            This data will only be stored in your local browser storage and will
-            not be shared with anyone.
+            This data is stored locally since our application uses your browser!
+            Never use your WIF online or decrypt your NEP-2 key on a website!
           </strong>
         </p>
       </div>
