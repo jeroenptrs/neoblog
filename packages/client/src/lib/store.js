@@ -13,9 +13,8 @@ const store = {
       fileHash: undefined
     },
     currentArticle: undefined,
+    signInType: undefined,
     states: {
-      menuOpened: false,
-      signedIn: false,
       totalArticles: undefined,
       articleIndex: undefined,
       currentPage: undefined,
@@ -23,6 +22,11 @@ const store = {
       ipfsStates: {
         postingData: false,
         postingFinished: false
+      },
+      menuStates: {
+        signedIn: false,
+        menuOpened: true, // set to false
+        submitting: false
       }
     },
     user: {

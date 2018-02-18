@@ -12,15 +12,13 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var processAuthentication = function processAuthentication(key, password) {
-  return new Promise(function (resolve, reject) {
-    if (_neonJs.wallet.isNEP2(key)) {
-      resolve(_neonJs.wallet.decrypt(key, password));
-    } else if (_neonJs.wallet.isWIF(key)) {
-      resolve(key);
-    } else {
-      reject('No valid NEP-2 or WIF entered.');
-    }
-  });
+  if (_neonJs.wallet.isNEP2(key)) {
+    return _neonJs.wallet.decrypt(key, password);
+  } else if (_neonJs.wallet.isWIF(key)) {
+    return key;
+  }
+
+  return false;
 };
 
 exports.processAuthentication = processAuthentication;

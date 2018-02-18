@@ -17,12 +17,12 @@ startRouter(views, store);
 
 class App extends Component {
   onChange = () => {
-    const { states } = this.props.store.app;
-    states.menuOpened = !states.menuOpened;
+    const { menuStates } = this.props.store.app.states;
+    menuStates.menuOpened = !menuStates.menuOpened;
   };
 
   render() {
-    const { signedIn, menuOpened } = this.props.store.app.states;
+    const { signedIn, menuOpened } = this.props.store.app.states.menuStates;
 
     return (
       <Layout>
@@ -36,8 +36,8 @@ class App extends Component {
           >
             {signedIn ? "U" : <NeoLogo />}
           </a>
-          {menuOpened ? <MenuShell /> : null}
         </Header>
+        {menuOpened ? <MenuShell /> : null}
         <Layout style={{ backgroundColor: "transparent" }}>
           <Content>
             <MobxRouter />
