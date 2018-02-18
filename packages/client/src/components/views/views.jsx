@@ -21,7 +21,9 @@ const views = {
   }),
   newPost: new Route({
     path: "/newPost",
-    component: <NewPost />
+    component: <NewPost />,
+    beforeEnter: (route, params, propStore) =>
+      propStore.app.states.menuStates.signedIn
   }),
   articleView: new Route({
     path: "/article/:fileHash",
