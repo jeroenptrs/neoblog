@@ -24,8 +24,7 @@ class App extends Component {
 
   render() {
     const { signedIn, menuOpened } = this.props.store.app.states.menuStates;
-    const { address } = this.props.store.api.account;
-    console.log(address);
+    const { account } = this.props.store.api;
     return (
       <Layout>
         <Header style={{ padding: "0 32px" }}>
@@ -37,7 +36,7 @@ class App extends Component {
             onClick={this.onChange}
           >
             {signedIn ? (
-              <NeoblogIdenticon address={address} size={40} />
+              <NeoblogIdenticon address={account.address} size={40} />
             ) : (
               <NeoLogo />
             )}
