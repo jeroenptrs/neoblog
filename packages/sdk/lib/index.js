@@ -45,6 +45,8 @@ var _conversion = require("./helpers/conversion");
 
 var _neo = require("./helpers/neo");
 
+var _setters = require("./functions/neo/setters");
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -71,6 +73,11 @@ function () {
     key: "executeGetter",
     value: function executeGetter(getter, param) {
       return param ? getter(this.host, this.contract, param) : getter(this.host, this.contract);
+    }
+  }, {
+    key: "executeSetter",
+    value: function executeSetter(setter, operation, args) {
+      return setter(this.host, this.contract, operation, args);
     }
   }, {
     key: "getLatest",
@@ -122,6 +129,11 @@ function () {
       var secret = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'no-so-super-secret';
       var expirationTime = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '10000h';
       return (0, _account.generateJwt)(userObject, secret, expirationTime);
+    }
+  }, {
+    key: "submitPost",
+    value: function submitPost(WIF, postHash, category) {
+      return this.executeSetter(_setters.submitPost, 'submitPost', [WIF, postHash, category]);
     }
   }]);
 

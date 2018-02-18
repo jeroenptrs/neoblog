@@ -14,6 +14,7 @@ import {
 import { processAuthentication, createWallet, generateJwt } from "./functions/neo/account";
 import { scriptHashToAddress } from "./helpers/conversion";
 import { determineKey } from "./helpers/neo";
+import { submitPost } from "./functions/neo/setters";
 
 export default class Neoblog {
   constructor(host, contract) {
@@ -32,6 +33,10 @@ export default class Neoblog {
     return param
       ? getter(this.host, this.contract, param)
       : getter(this.host, this.contract);
+  }
+
+  executeSetter(setter, operation, args) {
+    return setter(this.host, this.contract, operation, args);
   }
 
   getLatest(domain) {
@@ -70,5 +75,9 @@ export default class Neoblog {
   generateJwt(userObject, secret = 'no-so-super-secret', expirationTime = '10000h') {
     return generateJwt(userObject, secret, expirationTime);
   };
+
+  submitPost(WIF, postHash, category){
+    return this.executeSetter(submitPost, 'submitPost', [WIF, postHash, category]);
+  }
 }
 export { determineKey, scriptHashToAddress, getBestRPCNode, processAuthentication, createWallet };
