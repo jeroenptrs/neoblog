@@ -27,7 +27,6 @@ export default class Neoblog {
 
     if (account) {
       const decodedAccount = decodeJwt(account);
-      console.log(decodedAccount);
       this.account = decodedAccount;
     } else this.account = undefined;
 
@@ -86,7 +85,7 @@ export default class Neoblog {
       return true;
     }
 
-    return WIF;
+    return false;
   }
 
   // createWallet(password) {

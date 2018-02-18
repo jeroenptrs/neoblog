@@ -52,7 +52,6 @@ function () {
 
     if (account) {
       var decodedAccount = (0, _account.decodeJwt)(account);
-      console.log(decodedAccount);
       this.account = decodedAccount;
     } else this.account = undefined;
 
@@ -125,7 +124,7 @@ function () {
         return true;
       }
 
-      return WIF;
+      return false;
     } // createWallet(password) {
     //   return createWallet(password);
     // };

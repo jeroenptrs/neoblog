@@ -42,7 +42,13 @@ class SignIn extends React.Component {
         user: { authentication }
       } = this.props.store.app;
 
-      api.processAuthentication(authentication.key, authentication.passPhrase);
+      if (
+        api.processAuthentication(authentication.key, authentication.passPhrase)
+      ) {
+        menuStates.signedIn = true;
+        menuStates.menuOpened = false;
+      }
+
       menuStates.submitting = false;
     } catch (error) {
       /**

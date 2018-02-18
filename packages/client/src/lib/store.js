@@ -29,7 +29,7 @@ const store = {
       },
       menuStates: {
         signedIn: false,
-        menuOpened: true, // set to false
+        menuOpened: false,
         submitting: false
       }
     },
