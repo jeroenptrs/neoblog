@@ -84,11 +84,7 @@ export const testInvoke = async (host, invoke) => {
   );
 
   // Execute
-  rpc.Query.invokeScript(vmScript.str)
-    .execute(client)
-    .then(data => console.log(data))
-    .catch(e => console.log(e));
-  return null;
+  return await rpc.Query.invokeScript(vmScript.str).execute(client);
 };
 
 /**
@@ -110,22 +106,19 @@ export const executeInvoke = async (
   const client = await api.neonDB.getRPCEndpoint(host);
 
   // Create SC script
-  sb().emitAppCall(
+  const script = sb().emitAppCall(
     invoke.scriptHash,
     invoke.operation.value,
     invoke.args,
     false
   );
 
-  // toString()
-  const script = sb.str;
-
   // Create TX
-  const balances = await getBalance(account.address);
+  const balances = await getBalance(host, account.address);
   const unsignedTx = tx.Transaction.createInvocationTx(
     balances,
     intents,
-    script,
+    script.str,
     gasCost,
     { version: 1 }
   );

@@ -29,11 +29,12 @@ def Main(operation, args):
   user = args[0]
   result = GetCallingScriptHash()
 
+  """
   authorized = CheckWitness(user)
   if not authorized:
     print("Not authorized")
     return False
-
+  """
   if operation != None:
     # Requires: user, postHash, category
     if operation == 'submitPost' and len(args) == 3:

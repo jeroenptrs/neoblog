@@ -22,7 +22,7 @@ class MarkdownEditor extends Component {
   };
 
   render() {
-    const { handlePost, newPost } = this.props;
+    const { handlePost, newPost, submitting } = this.props;
     const fullArticle = `# ${newPost.postTitle}\n\n${newPost.postMarkdown}`;
     return (
       <React.Fragment>
@@ -38,7 +38,12 @@ class MarkdownEditor extends Component {
             />
           </div>
           <div className="options">
-            <Button type="primary" onClick={() => handlePost(fullArticle)}>
+            <Button
+              loading={submitting}
+              disabled={submitting}
+              type="primary"
+              onClick={() => handlePost(fullArticle)}
+            >
               Post Article
             </Button>
           </div>

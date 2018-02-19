@@ -118,9 +118,11 @@ function () {
       if (WIF) {
         var account = (0, _account.createAccount)(WIF);
         var address = account.address;
+        var privateKey = account.privateKey;
         this.account = {
           WIF: WIF,
-          address: address
+          address: address,
+          privateKey: privateKey
         };
 
         if (typeof Storage !== "undefined") {

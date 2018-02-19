@@ -80,7 +80,8 @@ export default class Neoblog {
     if (WIF) {
       const account = createAccount(WIF);
       const address = account.address;
-      this.account = { WIF, address };
+      const privateKey = account.privateKey;
+      this.account = { WIF, address, privateKey };
 
       if (typeof Storage !== "undefined") {
         const jwt = this.generateJwt(this.account);

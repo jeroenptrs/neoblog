@@ -9,10 +9,16 @@ import { series } from "async";
 import MarkdownEditor from "./../MarkdownEditor/MarkdownEditor";
 
 class NewPost extends Component {
-  handleFileHash = file => {
-    const { newPost } = this.props.store.app;
-    const { api } = this.props.store;
+  handleFileHash = async file => {
+    const { api, app: { newPost, states: { menuStates } } } = this.props.store;
     newPost.fileHash = file.hash;
+
+    await api.submitPost(file.hash, "NeObLoG");
+    menuStates.submitting = false;
+    /**
+     * TODO: handle posting to blockchain!
+     */
+    console.log(newPost.fileHash);
 
     // this.props.store.router.goTo(
     //   views.articleView,
@@ -22,15 +28,11 @@ class NewPost extends Component {
     //   },
     //   this.props.store
     // );
-
-    api.submitPost(file.hash, "NeObLoG");
-
-    /**
-     * TODO: handle posting to blockchain!
-     */
   };
 
   handlePost = async article => {
+    const { menuStates } = this.props.store.app.states;
+    menuStates.submitting = true;
     /**
      * TODO: State management in between various stages of IPFS communication
      */
@@ -69,10 +71,12 @@ class NewPost extends Component {
   };
 
   render() {
+    const { submitting } = this.props.store.app.states.menuStates;
     return (
       <MarkdownEditor
         handlePost={this.handlePost}
         newPost={this.props.store.app.newPost}
+        submitting={submitting}
       />
     );
   }

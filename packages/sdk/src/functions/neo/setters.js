@@ -3,7 +3,7 @@
  */
 import Neon, { sc, rpc, u } from "@cityofzion/neon-js";
 import { assets } from "./../../config";
-import { createInvoke, testInvoke } from "./../../helpers/neo";
+import { createInvoke, testInvoke, executeInvoke } from "./../../helpers/neo";
 import { param } from "./../../helpers/conversion";
 
 export const submitPost = async (host, contract, account, operation, args) => {
@@ -19,8 +19,17 @@ export const submitPost = async (host, contract, account, operation, args) => {
     }
   ];
 
-  console.log("setters");
   const testResponse = await testInvoke(host, invoke);
+  if (testResponse.result.gas_consumed < 10) {
+    const postArticle = await executeInvoke(
+      host,
+      account,
+      invoke,
+      gasCost,
+      intents
+    );
+    console.log(postArticle);
+  }
 
   /*
   const props: Neon.scriptParams = {
