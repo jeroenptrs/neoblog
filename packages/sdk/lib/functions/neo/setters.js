@@ -23,39 +23,37 @@ function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(host, contract, account, operation, args) {
-    var formattedOperation, formattedArgs, invoke, gasCost, intents, testResponse, postArticle;
+    var invoke, gasCost, intents, testResponse, postArticle;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            formattedOperation = _conversion.param.string(operation);
-            formattedArgs = _conversion.param.array(args);
-            invoke = (0, _neo.createInvoke)(contract, formattedOperation, formattedArgs);
+            invoke = (0, _neo.createInvoke)(contract, operation, args);
             gasCost = 0;
             intents = [{
               assetId: _config.assets.GAS,
               value: 0.00000001,
               scriptHash: _neonJs.default.get.scriptHashFromAddress(account.address)
             }];
-            _context.next = 7;
+            _context.next = 5;
             return (0, _neo.testInvoke)(host, invoke);
 
-          case 7:
+          case 5:
             testResponse = _context.sent;
 
             if (!(testResponse.result.gas_consumed < 10)) {
-              _context.next = 13;
+              _context.next = 11;
               break;
             }
 
-            _context.next = 11;
+            _context.next = 9;
             return (0, _neo.executeInvoke)(host, account, invoke, gasCost, intents);
 
-          case 11:
+          case 9:
             postArticle = _context.sent;
             console.log(postArticle);
 
-          case 13:
+          case 11:
           case "end":
             return _context.stop();
         }

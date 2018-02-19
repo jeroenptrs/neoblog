@@ -9,7 +9,7 @@ import views from "./views";
 // Components
 import Preview from "../Preview/Preview";
 
-const PAGE_COUNT = 2;
+const PAGE_COUNT = 5;
 
 class DomainViewer extends Component {
   async componentDidMount() {
@@ -106,7 +106,10 @@ class DomainViewer extends Component {
   handleArticleIndex = (articleIndex, unformattedPage) => {
     let page = parseInt(unformattedPage, 10);
     const TOTAL_PAGES =
-      Math.floor(articleIndex / PAGE_COUNT) + articleIndex % PAGE_COUNT;
+      Math.floor(articleIndex / PAGE_COUNT) +
+      (articleIndex % PAGE_COUNT > 0 ? 1 : 0);
+
+    console.log(TOTAL_PAGES);
 
     if (page < TOTAL_PAGES && page > 0) {
       const RESULT =

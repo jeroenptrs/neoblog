@@ -13,7 +13,7 @@ class NewPost extends Component {
     const { api, app: { newPost, states: { menuStates } } } = this.props.store;
     newPost.fileHash = file.hash;
 
-    await api.submitPost(file.hash, "NeObLoG");
+    await api.submitPost(file.hash, "testcategory");
     menuStates.submitting = false;
     /**
      * TODO: handle posting to blockchain!

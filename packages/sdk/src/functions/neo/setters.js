@@ -7,9 +7,7 @@ import { createInvoke, testInvoke, executeInvoke } from "./../../helpers/neo";
 import { param } from "./../../helpers/conversion";
 
 export const submitPost = async (host, contract, account, operation, args) => {
-  const formattedOperation = param.string(operation);
-  const formattedArgs = param.array(args);
-  const invoke = createInvoke(contract, formattedOperation, formattedArgs);
+  const invoke = createInvoke(contract, operation, args);
   const gasCost = 0;
   const intents = [
     {

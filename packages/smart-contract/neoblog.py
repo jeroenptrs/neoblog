@@ -26,7 +26,15 @@ def Main(operation, args):
     :param type: str
 
   """
+  print(operation)
+  test = len(args)
+  print(test)
   user = args[0]
+  print(user)
+  test = args[1]
+  print(test)
+  test = args[2]
+  print(test)
   result = GetCallingScriptHash()
 
   """

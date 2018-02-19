@@ -78,7 +78,7 @@ export const testInvoke = async (host, invoke) => {
   // Create SC script
   let vmScript = sb().emitAppCall(
     invoke.scriptHash,
-    invoke.operation.value,
+    invoke.operation,
     invoke.args,
     false
   );
@@ -108,10 +108,12 @@ export const executeInvoke = async (
   // Create SC script
   const script = sb().emitAppCall(
     invoke.scriptHash,
-    invoke.operation.value,
+    invoke.operation,
     invoke.args,
     false
   );
+
+  console.log(script);
 
   // Create TX
   const balances = await getBalance(host, account.address);
