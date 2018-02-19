@@ -1,9 +1,12 @@
 from boa.blockchain.vm.Neo.Runtime import CheckWitness
 from boa.blockchain.vm.System.ExecutionEngine import GetCallingScriptHash
-from boa.code.builtins import hash160
+from boa.blockchain.vm.Neo.Storage import Get, GetContext, Put
+from boa.code.builtins import concat, hash160
+
 from neoblog.submitPost import submitPost
 from neoblog.manageUser import manageUser
 from neoblog.addToCategory import addPostToCategory
+
 
 """
 ==========================
