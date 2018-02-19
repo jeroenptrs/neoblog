@@ -55,10 +55,6 @@ def submitPost(args):
   postDataDomain = concat("post.data.", postHash)
   Put(GetContext, postDataDomain, to_save)
 
-  # TEMP
-  Put(GetContext, 'dateTest', to_save)
-  # TEMP
-
 
   """
     Adding to user domain
