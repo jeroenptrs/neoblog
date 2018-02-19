@@ -2,6 +2,7 @@
 import "@babel/polyfill";
 
 // Imports
+import { wallet, u } from "@cityofzion/neon-js";
 import {
   getBestRPCNode,
   getLatest,
@@ -102,8 +103,11 @@ export default class Neoblog {
   }
 
   submitPost(postHash, category) {
+    const formattedAccount = u.reverseHex(
+      wallet.getScriptHashFromAddress(this.account.address)
+    );
     return this.executeSetter(submitPost, "submitPost", [
-      param.string(this.account.address),
+      param.string(formattedAccount),
       param.string(postHash),
       param.string(category)
     ]);

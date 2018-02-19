@@ -139,6 +139,7 @@ class DomainViewer extends Component {
   handleFetchLatest = async domain => {
     const { api } = this.props.store;
     const postIndex = await api.getLatest(domain);
+    console.log("lastest =", postIndex);
     return postIndex;
   };
 

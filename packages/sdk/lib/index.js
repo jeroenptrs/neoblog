@@ -25,6 +25,8 @@ exports.default = void 0;
 
 require("@babel/polyfill");
 
+var _neonJs = require("@cityofzion/neon-js");
+
 var _getters = require("./functions/neo/getters");
 
 var _account = require("./functions/neo/account");
@@ -147,7 +149,9 @@ function () {
   }, {
     key: "submitPost",
     value: function submitPost(postHash, category) {
-      return this.executeSetter(_setters.submitPost, "submitPost", [_conversion.param.string(this.account.address), _conversion.param.string(postHash), _conversion.param.string(category)]);
+      var formattedAccount = _neonJs.u.reverseHex(_neonJs.wallet.getScriptHashFromAddress(this.account.address));
+
+      return this.executeSetter(_setters.submitPost, "submitPost", [_conversion.param.string(formattedAccount), _conversion.param.string(postHash), _conversion.param.string(category)]);
     }
   }]);
 

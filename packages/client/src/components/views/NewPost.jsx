@@ -13,7 +13,7 @@ class NewPost extends Component {
     const { api, app: { newPost, states: { menuStates } } } = this.props.store;
     newPost.fileHash = file.hash;
 
-    await api.submitPost(file.hash, "testcategory");
+    await api.submitPost(file.hash, newPost.category);
     menuStates.submitting = false;
     /**
      * TODO: handle posting to blockchain!
@@ -71,12 +71,13 @@ class NewPost extends Component {
   };
 
   render() {
-    const { submitting } = this.props.store.app.states.menuStates;
+    const { submitting, disabled } = this.props.store.app.states.menuStates;
     return (
       <MarkdownEditor
         handlePost={this.handlePost}
         newPost={this.props.store.app.newPost}
         submitting={submitting}
+        disabled={disabled}
       />
     );
   }
