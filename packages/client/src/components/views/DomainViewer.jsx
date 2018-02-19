@@ -35,33 +35,36 @@ class DomainViewer extends Component {
           )
         : await this.handleFetchLatest(nextDomain);
     states.totalArticles = articleIndex;
-    if (
-      // Different domain
-      propsDomain !== nextDomain ||
-      // Same domain, different page
-      (propsDomain === nextDomain &&
-        (propsHome !== nextHome || propsPage !== nextPage))
-    ) {
-      states.fetchingArticles = true;
 
-      const result = this.handleArticleIndex(
-        articleIndex,
-        nextHome ? 1 : nextPage
-      );
-      states.articleIndex = result.index;
+    if (articleIndex > 0) {
+      if (
+        // Different domain
+        propsDomain !== nextDomain ||
+        // Same domain, different page
+        (propsDomain === nextDomain &&
+          (propsHome !== nextHome || propsPage !== nextPage))
+      ) {
+        states.fetchingArticles = true;
 
-      if (result.moveTo) {
-        const newPath = window.location.href.replace(
-          window.location.href.substr(window.location.href.indexOf("/page")),
-          `/page/${result.moveTo}`
+        const result = this.handleArticleIndex(
+          articleIndex,
+          nextHome ? 1 : nextPage
         );
-        window.history.replaceState(window.history.state, "Neoblog", newPath);
-        states.currentPage = result.moveTo;
-      } else {
-        states.currentPage = nextHome ? 1 : parseInt(nextPage, 10);
-      }
+        states.articleIndex = result.index;
 
-      states.fetchingArticles = false;
+        if (result.moveTo) {
+          const newPath = window.location.href.replace(
+            window.location.href.substr(window.location.href.indexOf("/page")),
+            `/page/${result.moveTo}`
+          );
+          window.history.replaceState(window.history.state, "Neoblog", newPath);
+          states.currentPage = result.moveTo;
+        } else {
+          states.currentPage = nextHome ? 1 : parseInt(nextPage, 10);
+        }
+
+        states.fetchingArticles = false;
+      }
     }
   }
 
@@ -80,7 +83,6 @@ class DomainViewer extends Component {
 
     const result = this.handleArticleIndex(articleIndex, home ? 1 : page);
     states.articleIndex = result.index;
-
     if (result.moveTo) {
       const newPath = window.location.href.replace(
         window.location.href.substr(window.location.href.indexOf("/page")),
@@ -109,7 +111,9 @@ class DomainViewer extends Component {
       Math.floor(articleIndex / PAGE_COUNT) +
       (articleIndex % PAGE_COUNT > 0 ? 1 : 0);
 
-    console.log(TOTAL_PAGES);
+    if (articleIndex === 0) {
+      return { index: 0 };
+    }
 
     if (page < TOTAL_PAGES && page > 0) {
       const RESULT =
@@ -137,10 +141,15 @@ class DomainViewer extends Component {
   };
 
   handleFetchLatest = async domain => {
-    const { api } = this.props.store;
-    const postIndex = await api.getLatest(domain);
-    console.log("lastest =", postIndex);
-    return postIndex;
+    try {
+      const { api } = this.props.store;
+      console.log(api.contract);
+      const postIndex = await api.getLatest(domain);
+      console.log("lastest =", postIndex);
+      return postIndex;
+    } catch (e) {
+      return 0;
+    }
   };
 
   handlePagination = async page => {
@@ -189,7 +198,7 @@ class DomainViewer extends Component {
       currentPage
     } = this.props.store.app.states;
 
-    return fetchingArticles || !articleIndex ? (
+    return fetchingArticles || (articleIndex !== 0 && !articleIndex) ? (
       <div className="text-overview">Loading articles...</div>
     ) : (
       <React.Fragment>

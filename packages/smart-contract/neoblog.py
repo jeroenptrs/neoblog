@@ -26,8 +26,10 @@ def Main(operation, args):
     :param type: str
 
   """
+
   user = args[0]
   authorized = CheckWitness(user)
+
   if not authorized:
     print("Not authorized")
     return False

@@ -3,7 +3,7 @@ import { observable } from "mobx";
 import { RouterStore } from "mobx-router";
 
 const host = "http://localhost:5000";
-const contract = "bc1546ae0b06cac336c7335c049f4a59849c3621";
+const contract = "b18f46aaf8beb6f24b1fe1cb9bbe73cf795e0c24";
 
 let account;
 if (typeof Storage !== "undefined") {
@@ -45,7 +45,6 @@ const store = {
   }),
   api: new Neoblog(host, contract, account),
   ipfsEndpoint: "https://ipfs.io/ipfs/",
-  mockPost: "QmQK9ucWGFjbo2hnJGK2C7nTJY5jF4QXnm131p2gq2u7sK",
   router: new RouterStore()
 };
 
