@@ -48,6 +48,13 @@ const views = {
     beforeEnter: () => {
       store.app.states.fetchingArticles = true;
     }
+  }),
+  userPage: new Route({
+    path: "/user/:user/page/:page",
+    component: <DomainViewer domain="iser." />,
+    beforeEnter: () => {
+      store.app.states.fetchingArticles = true;
+    }
   })
 };
 
