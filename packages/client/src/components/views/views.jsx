@@ -29,7 +29,10 @@ const views = {
     path: "/article/:fileHash",
     component: <ArticleView />,
     beforeEnter: () => {
-      store.app.currentArticle = undefined;
+      store.app.states.fetchingArticles = true;
+      store.app.states.fetchingArticleInfo = true;
+      store.app.currentArticle.content = undefined;
+      store.app.currentArticle.info = undefined;
     }
   }),
   postPage: new Route({

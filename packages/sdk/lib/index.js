@@ -9,10 +9,28 @@ Object.defineProperty(exports, "getBestRPCNode", {
     return _getters.getBestRPCNode;
   }
 });
+Object.defineProperty(exports, "deserialize", {
+  enumerable: true,
+  get: function get() {
+    return _conversion.deserialize;
+  }
+});
 Object.defineProperty(exports, "scriptHashToAddress", {
   enumerable: true,
   get: function get() {
     return _conversion.scriptHashToAddress;
+  }
+});
+Object.defineProperty(exports, "unhex", {
+  enumerable: true,
+  get: function get() {
+    return _conversion.unhex;
+  }
+});
+Object.defineProperty(exports, "hexToTimestamp", {
+  enumerable: true,
+  get: function get() {
+    return _conversion.hexToTimestamp;
   }
 });
 Object.defineProperty(exports, "determineKey", {

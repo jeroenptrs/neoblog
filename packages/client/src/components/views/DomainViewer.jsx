@@ -72,8 +72,10 @@ class DomainViewer extends Component {
     const { domain, home, store } = this.props;
     const {
       app: { states },
-      router: { params: { page, category, user } }
+      router: { params: { page, category: cat, user } }
     } = store;
+
+    const category = cat.replace(/%20| /g, " ");
 
     const articleIndex =
       category || user

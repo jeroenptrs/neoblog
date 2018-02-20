@@ -19,7 +19,13 @@ import {
   generateJwt,
   decodeJwt
 } from "./functions/neo/account";
-import { scriptHashToAddress, param } from "./helpers/conversion";
+import {
+  deserialize,
+  scriptHashToAddress,
+  unhex,
+  hexToTimestamp,
+  param
+} from "./helpers/conversion";
 import { determineKey } from "./helpers/neo";
 import { submitPost } from "./functions/neo/setters";
 
@@ -115,4 +121,11 @@ export default class Neoblog {
     ]);
   }
 }
-export { determineKey, scriptHashToAddress, getBestRPCNode };
+export {
+  determineKey,
+  scriptHashToAddress,
+  unhex,
+  deserialize,
+  hexToTimestamp,
+  getBestRPCNode
+};
