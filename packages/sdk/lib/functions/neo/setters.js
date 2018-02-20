@@ -42,7 +42,7 @@ function () {
             testResponse = _context.sent;
 
             if (!(testResponse.result.gas_consumed < 10)) {
-              _context.next = 11;
+              _context.next = 10;
               break;
             }
 
@@ -51,9 +51,8 @@ function () {
 
           case 9:
             postArticle = _context.sent;
-            console.log(postArticle);
 
-          case 11:
+          case 10:
           case "end":
             return _context.stop();
         }
@@ -64,30 +63,6 @@ function () {
   return function submitPost(_x, _x2, _x3, _x4, _x5) {
     return _ref.apply(this, arguments);
   };
-}(); // export default async function main() {
-//   // Actual invoke params
-//   const account = Neon.create.account(privnetWif);
-//   const invoke = createInvoke(operation, args);
-//   const gasCost = 0;
-//   const intents = [
-//     {
-//       assetId: assets.GAS,
-//       value: 0.00000001,
-//       scriptHash: Neon.get.scriptHashFromAddress(account.address)
-//     }
-//   ];
-//   // Test invoke
-//   const testResponse = await testInvoke(invoke);
-//   if (testResponse.result.gas_consumed < 10) {
-//     const invokeResponse = await executeInvoke(
-//       account,
-//       invoke,
-//       gasCost,
-//       intents
-//     );
-//     console.log(invokeResponse);
-//   }
-// }
-
+}();
 
 exports.submitPost = submitPost;

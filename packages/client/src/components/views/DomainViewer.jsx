@@ -144,7 +144,6 @@ class DomainViewer extends Component {
     try {
       const { api } = this.props.store;
       const postIndex = await api.getLatest(domain);
-      console.log("lastest =", postIndex);
       return postIndex;
     } catch (e) {
       return 0;

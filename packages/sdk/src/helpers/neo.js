@@ -76,7 +76,7 @@ export const testInvoke = async (host, invoke) => {
   const client = await api.neonDB.getRPCEndpoint(host);
 
   // Create SC script
-  let vmScript = sb().emitAppCall(
+  const vmScript = sb().emitAppCall(
     invoke.scriptHash,
     invoke.operation,
     invoke.args,
@@ -113,8 +113,6 @@ export const executeInvoke = async (
     false
   );
 
-  console.log(script);
-
   // Create TX
   const balances = await getBalance(host, account.address);
   const unsignedTx = tx.Transaction.createInvocationTx(
@@ -135,39 +133,3 @@ export const executeInvoke = async (
     id: 1
   });
 };
-
-/* INVOKE SMART CONTRACT FUNCTIONS
-
-import Neon, { sc, u } from "@cityofzion/neon-js";
-
-import { assets } from "./../config";
-
-const operation = param.string("testkey");
-const args = param.string("testvalue");
-
-export default async function main() {
-  // Actual invoke params
-  const account = Neon.create.account(privnetWif);
-  const invoke = createInvoke(operation, args);
-  const gasCost = 0;
-  const intents = [
-    {
-      assetId: assets.GAS,
-      value: 0.00000001,
-      scriptHash: Neon.get.scriptHashFromAddress(account.address)
-    }
-  ];
-
-  // Test invoke
-  const testResponse = await testInvoke(invoke);
-  if (testResponse.result.gas_consumed < 10) {
-    const invokeResponse = await executeInvoke(
-      account,
-      invoke,
-      gasCost,
-      intents
-    );
-    console.log(invokeResponse);
-  }
-}
-*/

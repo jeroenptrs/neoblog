@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { series } from "async";
 
-// import views from "./../views/views";
+import views from "./../views/views";
 
 // Components
 import MarkdownEditor from "./../MarkdownEditor/MarkdownEditor";
@@ -15,27 +15,20 @@ class NewPost extends Component {
 
     await api.submitPost(file.hash, newPost.category);
     menuStates.submitting = false;
-    /**
-     * TODO: handle posting to blockchain!
-     */
-    console.log(newPost.fileHash);
 
-    // this.props.store.router.goTo(
-    //   views.articleView,
-    //   {
-    //     ...this.props.store.router.params,
-    //     fileHash: newPost.fileHash
-    //   },
-    //   this.props.store
-    // );
+    this.props.store.router.goTo(
+      views.articleView,
+      {
+        ...this.props.store.router.params,
+        fileHash: newPost.fileHash
+      },
+      this.props.store
+    );
   };
 
   handlePost = async article => {
     const { menuStates } = this.props.store.app.states;
     menuStates.submitting = true;
-    /**
-     * TODO: State management in between various stages of IPFS communication
-     */
     if (article) {
       const node = new window.Ipfs();
 
