@@ -4,7 +4,7 @@ from boa.code.builtins import concat, hash160
 
 from neoblog.submitPost import submitPost
 from neoblog.manageUser import manageUser
-from neoblog.addToCategory import addPostToCategory
+# from neoblog.addToCategory import addPostToCategory
 
 
 """
@@ -39,8 +39,8 @@ def Main(operation, args):
       submitPost(args)
 
     # Requires: user, postHash, category - optionally more categories
-    if operation == 'addPostToCategory' and len(args) >= 3:
-      addPostToCategory(args)
+    # if operation == 'addPostToCategory' and len(args) >= 3:
+      # addPostToCategory(args)
     
     # Requires: user, userName
     if operation == 'manageUser' and len(args) == 2:

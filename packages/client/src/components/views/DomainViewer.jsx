@@ -75,7 +75,7 @@ class DomainViewer extends Component {
       router: { params: { page, category: cat, user } }
     } = store;
 
-    const category = cat.replace(/%20| /g, " ");
+    const category = cat ? cat.replace(/%20| /g, " ") : undefined;
 
     const articleIndex =
       category || user
