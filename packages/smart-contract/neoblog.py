@@ -1,5 +1,4 @@
-from boa.blockchain.vm.Neo.Runtime import CheckWitness
-from boa.blockchain.vm.System.ExecutionEngine import GetCallingScriptHash
+from boa.blockchain.vm.Neo.Runtime import CheckWitness, Notify
 from boa.blockchain.vm.Neo.Storage import Get, GetContext, Put
 from boa.code.builtins import concat, hash160
 
@@ -31,7 +30,7 @@ def Main(operation, args):
   authorized = CheckWitness(user)
 
   if not authorized:
-    print("Not authorized")
+    Notify("Not authorized")
     return False
 
   if operation != None:

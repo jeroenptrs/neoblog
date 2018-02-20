@@ -4,7 +4,7 @@ import { RouterStore } from "mobx-router";
 
 const host = "http://localhost:5000";
 // const contract = "080fee1b2e03a8c00fbf40e1f8e69eed4c3a0e1f"; /* No CW */
-const contract = "b18f46aaf8beb6f24b1fe1cb9bbe73cf795e0c24"; /* Check witness */
+const contract = "2b736dccd46e4455a4a5f22e2615ec458da23ae0"; /* Check witness */
 
 let account;
 if (typeof Storage !== "undefined") {
