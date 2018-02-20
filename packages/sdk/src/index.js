@@ -2,6 +2,8 @@
 import "@babel/polyfill";
 
 // Imports
+import { wallet, u } from "@cityofzion/neon-js";
+import { unhexlify } from "binascii";
 import {
   getBestRPCNode,
   getLatest,
@@ -17,7 +19,7 @@ import {
   generateJwt,
   decodeJwt
 } from "./functions/neo/account";
-import { scriptHashToAddress } from "./helpers/conversion";
+import { scriptHashToAddress, param } from "./helpers/conversion";
 import { determineKey } from "./helpers/neo";
 import { submitPost } from "./functions/neo/setters";
 
@@ -47,7 +49,7 @@ export default class Neoblog {
   }
 
   executeSetter(setter, operation, args) {
-    return setter(this.host, this.contract, operation, args);
+    return setter(this.host, this.contract, this.account, operation, args);
   }
 
   getLatest(domain) {
@@ -80,7 +82,8 @@ export default class Neoblog {
     if (WIF) {
       const account = createAccount(WIF);
       const address = account.address;
-      this.account = { WIF, address };
+      const privateKey = account.privateKey;
+      this.account = { WIF, address, privateKey };
 
       if (typeof Storage !== "undefined") {
         const jwt = this.generateJwt(this.account);
@@ -100,11 +103,15 @@ export default class Neoblog {
     return generateJwt(userObject, secret);
   }
 
-  submitPost(WIF, postHash, category) {
+  submitPost(postHash, category) {
+    const address = unhexlify(
+      u.reverseHex(wallet.getScriptHashFromAddress(this.account.address))
+    );
+
     return this.executeSetter(submitPost, "submitPost", [
-      WIF,
-      postHash,
-      category
+      param.string(address),
+      param.string(postHash),
+      param.string(category)
     ]);
   }
 }

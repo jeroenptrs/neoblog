@@ -29,7 +29,8 @@
     "react:test": "react-scripts test --env=jsdom",
     "styles:build": "yarn styles:less && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "styles:less": "lessc ./src/theme/neoblog.less ./node_modules/antd/dist/antd.css",
-    "styles:start": "yarn styles:build && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
+    "styles:start": "yarn styles:build && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "watch:all": "run-p styles:start prettier:watch react:start"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -45,10 +46,8 @@
     "ipfs": "^0.27.7",
     "less": "^2.7.3",
     "node-sass-chokidar": "^0.0.3",
-    "nodemon": "^1.14.12",
     "npm-run-all": "^4.1.2",
     "onchange": "^3.3.0",
-    "prettier": "^1.10.2",
-    "surge": "^0.19.0"
+    "prettier": "^1.10.2"
   }
 }

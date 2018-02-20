@@ -3,33 +3,49 @@
 }
 
 .markdownEditor {
+  input {
+    height: 64px;
+    line-height: 64px;
+    max-height: 64px;
+    width: 100%;
+    max-width: 100%;
+
+    padding: 0;
+    outline: none;
+    border: none;
+
+    background: transparent;
+    font-size: 18px;
+    color: #5c5c5c;
+  }
   .title {
     width: 50%;
     max-width: 50%;
     padding: 0 32px;
     
-    input {
-      height: 64px;
-      line-height: 64px;
-      max-height: 64px;
-      width: 100%;
-      max-width: 100%;
-
-      padding: 0;
-      outline: none;
-      border: none;
-
-      background: transparent;
-      font-size: 18px;
-      color: #5c5c5c;
-    }
   }
 
   .options {
     width: 50%;
     max-width: 50%;
     padding: 0 32px;
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+
+    .submit, .category {
+      display: inline-block;
+    }
+
+    .category {
+      span {
+        margin-right: 16px;
+        color: rgba(0, 0, 0, 0.84);
+      }
+
+      input {
+        width: auto;
+      }
+    }
   }
 
   .input {

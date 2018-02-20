@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf lib && ./node_modules/.bin/babel src -d lib",
-    "start": "node dist",
+    "watch:all": "run-p prettier:watch build:watch",
     "prettier:watch": "onchange 'src/**/*.js' -- prettier --write {{changed}}",
     "build:watch": "onchange 'src/**/*.js' -- yarn build"
   },
@@ -25,6 +25,7 @@
     "@babel/core": "^7.0.0-beta.38",
     "@babel/polyfill": "^7.0.0-beta.38",
     "@babel/preset-env": "^7.0.0-beta.38",
+    "npm-run-all": "^4.1.2",
     "onchange": "^3.3.0",
     "prettier": "^1.10.2"
   }

@@ -1,9 +1,11 @@
-from boa.blockchain.vm.Neo.Runtime import CheckWitness
-from boa.blockchain.vm.System.ExecutionEngine import GetCallingScriptHash
-from boa.code.builtins import hash160
+from boa.blockchain.vm.Neo.Runtime import CheckWitness, Notify
+from boa.blockchain.vm.Neo.Storage import Get, GetContext, Put
+from boa.code.builtins import concat, hash160
+
 from neoblog.submitPost import submitPost
 from neoblog.manageUser import manageUser
 from neoblog.addToCategory import addPostToCategory
+
 
 """
 ==========================
@@ -23,12 +25,12 @@ def Main(operation, args):
     :param type: str
 
   """
-  user = args[0]
-  result = GetCallingScriptHash()
 
+  user = args[0]
   authorized = CheckWitness(user)
+
   if not authorized:
-    print("Not authorized")
+    Notify("Not authorized")
     return False
 
   if operation != None:

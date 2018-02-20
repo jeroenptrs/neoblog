@@ -176,7 +176,7 @@ function () {
   var _ref4 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee4(host, invoke) {
-    var client;
+    var client, vmScript;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
@@ -187,10 +187,10 @@ function () {
           case 2:
             client = _context4.sent;
             // Create SC script
-            sb().emitAppCall(invoke.scriptHash, invoke.operation.value, invoke.args, false); // Execute
+            vmScript = sb().emitAppCall(invoke.scriptHash, invoke.operation, invoke.args, false); // Execute
 
             _context4.next = 6;
-            return _neonJs.rpc.Query.invokeScript(sb.str).execute(client);
+            return _neonJs.rpc.Query.invokeScript(vmScript.str).execute(client);
 
           case 6:
             return _context4.abrupt("return", _context4.sent);
@@ -236,16 +236,14 @@ function () {
           case 2:
             client = _context5.sent;
             // Create SC script
-            sb().emitAppCall(invoke.scriptHash, invoke.operation.value, invoke.args, false); // toString()
+            script = sb().emitAppCall(invoke.scriptHash, invoke.operation, invoke.args, false); // Create TX
 
-            script = sb.str; // Create TX
+            _context5.next = 6;
+            return getBalance(host, account.address);
 
-            _context5.next = 7;
-            return getBalance(account.address);
-
-          case 7:
+          case 6:
             balances = _context5.sent;
-            unsignedTx = _neonJs.tx.Transaction.createInvocationTx(balances, intents, script, gasCost, {
+            unsignedTx = _neonJs.tx.Transaction.createInvocationTx(balances, intents, script.str, gasCost, {
               version: 1
             }); // Sign TX
 
@@ -257,7 +255,7 @@ function () {
               id: 1
             }));
 
-          case 11:
+          case 10:
           case "end":
             return _context5.stop();
         }
@@ -269,41 +267,5 @@ function () {
     return _ref5.apply(this, arguments);
   };
 }();
-/* INVOKE SMART CONTRACT FUNCTIONS
-
-import Neon, { sc, u } from "@cityofzion/neon-js";
-
-import { assets } from "./../config";
-
-const operation = param.string("testkey");
-const args = param.string("testvalue");
-
-export default async function main() {
-  // Actual invoke params
-  const account = Neon.create.account(privnetWif);
-  const invoke = createInvoke(operation, args);
-  const gasCost = 0;
-  const intents = [
-    {
-      assetId: assets.GAS,
-      value: 0.00000001,
-      scriptHash: Neon.get.scriptHashFromAddress(account.address)
-    }
-  ];
-
-  // Test invoke
-  const testResponse = await testInvoke(invoke);
-  if (testResponse.result.gas_consumed < 10) {
-    const invokeResponse = await executeInvoke(
-      account,
-      invoke,
-      gasCost,
-      intents
-    );
-    console.log(invokeResponse);
-  }
-}
-*/
-
 
 exports.executeInvoke = executeInvoke;

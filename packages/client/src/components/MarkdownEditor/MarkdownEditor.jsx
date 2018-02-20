@@ -21,8 +21,13 @@ class MarkdownEditor extends Component {
     newPost.postTitle = event.target.value;
   };
 
+  handleCategory = event => {
+    const { newPost } = this.props;
+    newPost.category = event.target.value;
+  };
+
   render() {
-    const { handlePost, newPost } = this.props;
+    const { handlePost, newPost, submitting, disabled } = this.props;
     const fullArticle = `# ${newPost.postTitle}\n\n${newPost.postMarkdown}`;
     return (
       <React.Fragment>
@@ -38,9 +43,26 @@ class MarkdownEditor extends Component {
             />
           </div>
           <div className="options">
-            <Button type="primary" onClick={() => handlePost(fullArticle)}>
-              Post Article
-            </Button>
+            <div className="category">
+              <span>Category:</span>
+              <input
+                type="text"
+                placeholder="Enter a category here"
+                value={newPost.category}
+                onChange={this.handleCategory}
+                tabIndex={3}
+              />
+            </div>
+            <div className="submit">
+              <Button
+                loading={submitting}
+                disabled={submitting || disabled}
+                type="primary"
+                onClick={() => handlePost(fullArticle)}
+              >
+                Post Article
+              </Button>
+            </div>
           </div>
         </Header>
         <Row className="markdownEditor">

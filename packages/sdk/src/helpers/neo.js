@@ -76,15 +76,15 @@ export const testInvoke = async (host, invoke) => {
   const client = await api.neonDB.getRPCEndpoint(host);
 
   // Create SC script
-  sb().emitAppCall(
+  const vmScript = sb().emitAppCall(
     invoke.scriptHash,
-    invoke.operation.value,
+    invoke.operation,
     invoke.args,
     false
   );
 
   // Execute
-  return await rpc.Query.invokeScript(sb.str).execute(client);
+  return await rpc.Query.invokeScript(vmScript.str).execute(client);
 };
 
 /**
@@ -106,22 +106,19 @@ export const executeInvoke = async (
   const client = await api.neonDB.getRPCEndpoint(host);
 
   // Create SC script
-  sb().emitAppCall(
+  const script = sb().emitAppCall(
     invoke.scriptHash,
-    invoke.operation.value,
+    invoke.operation,
     invoke.args,
     false
   );
 
-  // toString()
-  const script = sb.str;
-
   // Create TX
-  const balances = await getBalance(account.address);
+  const balances = await getBalance(host, account.address);
   const unsignedTx = tx.Transaction.createInvocationTx(
     balances,
     intents,
-    script,
+    script.str,
     gasCost,
     { version: 1 }
   );
@@ -136,39 +133,3 @@ export const executeInvoke = async (
     id: 1
   });
 };
-
-/* INVOKE SMART CONTRACT FUNCTIONS
-
-import Neon, { sc, u } from "@cityofzion/neon-js";
-
-import { assets } from "./../config";
-
-const operation = param.string("testkey");
-const args = param.string("testvalue");
-
-export default async function main() {
-  // Actual invoke params
-  const account = Neon.create.account(privnetWif);
-  const invoke = createInvoke(operation, args);
-  const gasCost = 0;
-  const intents = [
-    {
-      assetId: assets.GAS,
-      value: 0.00000001,
-      scriptHash: Neon.get.scriptHashFromAddress(account.address)
-    }
-  ];
-
-  // Test invoke
-  const testResponse = await testInvoke(invoke);
-  if (testResponse.result.gas_consumed < 10) {
-    const invokeResponse = await executeInvoke(
-      account,
-      invoke,
-      gasCost,
-      intents
-    );
-    console.log(invokeResponse);
-  }
-}
-*/

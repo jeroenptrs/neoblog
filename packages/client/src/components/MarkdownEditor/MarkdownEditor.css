@@ -1,28 +1,37 @@
 .ant-layout-header.markdownEditor {
   box-shadow: 0 2px 2px 0 rgba(92, 92, 92, 0.1); }
 
+.markdownEditor input {
+  height: 64px;
+  line-height: 64px;
+  max-height: 64px;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  outline: none;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  color: #5c5c5c; }
+
 .markdownEditor .title {
   width: 50%;
   max-width: 50%;
   padding: 0 32px; }
-  .markdownEditor .title input {
-    height: 64px;
-    line-height: 64px;
-    max-height: 64px;
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    outline: none;
-    border: none;
-    background: transparent;
-    font-size: 18px;
-    color: #5c5c5c; }
 
 .markdownEditor .options {
   width: 50%;
   max-width: 50%;
   padding: 0 32px;
-  text-align: right; }
+  display: flex;
+  justify-content: space-between; }
+  .markdownEditor .options .submit, .markdownEditor .options .category {
+    display: inline-block; }
+  .markdownEditor .options .category span {
+    margin-right: 16px;
+    color: rgba(0, 0, 0, 0.84); }
+  .markdownEditor .options .category input {
+    width: auto; }
 
 .markdownEditor .input {
   height: calc(100vh - 128px);

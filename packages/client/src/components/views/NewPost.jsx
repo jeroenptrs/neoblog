@@ -9,35 +9,26 @@ import views from "./../views/views";
 import MarkdownEditor from "./../MarkdownEditor/MarkdownEditor";
 
 class NewPost extends Component {
-  handleFileHash = file => {
-    const { newPost } = this.props.store.app;
-    const { api } = this.props.store;
+  handleFileHash = async file => {
+    const { api, app: { newPost, states: { menuStates } } } = this.props.store;
     newPost.fileHash = file.hash;
 
-    // this.props.store.router.goTo(
-    //   views.articleView,
-    //   {
-    //     ...this.props.store.router.params,
-    //     fileHash: newPost.fileHash
-    //   },
-    //   this.props.store
-    // );
+    await api.submitPost(file.hash, newPost.category);
+    menuStates.submitting = false;
 
-    api.submitPost(
-      "L3BiBoAuPj4AFbWry6n7wTqzbP28kZPX1RUgDgrrZq2Z6WuFtup7",
-      file.hash,
-      "categoryXXX"
+    this.props.store.router.goTo(
+      views.articleView,
+      {
+        ...this.props.store.router.params,
+        fileHash: newPost.fileHash
+      },
+      this.props.store
     );
-
-    /**
-     * TODO: handle posting to blockchain!
-     */
   };
 
   handlePost = async article => {
-    /**
-     * TODO: State management in between various stages of IPFS communication
-     */
+    const { menuStates } = this.props.store.app.states;
+    menuStates.submitting = true;
     if (article) {
       const node = new window.Ipfs();
 
@@ -73,10 +64,13 @@ class NewPost extends Component {
   };
 
   render() {
+    const { submitting, disabled } = this.props.store.app.states.menuStates;
     return (
       <MarkdownEditor
         handlePost={this.handlePost}
         newPost={this.props.store.app.newPost}
+        submitting={submitting}
+        disabled={disabled}
       />
     );
   }
