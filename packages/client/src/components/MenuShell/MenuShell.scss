@@ -18,6 +18,17 @@
     font-size: 0.75rem;
     margin-bottom: 16px;
   }
+
+  .ant-input-disabled {
+    cursor: default !important; // Override default cursor 'not-allowed'
+    color:black;
+    background-color:white !important; // Override darker background when disabled
+  }
+
+  .ant-input {
+    background-color: #f5f5f5;
+    color:black !important; // Override change to a lighter gray font color
+  }
 }
 
 .neoblogArrow {

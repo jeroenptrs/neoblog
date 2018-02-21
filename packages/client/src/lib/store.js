@@ -37,6 +37,7 @@ const store = {
       }
     },
     user: {
+      name: undefined,
       authentication: {
         key: undefined,
         passPhrase: undefined,
