@@ -55,6 +55,7 @@ const views = {
     component: <DomainViewer domain="user." />,
     beforeEnter: () => {
       store.app.states.fetchingArticles = true;
+      store.app.currentArticle.userName = undefined;
     }
   })
 };
