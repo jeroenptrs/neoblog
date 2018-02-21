@@ -15,6 +15,11 @@ class Account extends Component {
     };
   }
 
+  componentDidMount() {
+    const { api, app: { user } } = this.props.store;
+    user.name = api.getAccount().userName;
+  }
+
   handleSignOut = () => {
     const { api } = this.props.store;
     api.account = null;
