@@ -1,0 +1,102 @@
+@import url(./fonts/stylesheet.css);
+@import url("https://rsms.me/inter/inter-ui.css");
+@import url(~antd/dist/antd.css);
+html {
+  box-sizing: border-box;
+  height: 100%;
+  font-smooth: antialiased;
+  text-rendering: optimizeLegibility; }
+  html {
+    font-size: 18px; }
+    @media screen and (min-width: 400px) {
+      html {
+        font-size: calc(18px + 3 * ((100vw - 400px) / 364)); } }
+    @media screen and (min-width: 764px) {
+      html {
+        font-size: 21px; } }
+
+body {
+  padding: 0;
+  font-size: inherit !important; }
+
+.ant-layout-header {
+  display: flex;
+  justify-content: space-between; }
+  .ant-layout-header .identicon {
+    height: 64px; }
+    .ant-layout-header .identicon img {
+      margin: 12px 0;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05); }
+
+.identicon img {
+  border-radius: 50%; }
+
+.ant-layout-content {
+  padding: 0; }
+
+.ant-layout-footer {
+  text-align: center; }
+
+.text-overview {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 0; }
+  .text-overview h1 {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 1.5rem; }
+  .text-overview .userDetails .identicon {
+    height: 64px;
+    float: left;
+    display: inline-block;
+    margin-right: 32px; }
+    .text-overview .userDetails .identicon img {
+      border-radius: 50%;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05); }
+  .text-overview .userDetails div {
+    display: inline-block;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.84);
+    height: 64px;
+    line-height: 64px; }
+
+.text-overview ~ .text-overview {
+  padding-top: 0; }
+
+.text-pagination {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 1rem 0; }
+
+.neoblog-logo {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 24px;
+  color: #5c5c5c;
+  text-decoration: none; }
+  .neoblog-logo .green {
+    color: #8bc34a; }
+  .neoblog-logo:hover, .neoblog-logo:active, .neoblog-logo:visited, .neoblog-logo:focus {
+    color: #5c5c5c;
+    text-decoration: none; }
+
+.neo-logo {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  padding: 4px 4px 6px;
+  margin-top: 12px;
+  border: 1px solid #5c5c5c;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .15s ease-in-out; }
+  .neo-logo svg {
+    height: 24px;
+    line-height: 64px;
+    fill: #5c5c5c;
+    transition: fill .15s ease-in-out; }
+  .neo-logo:hover {
+    border-color: #8bc34a; }
+    .neo-logo:hover svg {
+      fill: #8bc34a; }

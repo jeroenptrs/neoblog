@@ -1,0 +1,47 @@
+.neoblogMenu {
+  position: absolute;
+  top: 68px;
+  right: 10px;
+  padding: 16px;
+  max-height: 400px;
+  max-width: 264px;
+  min-width: 264px;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  z-index: 100; }
+  .neoblogMenu .ctaSignIn {
+    font-size: 0.75rem;
+    margin-bottom: 16px; }
+  .neoblogMenu .ant-input-disabled {
+    cursor: default !important;
+    color: black;
+    background-color: white !important; }
+  .neoblogMenu .ant-input {
+    background-color: #f5f5f5;
+    color: black !important; }
+
+.neoblogArrow {
+  border-color: transparent;
+  border-bottom-color: #ccc;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  border-style: dashed dashed solid;
+  border-width: 0 10px 10px;
+  position: absolute;
+  right: 42px;
+  top: 58px;
+  z-index: 999;
+  width: 0;
+  height: 0; }
+
+.neoblogArrowFront {
+  border-color: transparent;
+  border-bottom-color: #fff;
+  border-style: dashed dashed solid;
+  border-width: 0 10px 10px;
+  position: absolute;
+  right: 42px;
+  top: 59px;
+  z-index: 999;
+  width: 0;
+  height: 0; }

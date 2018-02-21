@@ -2,3 +2,8 @@ node_modules/
 dist/
 .idea/
 packages/server/node_modules/
+packages/smart-contract/neoblog.avm
+packages/smart-contract/neoblog/__pycache__
+packages/smart-contract/neoblog/lib/__pycache__
+
+*.lock
