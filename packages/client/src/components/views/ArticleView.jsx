@@ -33,17 +33,19 @@ class ArticleView extends Component {
     await series([
       cb => node.once("ready", cb),
       cb =>
-        node.version(err => {
+        node.version((err, version) => {
           if (err) {
+            console.log("error at version!");
             return cb(err);
           }
-          // console.log(`Version ${version.version}`);
+          console.log(`Version ${version.version}`);
           cb();
           return true;
         }),
       cb =>
         node.files.cat(fileHash, (err, data) => {
           if (err) {
+            console.log("error at cat");
             return cb(err);
           }
           const { app } = this.props.store;
