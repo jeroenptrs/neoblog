@@ -18,7 +18,7 @@ export const determineKey = key => {
  */
 export const getStorage = async (host, contract, key) => {
   // Get local RPC
-  const client = "http://seed4.neo.org:20332"; //await api.neonDB.getRPCEndpoint(host);
+  const client = await api.neonDB.getRPCEndpoint(host);
 
   const query = Neon.create.query({
     method: "getstorage",

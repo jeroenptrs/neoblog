@@ -42,9 +42,11 @@ function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            // Get local RPC
-            client = "http://seed4.neo.org:20332"; //await api.neonDB.getRPCEndpoint(host);
+            _context2.next = 2;
+            return _neonJs.api.neonDB.getRPCEndpoint(host);
 
+          case 2:
+            client = _context2.sent;
             query = _neonJs.default.create.query({
               method: "getstorage",
               params: [contract, key]
@@ -82,7 +84,7 @@ function () {
               };
             }()));
 
-          case 3:
+          case 5:
           case "end":
             return _context2.stop();
         }
