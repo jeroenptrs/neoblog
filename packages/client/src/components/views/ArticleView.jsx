@@ -15,8 +15,11 @@ import {
 } from "@neoblog/sdk";
 
 // Components
+import { Link } from "mobx-router";
 import Article from "./../Article/Article";
 import NeoblogIdenticon from "./../Identicon/Identicon";
+
+import views from "./views";
 
 class ArticleView extends Component {
   async componentWillMount() {
@@ -30,11 +33,11 @@ class ArticleView extends Component {
     await series([
       cb => node.once("ready", cb),
       cb =>
-        node.version((err, version) => {
+        node.version(err => {
           if (err) {
             return cb(err);
           }
-          console.log(`Version ${version.version}`);
+          // console.log(`Version ${version.version}`);
           cb();
           return true;
         }),
@@ -66,7 +69,7 @@ class ArticleView extends Component {
   renderContent = content => {
     const { fetchingArticles } = this.props.store.app.states;
     return fetchingArticles ? (
-      <div className="text-content">Loading...</div>
+      <div>Loading...</div>
     ) : (
       <Article source={content} />
     );
@@ -75,15 +78,33 @@ class ArticleView extends Component {
   renderInfo = info => {
     const { fetchingArticleInfo } = this.props.store.app.states;
     return fetchingArticleInfo ? (
-      <div className="text-content">Loading info...</div>
+      <div>Loading info...</div>
     ) : (
-      <div className="text-content" style={{ textAlign: "right" }}>
-        <div>
-          <span style={{ paddingRight: "16px" }}>{info[0]}</span>
-          <NeoblogIdenticon address={info[0]} />
+      <div className="article">
+        <div className="identicon">
+          <NeoblogIdenticon address={info[0]} size={64} />
         </div>
-        <div>
-          <span style={{ paddingRight: "16px" }}>{info[1]}</span>
+        <div className="info">
+          <Link
+            view={views.userPage}
+            params={{
+              user: info[0],
+              page: 1
+            }}
+            store={this.props.store}
+          >
+            {info[0]}
+          </Link>
+          <Link
+            view={views.categoryPage}
+            params={{
+              category: info[1],
+              page: 1
+            }}
+            store={this.props.store}
+          >
+            {info[1]}
+          </Link>
           <span>{info[2]}</span>
         </div>
       </div>
@@ -95,10 +116,10 @@ class ArticleView extends Component {
     const { content, info } = app.currentArticle;
 
     return (
-      <React.Fragment>
+      <div className="text-content">
         {this.renderInfo(info)}
         {this.renderContent(content)}
-      </React.Fragment>
+      </div>
     );
   }
 }

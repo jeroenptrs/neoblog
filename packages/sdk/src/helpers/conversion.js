@@ -1,6 +1,6 @@
 // Module imports
 import base58 from "bs58";
-import { u, sc } from "@cityofzion/neon-js";
+import { u, sc, wallet } from "@cityofzion/neon-js";
 import { unhexlify } from "binascii";
 import * as moment from "moment";
 const { hash256 } = u;
@@ -76,6 +76,13 @@ export const scriptHashToAddress = scriptHash => {
     Buffer.from(ADDR_VERSION + scriptHash + shaChecksum, "hex")
   );
 };
+
+/**
+ * Converts an address to scripthash, that's unhexlified for RPC invocation
+ * @param {string} address
+ */
+export const addressToScriptHash = address =>
+  unhexlify(u.reverseHex(wallet.getScriptHashFromAddress(address)));
 
 /**
  * Extends unhexlify

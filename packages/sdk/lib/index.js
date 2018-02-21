@@ -21,6 +21,12 @@ Object.defineProperty(exports, "scriptHashToAddress", {
     return _conversion.scriptHashToAddress;
   }
 });
+Object.defineProperty(exports, "addressToScriptHash", {
+  enumerable: true,
+  get: function get() {
+    return _conversion.addressToScriptHash;
+  }
+});
 Object.defineProperty(exports, "unhex", {
   enumerable: true,
   get: function get() {
@@ -42,10 +48,6 @@ Object.defineProperty(exports, "determineKey", {
 exports.default = void 0;
 
 require("@babel/polyfill");
-
-var _neonJs = require("@cityofzion/neon-js");
-
-var _binascii = require("binascii");
 
 var _getters = require("./functions/neo/getters");
 
@@ -156,10 +158,7 @@ function () {
       }
 
       return false;
-    } // createWallet(password) {
-    //   return createWallet(password);
-    // };
-
+    }
   }, {
     key: "generateJwt",
     value: function generateJwt(userObject) {
@@ -169,7 +168,7 @@ function () {
   }, {
     key: "submitPost",
     value: function submitPost(postHash, category) {
-      var address = (0, _binascii.unhexlify)(_neonJs.u.reverseHex(_neonJs.wallet.getScriptHashFromAddress(this.account.address)));
+      var address = (0, _conversion.addressToScriptHash)(this.account.address);
       return this.executeSetter(_setters.submitPost, "submitPost", [_conversion.param.string(address), _conversion.param.string(postHash), _conversion.param.string(category)]);
     }
   }]);

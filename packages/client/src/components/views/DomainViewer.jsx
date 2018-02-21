@@ -1,7 +1,7 @@
 // Imports
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-// import { scriptHashToAddress } from "@neoblog/sdk";
+import { addressToScriptHash } from "@neoblog/sdk";
 import { Pagination } from "antd";
 
 import views from "./views";
@@ -23,17 +23,16 @@ class DomainViewer extends Component {
     const { domain: nextDomain, home: nextHome, store: nextStore } = nextProps;
     const {
       app: { states },
-      router: {
-        params: { page: nextPage, category: nextCategory, user: nextUser }
-      }
+      router: { params: { page: nextPage, category: nextCat, user: nextUsr } }
     } = nextStore;
 
-    const articleIndex =
-      nextCategory || nextUser
-        ? await this.handleFetchLatest(
-            `${nextDomain + (nextCategory || nextUser)}.`
-          )
-        : await this.handleFetchLatest(nextDomain);
+    const nextCategory = nextCat ? nextCat.replace(/%20| /g, " ") : undefined;
+    const nextUser = nextUsr ? addressToScriptHash(nextUsr) : undefined;
+    const articleQuery =
+      nextDomain +
+      (nextCategory || nextUser ? `${nextCategory || nextUser}.` : "");
+
+    const articleIndex = await this.handleFetchLatest(articleQuery);
     states.totalArticles = articleIndex;
 
     if (articleIndex > 0) {
@@ -72,15 +71,15 @@ class DomainViewer extends Component {
     const { domain, home, store } = this.props;
     const {
       app: { states },
-      router: { params: { page, category: cat, user } }
+      router: { params: { page, category: cat, user: usr } }
     } = store;
 
     const category = cat ? cat.replace(/%20| /g, " ") : undefined;
+    const user = usr ? addressToScriptHash(usr) : undefined;
+    const articleQuery =
+      domain + (category || user ? `${category || user}.` : "");
 
-    const articleIndex =
-      category || user
-        ? await this.handleFetchLatest(`${domain + (category || domain)}.`)
-        : await this.handleFetchLatest(domain);
+    const articleIndex = await this.handleFetchLatest(articleQuery);
     states.totalArticles = articleIndex;
 
     const result = this.handleArticleIndex(articleIndex, home ? 1 : page);

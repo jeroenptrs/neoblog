@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.param = exports.hexToTimestamp = exports.unhex = exports.scriptHashToAddress = exports.deserialize = void 0;
+exports.param = exports.hexToTimestamp = exports.unhex = exports.addressToScriptHash = exports.scriptHashToAddress = exports.deserialize = void 0;
 
 var _bs = _interopRequireDefault(require("bs58"));
 
@@ -86,12 +86,23 @@ var scriptHashToAddress = function scriptHashToAddress(scriptHash) {
   return _bs.default.encode(Buffer.from(_config.ADDR_VERSION + scriptHash + shaChecksum, "hex"));
 };
 /**
+ * Converts an address to scripthash, that's unhexlified for RPC invocation
+ * @param {string} address
+ */
+
+
+exports.scriptHashToAddress = scriptHashToAddress;
+
+var addressToScriptHash = function addressToScriptHash(address) {
+  return (0, _binascii.unhexlify)(_neonJs.u.reverseHex(_neonJs.wallet.getScriptHashFromAddress(address)));
+};
+/**
  * Extends unhexlify
  * @param {hexstring} param
  */
 
 
-exports.scriptHashToAddress = scriptHashToAddress;
+exports.addressToScriptHash = addressToScriptHash;
 
 var unhex = function unhex(param) {
   return (0, _binascii.unhexlify)(param);
