@@ -43,7 +43,7 @@ def Main(operation, args):
       # addPostToCategory(args)
     
     # Requires: user, userName
-    if operation == 'manageUser' and len(args) == 2:
+    if operation == 'manageUser' and len(args) == 3:
       manageUser(args)
 
   return False

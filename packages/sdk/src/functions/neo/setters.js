@@ -6,7 +6,13 @@ import { assets } from "./../../config";
 import { createInvoke, testInvoke, executeInvoke } from "./../../helpers/neo";
 import { param } from "./../../helpers/conversion";
 
-export const submitPost = async (host, contract, account, operation, args) => {
+export const handleInvoke = async (
+  host,
+  contract,
+  account,
+  operation,
+  args
+) => {
   const invoke = createInvoke(contract, operation, args);
   const gasCost = 0;
   const intents = [
@@ -19,12 +25,6 @@ export const submitPost = async (host, contract, account, operation, args) => {
 
   const testResponse = await testInvoke(host, invoke);
   if (testResponse.result.gas_consumed < 10) {
-    const postArticle = await executeInvoke(
-      host,
-      account,
-      invoke,
-      gasCost,
-      intents
-    );
+    const result = await executeInvoke(host, account, invoke, gasCost, intents);
   }
 };

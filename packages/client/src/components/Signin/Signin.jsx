@@ -34,19 +34,23 @@ class SignIn extends React.Component {
     }, 100);
   };
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     try {
-      const { api } = this.props.store;
+      const { api, app: { user } } = this.props.store;
       const {
         states: { menuStates },
         user: { authentication }
       } = this.props.store.app;
 
       if (
-        api.processAuthentication(authentication.key, authentication.passPhrase)
+        await api.processAuthentication(
+          authentication.key,
+          authentication.passPhrase
+        )
       ) {
         menuStates.signedIn = true;
         menuStates.menuOpened = false;
+        user.name = api.getAccount().userName;
       }
 
       menuStates.submitting = false;

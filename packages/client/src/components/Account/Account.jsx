@@ -11,7 +11,7 @@ class Account extends Component {
     this.state = {
       disabled: true,
       icon: "lock",
-      userName: this.props.store.app.user.name
+      prevUsername: undefined
     };
   }
 
@@ -36,18 +36,22 @@ class Account extends Component {
   };
 
   handleUsername = e => {
-    this.setState({ userName: e.target.value });
+    const { user } = this.props.store.app;
+    user.name = e.target.value;
   };
 
   handleUpdatedState = () => {
-    const { user } = this.props.store.app;
-    console.log(this.state);
+    const { api, app: { user } } = this.props.store;
+
     if (this.state.disabled) {
       this.setState({ icon: "lock" });
-      user.name = this.state.userName;
-      console.log(this.props);
+      if (user.name !== this.state.prevUsername)
+        api.updateUsername(user.name, this.state.prevUsername);
     } else {
-      this.setState({ icon: "unlock" });
+      this.setState({
+        icon: "unlock",
+        prevUsername: user.name
+      });
     }
   };
 
@@ -60,7 +64,7 @@ class Account extends Component {
           placeholder="Set a username"
           onPressEnter={this.toggleManageAccount}
           onChange={this.handleUsername}
-          value={this.state.userName}
+          value={this.props.store.app.user.name}
         />
         <Button
           style={{ width: "15%", marginBottom: "16px", marginLeft: "10px" }}

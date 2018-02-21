@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.submitPost = void 0;
+exports.handleInvoke = void 0;
 
 var _neonJs = _interopRequireWildcard(require("@cityofzion/neon-js"));
 
@@ -17,13 +17,13 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
 
-var submitPost =
+var handleInvoke =
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(host, contract, account, operation, args) {
-    var invoke, gasCost, intents, testResponse, postArticle;
+    var invoke, gasCost, intents, testResponse, result;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -50,7 +50,7 @@ function () {
             return (0, _neo.executeInvoke)(host, account, invoke, gasCost, intents);
 
           case 9:
-            postArticle = _context.sent;
+            result = _context.sent;
 
           case 10:
           case "end":
@@ -60,9 +60,9 @@ function () {
     }, _callee, this);
   }));
 
-  return function submitPost(_x, _x2, _x3, _x4, _x5) {
+  return function handleInvoke(_x, _x2, _x3, _x4, _x5) {
     return _ref.apply(this, arguments);
   };
 }();
 
-exports.submitPost = submitPost;
+exports.handleInvoke = handleInvoke;

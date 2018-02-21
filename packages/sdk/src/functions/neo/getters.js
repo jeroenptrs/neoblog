@@ -1,5 +1,6 @@
 // Imports
 import { u } from "@cityofzion/neon-js";
+import { unhexlify } from "binascii";
 import { getStorage } from "./../../helpers/neo";
 
 const { str2hexstring: s2h, int2hex: i2h, hexstring2str: h2s } = u;
@@ -23,10 +24,15 @@ export const getArticle = async (host, contract, data) => {
 export const getArticleData = async (host, contract, article) =>
   await getStorage(host, contract, s2h("post.data." + article));
 
-export const getUserData = async (host, contract, user) =>
-  await getStorage(host, contract, s2h("user.") + user);
+export const getUserData = async (host, contract, user) => {
+  const rawResult = await getStorage(host, contract, s2h("user." + user)).catch(
+    error => undefined
+  );
+
+  return rawResult ? unhexlify(rawResult) : undefined;
+};
 
 export const getAddressFromUserId = async (host, contract, userId) => {
   const result = await getStorage(host, contract, s2h("user.userid." + userId));
-  return criptHashToAddress(result);
+  return scriptHashToAddress(result);
 };
