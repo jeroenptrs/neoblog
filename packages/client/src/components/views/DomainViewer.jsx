@@ -181,14 +181,22 @@ class DomainViewer extends Component {
       const previews = [];
       let tabIndex = 1;
 
+      const { domain, store } = this.props;
+      const { router: { params: { category: cat, user: usr } } } = store;
+
+      const category = cat ? cat.replace(/%20| /g, " ") : undefined;
+      const user = usr ? addressToScriptHash(usr) : undefined;
+      const articleQuery =
+        domain + (category || user ? `${category || user}.` : "");
+
       for (let i = index; i > 0 && i > index - PAGE_COUNT; i -= 1) {
         tabIndex += 1;
         previews.push(
           <Preview
-            key={`post.${i}`}
+            key={articleQuery + i}
             index={i}
             tabbing={tabIndex}
-            domain="post."
+            domain={articleQuery}
           />
         );
       }
