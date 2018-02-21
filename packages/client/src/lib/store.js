@@ -3,7 +3,6 @@ import { observable } from "mobx";
 import { RouterStore } from "mobx-router";
 
 const host = "http://localhost:5000";
-// const contract = "080fee1b2e03a8c00fbf40e1f8e69eed4c3a0e1f"; /* No CW */
 const contract = "7ae65ff051795de40c40f2d6dec10425a9e14f62"; /* Check witness */
 
 let account;
@@ -21,7 +20,8 @@ const store = {
     },
     currentArticle: {
       info: undefined,
-      content: undefined
+      content: undefined,
+      userName: undefined
     },
     states: {
       totalArticles: undefined,

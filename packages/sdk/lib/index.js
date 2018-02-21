@@ -158,7 +158,7 @@ function () {
                 address = account.address;
                 privateKey = account.privateKey;
                 _context.next = 7;
-                return this.getUserData((0, _conversion.addressToScriptHash)(address));
+                return this.getUserData(address);
 
               case 7:
                 userName = _context.sent;
@@ -208,7 +208,13 @@ function () {
     value: function updateUsername(newUserName) {
       var oldUserName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "undefined";
       var address = (0, _conversion.addressToScriptHash)(this.account.address);
-      console.log(oldUserName);
+      this.account.userName = newUserName;
+
+      if (typeof Storage !== "undefined") {
+        var jwt = this.generateJwt(this.account);
+        localStorage.setItem("neoblogAccount", jwt);
+      }
+
       return this.executeSetter(_setters.handleInvoke, "manageUser", [_conversion.param.string(address), _conversion.param.string(newUserName), _conversion.param.string(oldUserName)]);
     }
   }, {

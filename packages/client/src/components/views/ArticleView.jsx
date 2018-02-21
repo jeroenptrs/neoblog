@@ -58,12 +58,15 @@ class ArticleView extends Component {
     const { api, app: { currentArticle, states } } = this.props.store;
     const rawData = await api.getArticleData(fileHash);
     const formattedData = deserialize(rawData);
+    const userAddress = scriptHashToAddress(formattedData[0]);
     currentArticle.info = [
-      scriptHashToAddress(formattedData[0]),
+      userAddress,
       unhex(formattedData[1]),
       hexToTimestamp(formattedData[2])
     ];
     states.fetchingArticleInfo = false;
+
+    currentArticle.userName = await api.getUserData(userAddress);
   };
 
   renderContent = content => {
@@ -75,7 +78,7 @@ class ArticleView extends Component {
     );
   };
 
-  renderInfo = info => {
+  renderInfo = (info, userName) => {
     const { fetchingArticleInfo } = this.props.store.app.states;
     return fetchingArticleInfo ? (
       <div>Loading info...</div>
@@ -93,7 +96,7 @@ class ArticleView extends Component {
             }}
             store={this.props.store}
           >
-            {info[0]}
+            {userName || info[0]}
           </Link>
           <Link
             view={views.categoryPage}
@@ -113,11 +116,11 @@ class ArticleView extends Component {
 
   render() {
     const { app } = this.props.store;
-    const { content, info } = app.currentArticle;
+    const { content, info, userName } = app.currentArticle;
 
     return (
       <div className="text-content">
-        {this.renderInfo(info)}
+        {this.renderInfo(info, userName)}
         {this.renderContent(content)}
       </div>
     );

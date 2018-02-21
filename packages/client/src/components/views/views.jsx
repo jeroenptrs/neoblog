@@ -33,6 +33,7 @@ const views = {
       store.app.states.fetchingArticleInfo = true;
       store.app.currentArticle.content = undefined;
       store.app.currentArticle.info = undefined;
+      store.app.currentArticle.userName = undefined;
     }
   }),
   postPage: new Route({

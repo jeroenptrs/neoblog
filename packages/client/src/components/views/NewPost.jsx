@@ -35,7 +35,7 @@ class NewPost extends Component {
       await series([
         cb => node.once("ready", cb),
         cb =>
-          node.version((err, version) => {
+          node.version(err => {
             if (err) {
               return cb(err);
             }

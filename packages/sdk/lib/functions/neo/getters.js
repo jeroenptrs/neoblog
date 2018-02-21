@@ -11,6 +11,8 @@ var _binascii = require("binascii");
 
 var _neo = require("./../../helpers/neo");
 
+var _conversion = require("./../../helpers/conversion");
+
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
 
 var s2h = _neonJs.u.str2hexstring,
@@ -190,7 +192,7 @@ function () {
         switch (_context6.prev = _context6.next) {
           case 0:
             _context6.next = 2;
-            return (0, _neo.getStorage)(host, contract, s2h("user." + user)).catch(function (error) {
+            return (0, _neo.getStorage)(host, contract, s2h("user." + (0, _conversion.addressToScriptHash)(user))).catch(function (error) {
               return undefined;
             });
 

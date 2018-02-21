@@ -89,7 +89,7 @@ export default class Neoblog {
       const address = account.address;
       const privateKey = account.privateKey;
 
-      const userName = await this.getUserData(addressToScriptHash(address));
+      const userName = await this.getUserData(address);
       this.account = { WIF, address, privateKey, userName };
 
       if (typeof Storage !== "undefined") {
@@ -119,7 +119,11 @@ export default class Neoblog {
   updateUsername(newUserName, oldUserName = "undefined") {
     const address = addressToScriptHash(this.account.address);
 
-    console.log(oldUserName);
+    this.account.userName = newUserName;
+    if (typeof Storage !== "undefined") {
+      const jwt = this.generateJwt(this.account);
+      localStorage.setItem("neoblogAccount", jwt);
+    }
 
     return this.executeSetter(handleInvoke, "manageUser", [
       param.string(address),

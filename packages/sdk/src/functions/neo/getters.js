@@ -2,6 +2,7 @@
 import { u } from "@cityofzion/neon-js";
 import { unhexlify } from "binascii";
 import { getStorage } from "./../../helpers/neo";
+import { addressToScriptHash } from "./../../helpers/conversion";
 
 const { str2hexstring: s2h, int2hex: i2h, hexstring2str: h2s } = u;
 
@@ -25,9 +26,11 @@ export const getArticleData = async (host, contract, article) =>
   await getStorage(host, contract, s2h("post.data." + article));
 
 export const getUserData = async (host, contract, user) => {
-  const rawResult = await getStorage(host, contract, s2h("user." + user)).catch(
-    error => undefined
-  );
+  const rawResult = await getStorage(
+    host,
+    contract,
+    s2h("user." + addressToScriptHash(user))
+  ).catch(error => undefined);
 
   return rawResult ? unhexlify(rawResult) : undefined;
 };
