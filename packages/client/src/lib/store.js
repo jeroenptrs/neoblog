@@ -50,7 +50,7 @@ const store = {
     }
   }),
   api: new Neoblog(host, contract, account),
-  ipfsEndpoint: "http://ipfs.io/ipfs/",
+  ipfsEndpoint: "https://ipfs.io/ipfs/",
   router: new RouterStore()
 };
 
