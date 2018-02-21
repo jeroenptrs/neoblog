@@ -2,10 +2,12 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
 import ReactMarkdown from "react-markdown";
-import { Button, Row, Col, Layout } from "antd";
+import { Menu, Dropdown, Icon, Button, Row, Col, Layout } from "antd";
 
 // Styles
 import "./MarkdownEditor.css";
+
+import categories from "./../../lib/categories";
 
 // Components
 const { Header } = Layout;
@@ -23,12 +25,18 @@ class MarkdownEditor extends Component {
 
   handleCategory = event => {
     const { newPost } = this.props;
-    newPost.category = event.target.value;
+    newPost.category = event.key;
   };
+
+  renderMenuItems = () =>
+    categories.map(category => (
+      <Menu.Item key={category}>{category}</Menu.Item>
+    ));
 
   render() {
     const { handlePost, newPost, submitting, disabled } = this.props;
     const fullArticle = `# ${newPost.postTitle}\n\n${newPost.postMarkdown}`;
+    const menuItems = this.renderMenuItems();
     return (
       <React.Fragment>
         <Header className="markdownEditor" style={{ padding: "0" }}>
@@ -44,14 +52,14 @@ class MarkdownEditor extends Component {
           </div>
           <div className="options">
             <div className="category">
-              <span>Category:</span>
-              <input
-                type="text"
-                placeholder="Enter a category here"
-                value={newPost.category}
-                onChange={this.handleCategory}
-                tabIndex={3}
-              />
+              <span>Category</span>
+              <Dropdown
+                overlay={<Menu onClick={this.handleCategory}>{menuItems}</Menu>}
+              >
+                <Button>
+                  {newPost.category || "Select a category"} <Icon type="down" />
+                </Button>
+              </Dropdown>
             </div>
             <div className="submit">
               <Button
