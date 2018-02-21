@@ -22,3 +22,16 @@
       overflow-wrap: break-word; }
   .text-content p > code, .text-content li > code {
     background-color: #e8e8e8; }
+  .text-content .article {
+    margin-bottom: 48px; }
+    .text-content .article .identicon {
+      float: left;
+      margin-right: 16px; }
+      .text-content .article .identicon img {
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05); }
+    .text-content .article .info span, .text-content .article .info a {
+      display: block;
+      font-size: 0.8rem;
+      color: rgba(0, 0, 0, 0.84); }
+    .text-content .article .info a:hover, .text-content .article .info a:active {
+      text-decoration: underline; }

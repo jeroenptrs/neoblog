@@ -19,12 +19,16 @@ const store = {
       category: "",
       fileHash: undefined
     },
-    currentArticle: undefined,
+    currentArticle: {
+      info: undefined,
+      content: undefined
+    },
     states: {
       totalArticles: undefined,
       articleIndex: undefined,
       currentPage: undefined,
       fetchingArticles: true,
+      fetchingArticleInfo: true,
       ipfsStates: {
         postingData: false,
         postingFinished: false

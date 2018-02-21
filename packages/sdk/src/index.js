@@ -2,8 +2,6 @@
 import "@babel/polyfill";
 
 // Imports
-import { wallet, u } from "@cityofzion/neon-js";
-import { unhexlify } from "binascii";
 import {
   getBestRPCNode,
   getLatest,
@@ -19,7 +17,14 @@ import {
   generateJwt,
   decodeJwt
 } from "./functions/neo/account";
-import { scriptHashToAddress, param } from "./helpers/conversion";
+import {
+  deserialize,
+  scriptHashToAddress,
+  addressToScriptHash,
+  unhex,
+  hexToTimestamp,
+  param
+} from "./helpers/conversion";
 import { determineKey } from "./helpers/neo";
 import { submitPost } from "./functions/neo/setters";
 
@@ -95,18 +100,12 @@ export default class Neoblog {
     return false;
   }
 
-  // createWallet(password) {
-  //   return createWallet(password);
-  // };
-
   generateJwt(userObject, secret = "neoblog") {
     return generateJwt(userObject, secret);
   }
 
   submitPost(postHash, category) {
-    const address = unhexlify(
-      u.reverseHex(wallet.getScriptHashFromAddress(this.account.address))
-    );
+    const address = addressToScriptHash(this.account.address);
 
     return this.executeSetter(submitPost, "submitPost", [
       param.string(address),
@@ -115,4 +114,12 @@ export default class Neoblog {
     ]);
   }
 }
-export { determineKey, scriptHashToAddress, getBestRPCNode };
+export {
+  determineKey,
+  addressToScriptHash,
+  scriptHashToAddress,
+  unhex,
+  deserialize,
+  hexToTimestamp,
+  getBestRPCNode
+};

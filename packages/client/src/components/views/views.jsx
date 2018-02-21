@@ -29,7 +29,10 @@ const views = {
     path: "/article/:fileHash",
     component: <ArticleView />,
     beforeEnter: () => {
-      store.app.currentArticle = undefined;
+      store.app.states.fetchingArticles = true;
+      store.app.states.fetchingArticleInfo = true;
+      store.app.currentArticle.content = undefined;
+      store.app.currentArticle.info = undefined;
     }
   }),
   postPage: new Route({
@@ -42,6 +45,13 @@ const views = {
   categoryPage: new Route({
     path: "/category/:category/page/:page",
     component: <DomainViewer domain="category." />,
+    beforeEnter: () => {
+      store.app.states.fetchingArticles = true;
+    }
+  }),
+  userPage: new Route({
+    path: "/user/:user/page/:page",
+    component: <DomainViewer domain="user." />,
     beforeEnter: () => {
       store.app.states.fetchingArticles = true;
     }

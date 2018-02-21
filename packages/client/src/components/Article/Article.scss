@@ -32,4 +32,28 @@
   p > code, li > code {
     background-color: #e8e8e8;
   }
+
+  .article {
+    .identicon {
+      float: left;
+      margin-right: 16px;
+      img {
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+      }
+    }
+
+    .info {
+      span, a {
+        display: block;
+        font-size: 0.8rem;
+        color: rgba(0, 0, 0, 0.84);
+      }
+
+      a:hover, a:active {
+        text-decoration: underline;
+      }
+    }
+
+    margin-bottom: 48px;
+  }
 }
