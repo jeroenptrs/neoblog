@@ -1,6 +1,7 @@
 // Imports
 import * as axios from "axios";
 import Neon, { api, rpc, tx, u, wallet } from "@cityofzion/neon-js";
+import { queryHttpsProxy } from "./serverless";
 const s2h = u.str2hexstring;
 const sb = Neon.create.scriptBuilder;
 
@@ -20,22 +21,24 @@ export const getStorage = async (host, contract, key) => {
   // Get local RPC
   const client = await api.neonDB.getRPCEndpoint(host);
 
-  const query = Neon.create.query({
-    method: "getstorage",
-    params: [contract, key]
-  });
-
   return new Promise(async (resolve, reject) => {
-    const response = query
-      .execute(client)
-      .then(res => {
-        if (res.result) resolve(res.result);
-        else reject({ error: "No result found!" });
-      })
-      .catch(e => {
-        console.log("error!");
-        reject(e);
+    try {
+      const response = await queryHttpsProxy(client, {
+        method: "getstorage",
+        params: [contract, key]
       });
+
+      // const response = await rpc.queryRPC(client, {
+      //   method: "getstorage",
+      //   params: [contract, key]
+      // });
+
+      if (response.result) resolve(response.result);
+      else reject({ error: "No result found!" });
+    } catch (e) {
+      console.log("error!");
+      reject(e);
+    }
   });
 };
 
@@ -127,9 +130,15 @@ export const executeInvoke = async (
   const signedTx = tx.signTransaction(unsignedTx, account.privateKey);
 
   // Invoke
-  return rpc.queryRPC(client, {
+  return queryHttpsProxy(client, {
     method: "sendrawtransaction",
     params: [tx.serializeTransaction(signedTx)],
     id: 1
   });
+
+  // return rpc.queryRPC(client, {
+  //   method: "sendrawtransaction",
+  //   params: [tx.serializeTransaction(signedTx)],
+  //   id: 1
+  // });
 };

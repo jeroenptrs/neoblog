@@ -29,7 +29,6 @@ class ArticleView extends Component {
   }
 
   handleCat = async fileHash => {
-    console.log("initCat");
     const node = new window.Ipfs();
     await series([
       cb => node.once("ready", cb),
@@ -50,7 +49,6 @@ class ArticleView extends Component {
             return cb(err);
           }
           const { app } = this.props.store;
-          if (data) console.log("we got data!");
           app.currentArticle.content = new TextDecoder("utf-8").decode(data);
           app.states.fetchingArticles = false;
           return true;

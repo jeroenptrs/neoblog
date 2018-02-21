@@ -9,6 +9,8 @@ var axios = _interopRequireWildcard(require("axios"));
 
 var _neonJs = _interopRequireWildcard(require("@cityofzion/neon-js"));
 
+var _serverless = require("./serverless");
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
@@ -37,7 +39,7 @@ function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee2(host, contract, key) {
-    var client, query;
+    var client;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -47,10 +49,6 @@ function () {
 
           case 2:
             client = _context2.sent;
-            query = _neonJs.default.create.query({
-              method: "getstorage",
-              params: [contract, key]
-            });
             return _context2.abrupt("return", new Promise(
             /*#__PURE__*/
             function () {
@@ -62,21 +60,37 @@ function () {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        response = query.execute(client).then(function (res) {
-                          if (res.result) resolve(res.result);else reject({
-                            error: "No result found!"
-                          });
-                        }).catch(function (e) {
-                          console.log("error!");
-                          reject(e);
+                        _context.prev = 0;
+                        _context.next = 3;
+                        return (0, _serverless.queryHttpsProxy)(client, {
+                          method: "getstorage",
+                          params: [contract, key]
                         });
 
-                      case 1:
+                      case 3:
+                        response = _context.sent;
+                        // const response = await rpc.queryRPC(client, {
+                        //   method: "getstorage",
+                        //   params: [contract, key]
+                        // });
+                        if (response.result) resolve(response.result);else reject({
+                          error: "No result found!"
+                        });
+                        _context.next = 11;
+                        break;
+
+                      case 7:
+                        _context.prev = 7;
+                        _context.t0 = _context["catch"](0);
+                        console.log("error!");
+                        reject(_context.t0);
+
+                      case 11:
                       case "end":
                         return _context.stop();
                     }
                   }
-                }, _callee, this);
+                }, _callee, this, [[0, 7]]);
               }));
 
               return function (_x4, _x5) {
@@ -84,7 +98,7 @@ function () {
               };
             }()));
 
-          case 5:
+          case 4:
           case "end":
             return _context2.stop();
         }
@@ -249,7 +263,7 @@ function () {
 
             signedTx = _neonJs.tx.signTransaction(unsignedTx, account.privateKey); // Invoke
 
-            return _context5.abrupt("return", _neonJs.rpc.queryRPC(client, {
+            return _context5.abrupt("return", (0, _serverless.queryHttpsProxy)(client, {
               method: "sendrawtransaction",
               params: [_neonJs.tx.serializeTransaction(signedTx)],
               id: 1
