@@ -10,7 +10,7 @@ class Account extends Component {
 
     this.state = {
       disabled: true,
-      icon: "lock",
+      icon: "edit",
       prevUsername: undefined
     };
   }
@@ -51,12 +51,12 @@ class Account extends Component {
     const { api, app: { user } } = this.props.store;
 
     if (this.state.disabled) {
-      this.setState({ icon: "lock" });
+      this.setState({ icon: "edit" });
       if (user.name !== this.state.prevUsername)
         api.updateUsername(user.name, this.state.prevUsername);
     } else {
       this.setState({
-        icon: "unlock",
+        icon: "check",
         prevUsername: user.name
       });
     }
