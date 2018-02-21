@@ -2,8 +2,8 @@ import Neoblog from "@neoblog/sdk";
 import { observable } from "mobx";
 import { RouterStore } from "mobx-router";
 
-const host = "http://localhost:5000";
-const contract = "7ae65ff051795de40c40f2d6dec10425a9e14f62"; /* Check witness */
+const host = "https://testnet-api.neonwallet.com";
+const contract = "85e9cc1f18fcebf9eb8211a128807e38d094542a"; /* Check witness */
 
 let account;
 if (typeof Storage !== "undefined") {
