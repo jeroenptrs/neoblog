@@ -1,13 +1,14 @@
 // Imports
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-// import { scriptHashToAddress } from "@neoblog/sdk";
+import { addressToScriptHash } from "@neoblog/sdk";
 import { Pagination } from "antd";
 
 import views from "./views";
 
 // Components
 import Preview from "../Preview/Preview";
+import NeoblogIdenticon from "../Identicon/Identicon";
 
 const PAGE_COUNT = 5;
 
@@ -18,22 +19,21 @@ class DomainViewer extends Component {
 
   async componentWillReceiveProps(nextProps) {
     const { domain: propsDomain, home: propsHome, store } = this.props;
-    const { router: { params: { page: propsPage } } } = store;
+    const { router: { params: { page: propsPage, user } } } = store;
 
     const { domain: nextDomain, home: nextHome, store: nextStore } = nextProps;
     const {
       app: { states },
-      router: {
-        params: { page: nextPage, category: nextCategory, user: nextUser }
-      }
+      router: { params: { page: nextPage, category: nextCat, user: nextUsr } }
     } = nextStore;
 
-    const articleIndex =
-      nextCategory || nextUser
-        ? await this.handleFetchLatest(
-            `${nextDomain + (nextCategory || nextUser)}.`
-          )
-        : await this.handleFetchLatest(nextDomain);
+    const nextCategory = nextCat ? nextCat.replace(/%20| /g, " ") : undefined;
+    const nextUser = nextUsr ? addressToScriptHash(nextUsr) : undefined;
+    const articleQuery =
+      nextDomain +
+      (nextCategory || nextUser ? `${nextCategory || nextUser}.` : "");
+
+    const articleIndex = await this.handleFetchLatest(articleQuery);
     states.totalArticles = articleIndex;
 
     if (articleIndex > 0) {
@@ -45,6 +45,8 @@ class DomainViewer extends Component {
           (propsHome !== nextHome || propsPage !== nextPage))
       ) {
         states.fetchingArticles = true;
+
+        if (nextUsr !== user) store.app.currentArticle.userName = undefined;
 
         const result = this.handleArticleIndex(
           articleIndex,
@@ -64,6 +66,9 @@ class DomainViewer extends Component {
         }
 
         states.fetchingArticles = false;
+
+        store.app.currentArticle.userName =
+          nextUsr !== user ? await store.api.getUserData(nextUsr) : undefined;
       }
     }
   }
@@ -72,13 +77,15 @@ class DomainViewer extends Component {
     const { domain, home, store } = this.props;
     const {
       app: { states },
-      router: { params: { page, category, user } }
+      router: { params: { page, category: cat, user: usr } }
     } = store;
 
-    const articleIndex =
-      category || user
-        ? await this.handleFetchLatest(`${domain + (category || domain)}.`)
-        : await this.handleFetchLatest(domain);
+    const category = cat ? cat.replace(/%20| /g, " ") : undefined;
+    const user = usr ? addressToScriptHash(usr) : undefined;
+    const articleQuery =
+      domain + (category || user ? `${category || user}.` : "");
+
+    const articleIndex = await this.handleFetchLatest(articleQuery);
     states.totalArticles = articleIndex;
 
     const result = this.handleArticleIndex(articleIndex, home ? 1 : page);
@@ -95,6 +102,10 @@ class DomainViewer extends Component {
     }
 
     states.fetchingArticles = false;
+
+    store.app.currentArticle.userName = usr
+      ? await store.api.getUserData(usr)
+      : undefined;
   };
 
   goToMarkdownEditor = () => {
@@ -185,7 +196,7 @@ class DomainViewer extends Component {
       return previews;
     }
 
-    return "There are no articles yet";
+    return <div style={{ textAlign: "center" }}>There are no articles yet</div>;
   };
 
   render() {
@@ -195,11 +206,28 @@ class DomainViewer extends Component {
       totalArticles,
       currentPage
     } = this.props.store.app.states;
+    const { category: cat, user } = this.props.store.router.params;
+    const category = cat ? cat.replace(/%20| /g, " ") : undefined;
+    const { userName } = this.props.store.app.currentArticle;
 
     return fetchingArticles || (articleIndex !== 0 && !articleIndex) ? (
       <div className="text-overview">Loading articles...</div>
     ) : (
       <React.Fragment>
+        {category || user ? (
+          <div className="text-overview">
+            {category ? (
+              <h1>{category}</h1>
+            ) : (
+              <div className="userDetails">
+                <div className="identicon">
+                  <NeoblogIdenticon size={64} address={user} />
+                </div>
+                <div>{userName || user}</div>
+              </div>
+            )}
+          </div>
+        ) : null}
         <div className="text-overview">{this.renderPreviews(articleIndex)}</div>
         <div className="text-pagination">
           <Pagination

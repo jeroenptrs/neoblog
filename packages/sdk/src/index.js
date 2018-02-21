@@ -2,8 +2,6 @@
 import "@babel/polyfill";
 
 // Imports
-import { wallet, u } from "@cityofzion/neon-js";
-import { unhexlify } from "binascii";
 import {
   getBestRPCNode,
   getLatest,
@@ -19,9 +17,16 @@ import {
   generateJwt,
   decodeJwt
 } from "./functions/neo/account";
-import { scriptHashToAddress, param } from "./helpers/conversion";
+import {
+  deserialize,
+  scriptHashToAddress,
+  addressToScriptHash,
+  unhex,
+  hexToTimestamp,
+  param
+} from "./helpers/conversion";
 import { determineKey } from "./helpers/neo";
-import { submitPost } from "./functions/neo/setters";
+import { handleInvoke, updateUsername } from "./functions/neo/setters";
 
 export default class Neoblog {
   constructor(host, contract, account = undefined) {
@@ -77,13 +82,15 @@ export default class Neoblog {
     return this.executeGetter(getAddressFromUserId, userId);
   }
 
-  processAuthentication(token, password) {
+  async processAuthentication(token, password) {
     const WIF = processAuthentication(token, password);
     if (WIF) {
       const account = createAccount(WIF);
       const address = account.address;
       const privateKey = account.privateKey;
-      this.account = { WIF, address, privateKey };
+
+      const userName = await this.getUserData(address);
+      this.account = { WIF, address, privateKey, userName };
 
       if (typeof Storage !== "undefined") {
         const jwt = this.generateJwt(this.account);
@@ -95,24 +102,46 @@ export default class Neoblog {
     return false;
   }
 
-  // createWallet(password) {
-  //   return createWallet(password);
-  // };
-
   generateJwt(userObject, secret = "neoblog") {
     return generateJwt(userObject, secret);
   }
 
   submitPost(postHash, category) {
-    const address = unhexlify(
-      u.reverseHex(wallet.getScriptHashFromAddress(this.account.address))
-    );
+    const address = addressToScriptHash(this.account.address);
 
-    return this.executeSetter(submitPost, "submitPost", [
+    return this.executeSetter(handleInvoke, "submitPost", [
       param.string(address),
       param.string(postHash),
       param.string(category)
     ]);
   }
+
+  updateUsername(newUserName, oldUserName = "undefined") {
+    const address = addressToScriptHash(this.account.address);
+
+    this.account.userName = newUserName;
+    if (typeof Storage !== "undefined") {
+      const jwt = this.generateJwt(this.account);
+      localStorage.setItem("neoblogAccount", jwt);
+    }
+
+    return this.executeSetter(handleInvoke, "manageUser", [
+      param.string(address),
+      param.string(newUserName),
+      param.string(oldUserName)
+    ]);
+  }
+
+  getAccount() {
+    return this.account;
+  }
 }
-export { determineKey, scriptHashToAddress, getBestRPCNode };
+export {
+  determineKey,
+  addressToScriptHash,
+  scriptHashToAddress,
+  unhex,
+  deserialize,
+  hexToTimestamp,
+  getBestRPCNode
+};

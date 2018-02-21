@@ -40,7 +40,28 @@ body {
 .text-overview {
   max-width: 900px;
   margin: 0 auto;
-  padding: 1rem 0; }
+  padding: 2rem 0; }
+  .text-overview h1 {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 1.5rem; }
+  .text-overview .userDetails .identicon {
+    height: 64px;
+    float: left;
+    display: inline-block;
+    margin-right: 32px; }
+    .text-overview .userDetails .identicon img {
+      border-radius: 50%;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05); }
+  .text-overview .userDetails div {
+    display: inline-block;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.84);
+    height: 64px;
+    line-height: 64px; }
+
+.text-overview ~ .text-overview {
+  padding-top: 0; }
 
 .text-pagination {
   max-width: 900px;

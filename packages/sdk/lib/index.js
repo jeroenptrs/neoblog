@@ -9,10 +9,34 @@ Object.defineProperty(exports, "getBestRPCNode", {
     return _getters.getBestRPCNode;
   }
 });
+Object.defineProperty(exports, "deserialize", {
+  enumerable: true,
+  get: function get() {
+    return _conversion.deserialize;
+  }
+});
 Object.defineProperty(exports, "scriptHashToAddress", {
   enumerable: true,
   get: function get() {
     return _conversion.scriptHashToAddress;
+  }
+});
+Object.defineProperty(exports, "addressToScriptHash", {
+  enumerable: true,
+  get: function get() {
+    return _conversion.addressToScriptHash;
+  }
+});
+Object.defineProperty(exports, "unhex", {
+  enumerable: true,
+  get: function get() {
+    return _conversion.unhex;
+  }
+});
+Object.defineProperty(exports, "hexToTimestamp", {
+  enumerable: true,
+  get: function get() {
+    return _conversion.hexToTimestamp;
   }
 });
 Object.defineProperty(exports, "determineKey", {
@@ -25,10 +49,6 @@ exports.default = void 0;
 
 require("@babel/polyfill");
 
-var _neonJs = require("@cityofzion/neon-js");
-
-var _binascii = require("binascii");
-
 var _getters = require("./functions/neo/getters");
 
 var _account = require("./functions/neo/account");
@@ -38,6 +58,8 @@ var _conversion = require("./helpers/conversion");
 var _neo = require("./helpers/neo");
 
 var _setters = require("./functions/neo/setters");
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -116,32 +138,59 @@ function () {
     }
   }, {
     key: "processAuthentication",
-    value: function processAuthentication(token, password) {
-      var WIF = (0, _account.processAuthentication)(token, password);
+    value: function () {
+      var _processAuthentication2 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(token, password) {
+        var WIF, account, address, privateKey, userName, jwt;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                WIF = (0, _account.processAuthentication)(token, password);
 
-      if (WIF) {
-        var account = (0, _account.createAccount)(WIF);
-        var address = account.address;
-        var privateKey = account.privateKey;
-        this.account = {
-          WIF: WIF,
-          address: address,
-          privateKey: privateKey
-        };
+                if (!WIF) {
+                  _context.next = 11;
+                  break;
+                }
 
-        if (typeof Storage !== "undefined") {
-          var jwt = this.generateJwt(this.account);
-          localStorage.setItem("neoblogAccount", jwt);
-        }
+                account = (0, _account.createAccount)(WIF);
+                address = account.address;
+                privateKey = account.privateKey;
+                _context.next = 7;
+                return this.getUserData(address);
 
-        return true;
-      }
+              case 7:
+                userName = _context.sent;
+                this.account = {
+                  WIF: WIF,
+                  address: address,
+                  privateKey: privateKey,
+                  userName: userName
+                };
 
-      return false;
-    } // createWallet(password) {
-    //   return createWallet(password);
-    // };
+                if (typeof Storage !== "undefined") {
+                  jwt = this.generateJwt(this.account);
+                  localStorage.setItem("neoblogAccount", jwt);
+                }
 
+                return _context.abrupt("return", true);
+
+              case 11:
+                return _context.abrupt("return", false);
+
+              case 12:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      return function processAuthentication(_x, _x2) {
+        return _processAuthentication2.apply(this, arguments);
+      };
+    }()
   }, {
     key: "generateJwt",
     value: function generateJwt(userObject) {
@@ -151,8 +200,27 @@ function () {
   }, {
     key: "submitPost",
     value: function submitPost(postHash, category) {
-      var address = (0, _binascii.unhexlify)(_neonJs.u.reverseHex(_neonJs.wallet.getScriptHashFromAddress(this.account.address)));
-      return this.executeSetter(_setters.submitPost, "submitPost", [_conversion.param.string(address), _conversion.param.string(postHash), _conversion.param.string(category)]);
+      var address = (0, _conversion.addressToScriptHash)(this.account.address);
+      return this.executeSetter(_setters.handleInvoke, "submitPost", [_conversion.param.string(address), _conversion.param.string(postHash), _conversion.param.string(category)]);
+    }
+  }, {
+    key: "updateUsername",
+    value: function updateUsername(newUserName) {
+      var oldUserName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "undefined";
+      var address = (0, _conversion.addressToScriptHash)(this.account.address);
+      this.account.userName = newUserName;
+
+      if (typeof Storage !== "undefined") {
+        var jwt = this.generateJwt(this.account);
+        localStorage.setItem("neoblogAccount", jwt);
+      }
+
+      return this.executeSetter(_setters.handleInvoke, "manageUser", [_conversion.param.string(address), _conversion.param.string(newUserName), _conversion.param.string(oldUserName)]);
+    }
+  }, {
+    key: "getAccount",
+    value: function getAccount() {
+      return this.account;
     }
   }]);
 

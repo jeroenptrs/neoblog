@@ -2,13 +2,14 @@ from boa.blockchain.vm.Neo.Storage import GetContext, Get, Put
 from boa.code.builtins import concat
 
 """
-Inserting a username at user.userid.{userAddress} = {displayName}
-Inserting userId at user.{displayName} = {userAddress}
+Inserting a username at user.userid.{displayName} = {userAddress}
+Inserting userId at user.{userAddress} = {displayName}
 """
 
 def manageUser(args):
     user = args[0]
     userName = args[1]
+    prevUserName = args[2]
 
     """
     Adding to user domain
@@ -25,5 +26,14 @@ def manageUser(args):
 
     userDomain = concat("user.", user)
     Put(GetContext, userDomain, userName)
+
+    """
+    Clear out/unlink previous userName user.userid.{displayName} = ''
+    """
+    prevUserIdDomain = concat("user.userId.", prevUserName)
+    prevCondition = Get(GetContext, prevUserIdDomain)
+    if condition != '':
+        return False
+    Put(GetContext, prevUserIdDomain, '')
 
     return True

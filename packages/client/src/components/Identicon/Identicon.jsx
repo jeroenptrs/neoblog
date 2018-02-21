@@ -13,8 +13,8 @@ const NeoblogIdenticon = props => {
   const data = new Identicon(hash, options).toString();
   return (
     <img
-      width="40"
-      height="40"
+      width={`${props.size}px` || "40px"}
+      height={`${props.size}px` || "40px"}
       alt="You, on Neoblog!"
       src={`data:image/svg+xml;base64,${data}`}
     />

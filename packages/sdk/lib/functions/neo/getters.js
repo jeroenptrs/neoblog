@@ -7,7 +7,11 @@ exports.getAddressFromUserId = exports.getUserData = exports.getArticleData = ex
 
 var _neonJs = require("@cityofzion/neon-js");
 
+var _binascii = require("binascii");
+
 var _neo = require("./../../helpers/neo");
+
+var _conversion = require("./../../helpers/conversion");
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
 
@@ -182,17 +186,21 @@ function () {
   var _ref6 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee6(host, contract, user) {
+    var rawResult;
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             _context6.next = 2;
-            return (0, _neo.getStorage)(host, contract, s2h("user.") + user);
+            return (0, _neo.getStorage)(host, contract, s2h("user." + (0, _conversion.addressToScriptHash)(user))).catch(function (error) {
+              return undefined;
+            });
 
           case 2:
-            return _context6.abrupt("return", _context6.sent);
+            rawResult = _context6.sent;
+            return _context6.abrupt("return", rawResult ? (0, _binascii.unhexlify)(rawResult) : undefined);
 
-          case 3:
+          case 4:
           case "end":
             return _context6.stop();
         }
@@ -223,7 +231,7 @@ function () {
 
           case 2:
             result = _context7.sent;
-            return _context7.abrupt("return", criptHashToAddress(result));
+            return _context7.abrupt("return", scriptHashToAddress(result));
 
           case 4:
           case "end":
