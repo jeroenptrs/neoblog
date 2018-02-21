@@ -203,13 +203,12 @@ function () {
             // Create SC script
             vmScript = sb().emitAppCall(invoke.scriptHash, invoke.operation, invoke.args, false); // Execute
 
-            _context4.next = 6;
-            return _neonJs.rpc.Query.invokeScript(vmScript.str).execute(client);
+            return _context4.abrupt("return", (0, _serverless.queryHttpsProxy)(client, {
+              method: "invokescript",
+              params: [vmScript.str]
+            }));
 
-          case 6:
-            return _context4.abrupt("return", _context4.sent);
-
-          case 7:
+          case 5:
           case "end":
             return _context4.stop();
         }

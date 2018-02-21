@@ -87,7 +87,10 @@ export const testInvoke = async (host, invoke) => {
   );
 
   // Execute
-  return await rpc.Query.invokeScript(vmScript.str).execute(client);
+  return queryHttpsProxy(client, {
+    method: "invokescript",
+    params: [vmScript.str]
+  });
 };
 
 /**
