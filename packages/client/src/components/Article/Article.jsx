@@ -6,8 +6,6 @@ import ReactMarkdown from "react-markdown";
 // Styles
 import "./Article.css";
 
-const Article = props => (
-  <ReactMarkdown className="text-content" source={props.source} />
-);
+const Article = props => <ReactMarkdown source={props.source} />;
 
 export default inject("store")(observer(Article));

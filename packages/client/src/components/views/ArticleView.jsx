@@ -7,14 +7,25 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { series } from "async";
+import {
+  scriptHashToAddress,
+  unhex,
+  hexToTimestamp,
+  deserialize
+} from "@neoblog/sdk";
 
 // Components
+import { Link } from "mobx-router";
 import Article from "./../Article/Article";
+import NeoblogIdenticon from "./../Identicon/Identicon";
+
+import views from "./views";
 
 class ArticleView extends Component {
   async componentWillMount() {
     const { fileHash } = this.props.store.router.params;
     this.handleCat(fileHash);
+    this.handleUserData(fileHash);
   }
 
   handleCat = async fileHash => {
@@ -22,11 +33,11 @@ class ArticleView extends Component {
     await series([
       cb => node.once("ready", cb),
       cb =>
-        node.version((err, version) => {
+        node.version(err => {
           if (err) {
             return cb(err);
           }
-          console.log(`Version ${version.version}`);
+          // console.log(`Version ${version.version}`);
           cb();
           return true;
         }),
@@ -36,22 +47,79 @@ class ArticleView extends Component {
             return cb(err);
           }
           const { app } = this.props.store;
-          app.currentArticle = new TextDecoder("utf-8").decode(data);
-          app.states.loadingArticles = false;
+          app.currentArticle.content = new TextDecoder("utf-8").decode(data);
+          app.states.fetchingArticles = false;
           return true;
         })
     ]);
   };
 
-  render() {
-    const { app } = this.props.store;
-    const { loadingArticles } = app.states;
-    const { currentArticle } = app;
+  handleUserData = async fileHash => {
+    const { api, app: { currentArticle, states } } = this.props.store;
+    const rawData = await api.getArticleData(fileHash);
+    const formattedData = deserialize(rawData);
+    currentArticle.info = [
+      scriptHashToAddress(formattedData[0]),
+      unhex(formattedData[1]),
+      hexToTimestamp(formattedData[2])
+    ];
+    states.fetchingArticleInfo = false;
+  };
 
-    return loadingArticles ? (
+  renderContent = content => {
+    const { fetchingArticles } = this.props.store.app.states;
+    return fetchingArticles ? (
       <div>Loading...</div>
     ) : (
-      <Article source={currentArticle} />
+      <Article source={content} />
+    );
+  };
+
+  renderInfo = info => {
+    const { fetchingArticleInfo } = this.props.store.app.states;
+    return fetchingArticleInfo ? (
+      <div>Loading info...</div>
+    ) : (
+      <div className="article">
+        <div className="identicon">
+          <NeoblogIdenticon address={info[0]} size={64} />
+        </div>
+        <div className="info">
+          <Link
+            view={views.userPage}
+            params={{
+              user: info[0],
+              page: 1
+            }}
+            store={this.props.store}
+          >
+            {info[0]}
+          </Link>
+          <Link
+            view={views.categoryPage}
+            params={{
+              category: info[1],
+              page: 1
+            }}
+            store={this.props.store}
+          >
+            {info[1]}
+          </Link>
+          <span>{info[2]}</span>
+        </div>
+      </div>
+    );
+  };
+
+  render() {
+    const { app } = this.props.store;
+    const { content, info } = app.currentArticle;
+
+    return (
+      <div className="text-content">
+        {this.renderInfo(info)}
+        {this.renderContent(content)}
+      </div>
     );
   }
 }

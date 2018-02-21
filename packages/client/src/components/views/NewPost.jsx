@@ -39,7 +39,7 @@ class NewPost extends Component {
             if (err) {
               return cb(err);
             }
-            console.log(`Version ${version.version}`);
+            // console.log(`Version ${version.version}`);
             cb();
             return true;
           }),
@@ -54,7 +54,7 @@ class NewPost extends Component {
               content: Buffer.from(article)
             },
             (err, filesAdded) => {
-              console.log(filesAdded[0]);
+              // console.log(filesAdded[0]);
               this.handleFileHash(filesAdded[0]);
               cb(filesAdded[0].hash);
             }
