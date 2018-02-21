@@ -34,6 +34,16 @@ def submitPost(args):
   category = args[2]
 
   """
+  Validation
+  Validating that the IPFS_Hash is not yet used
+  """
+  postDataDomain = concat("post.data.", postHash)
+  condition = Get(GetContext, postDataDomain)
+  if condition != '':
+    return False
+
+
+  """
   Adding to post domain
   post.latest                     Latest index of a post in common
   post.{postIndex}                Getting a post by index
@@ -51,7 +61,6 @@ def submitPost(args):
   postData = [user,category,time]
   to_save = serialize_array(postData)
 
-  postDataDomain = concat("post.data.", postHash)
   Put(GetContext, postDataDomain, to_save)
 
   """
