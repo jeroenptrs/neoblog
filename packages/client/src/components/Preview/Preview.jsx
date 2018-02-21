@@ -78,7 +78,7 @@ class Preview extends Component {
   handleTitle = article => {
     const content = article.substr(article.indexOf("\n") + 1);
     const title = (
-      <div className="title">
+      <div className="title" key="articleTitle">
         {article.substr(1, article.indexOf("\n") - 1)}
       </div>
     );
@@ -93,7 +93,9 @@ class Preview extends Component {
       .replace(/\n/g, " ")
       .replace(/\s\s+/g, " ")
       .trim();
-    return <div className="content">{`${stepTwo}...`}</div>;
+    return (
+      <div className="content" key="articleContent">{`${stepTwo}...`}</div>
+    );
   };
 
   renderPreview = article => {

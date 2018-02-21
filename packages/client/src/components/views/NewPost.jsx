@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { series } from "async";
+import { message } from "antd";
 
 import views from "./../views/views";
 
@@ -15,6 +16,9 @@ class NewPost extends Component {
 
     await api.submitPost(file.hash, newPost.category);
     menuStates.submitting = false;
+    message.info(
+      "Your article has been posted. It might take a while for the NEO Blockchain to store and verify these changes."
+    );
 
     this.props.store.router.goTo(
       views.articleView,

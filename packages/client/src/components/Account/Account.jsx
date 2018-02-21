@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 
 import views from "./../views/views";
 
@@ -54,6 +54,9 @@ class Account extends Component {
       this.setState({ icon: "edit" });
       if (user.name !== this.state.prevUsername)
         api.updateUsername(user.name, this.state.prevUsername);
+      message.info(
+        "Your user info has been stored locally in the application. It might take a while for the NEO Blockchain to store and verify these changes."
+      );
     } else {
       this.setState({
         icon: "check",
