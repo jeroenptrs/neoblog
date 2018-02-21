@@ -27,6 +27,8 @@ class Account extends Component {
       localStorage.removeItem("neoblogAccount");
     const { menuStates } = this.props.store.app.states;
     menuStates.signedIn = false;
+
+    this.props.store.router.goTo(views.home, {}, this.props.store);
   };
 
   handleNewPost = () => {
