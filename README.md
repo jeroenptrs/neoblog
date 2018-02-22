@@ -1,11 +1,14 @@
-<center>
-# Neoblog
-
-![Neoblog](https://i.imgur.com/p0nlXa5.png)
-</center>
-
-## Pitch
-Neoblog is a public blogging platform that's completely serverless. Reading and posting articles to our platform require no servers and runs completely on the NEO Blockchain and IPFS. 
+<p align="center">
+  <img 
+    src="https://i.imgur.com/p0nlXa5.png" 
+    width="100px"
+    style="padding: 20px 0;"
+  >
+</p>
+<h1 align="center">Neoblog</h1>
+<p align="center">
+  Neoblog is a public blogging platform that's completely serverless. Reading and posting articles to our platform require no servers and runs completely on the NEO Blockchain and IPFS
+</p>
 
 ## Preface
 The traditional way of setting up a blog is to set up a server that will store your content. With modern technologies, we are advancing into an age that moves away from traditional servers.  
