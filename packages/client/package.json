@@ -1,9 +1,9 @@
 {
   "name": "@neoblog/client",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@neoblog/sdk": "^0.1.0",
+    "@neoblog/sdk": "^1.0.0",
     "antd": "^3.2.0",
     "async": "^2.6.0",
     "identicon.js": "^2.3.1",
