@@ -457,6 +457,10 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@be-neo/neo-https-proxy@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@be-neo/neo-https-proxy/-/neo-https-proxy-1.0.0.tgz#dcf05564fc3e1952badc9e8244c978f12b75d423"
+
 "@cityofzion/neon-js@^3.2.0":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@cityofzion/neon-js/-/neon-js-3.2.1.tgz#8cd0a2e27cc276519cbdc90e920a2fbff3ad36c0"

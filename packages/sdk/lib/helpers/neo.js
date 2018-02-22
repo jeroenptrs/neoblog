@@ -9,7 +9,7 @@ var axios = _interopRequireWildcard(require("axios"));
 
 var _neonJs = _interopRequireWildcard(require("@cityofzion/neon-js"));
 
-var _serverless = require("./serverless");
+var _neoHttpsProxy = require("@be-neo/neo-https-proxy");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -17,6 +17,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var s2h = _neonJs.u.str2hexstring;
 var sb = _neonJs.default.create.scriptBuilder;
+var httpsProxy = "https://wt-eb8e8a5788a32c0054649520e12aca04-0.sandbox.auth0-extend.com/neo-https-proxy";
 
 var determineKey = function determineKey(key) {
   if (_neonJs.wallet.isNEP2(key)) return "NEP2";
@@ -62,10 +63,10 @@ function () {
                       case 0:
                         _context.prev = 0;
                         _context.next = 3;
-                        return (0, _serverless.queryHttpsProxy)(client, {
+                        return (0, _neoHttpsProxy.queryHttpsProxy)(client, {
                           method: "getstorage",
                           params: [contract, key]
-                        });
+                        }, httpsProxy);
 
                       case 3:
                         response = _context.sent;
@@ -203,10 +204,10 @@ function () {
             // Create SC script
             vmScript = sb().emitAppCall(invoke.scriptHash, invoke.operation, invoke.args, false); // Execute
 
-            return _context4.abrupt("return", (0, _serverless.queryHttpsProxy)(client, {
+            return _context4.abrupt("return", (0, _neoHttpsProxy.queryHttpsProxy)(client, {
               method: "invokescript",
               params: [vmScript.str]
-            }));
+            }, httpsProxy));
 
           case 5:
           case "end":
@@ -262,11 +263,11 @@ function () {
 
             signedTx = _neonJs.tx.signTransaction(unsignedTx, account.privateKey); // Invoke
 
-            return _context5.abrupt("return", (0, _serverless.queryHttpsProxy)(client, {
+            return _context5.abrupt("return", (0, _neoHttpsProxy.queryHttpsProxy)(client, {
               method: "sendrawtransaction",
               params: [_neonJs.tx.serializeTransaction(signedTx)],
               id: 1
-            }));
+            }, httpsProxy));
 
           case 10:
           case "end":

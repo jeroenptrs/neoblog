@@ -1,9 +1,12 @@
 // Imports
 import * as axios from "axios";
 import Neon, { api, rpc, tx, u, wallet } from "@cityofzion/neon-js";
-import { queryHttpsProxy } from "./serverless";
+import { queryHttpsProxy } from "@be-neo/neo-https-proxy";
 const s2h = u.str2hexstring;
 const sb = Neon.create.scriptBuilder;
+
+const httpsProxy =
+  "https://wt-eb8e8a5788a32c0054649520e12aca04-0.sandbox.auth0-extend.com/neo-https-proxy";
 
 export const determineKey = key => {
   if (wallet.isNEP2(key)) return "NEP2";
@@ -23,10 +26,14 @@ export const getStorage = async (host, contract, key) => {
 
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await queryHttpsProxy(client, {
-        method: "getstorage",
-        params: [contract, key]
-      });
+      const response = await queryHttpsProxy(
+        client,
+        {
+          method: "getstorage",
+          params: [contract, key]
+        },
+        httpsProxy
+      );
 
       // const response = await rpc.queryRPC(client, {
       //   method: "getstorage",
@@ -87,10 +94,14 @@ export const testInvoke = async (host, invoke) => {
   );
 
   // Execute
-  return queryHttpsProxy(client, {
-    method: "invokescript",
-    params: [vmScript.str]
-  });
+  return queryHttpsProxy(
+    client,
+    {
+      method: "invokescript",
+      params: [vmScript.str]
+    },
+    httpsProxy
+  );
 };
 
 /**
@@ -133,11 +144,15 @@ export const executeInvoke = async (
   const signedTx = tx.signTransaction(unsignedTx, account.privateKey);
 
   // Invoke
-  return queryHttpsProxy(client, {
-    method: "sendrawtransaction",
-    params: [tx.serializeTransaction(signedTx)],
-    id: 1
-  });
+  return queryHttpsProxy(
+    client,
+    {
+      method: "sendrawtransaction",
+      params: [tx.serializeTransaction(signedTx)],
+      id: 1
+    },
+    httpsProxy
+  );
 
   // return rpc.queryRPC(client, {
   //   method: "sendrawtransaction",
