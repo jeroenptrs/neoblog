@@ -12,6 +12,7 @@
   "author": "Jeroen Peeters <jeroen.peeters@evance.be>",
   "license": "MIT",
   "dependencies": {
+    "@be-neo/neo-https-proxy": "^1.0.0",
     "@cityofzion/neon-js": "^3.2.0",
     "axios": "^0.17.1",
     "binascii": "^0.0.2",
