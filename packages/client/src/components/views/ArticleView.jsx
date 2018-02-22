@@ -11,7 +11,8 @@ import {
   scriptHashToAddress,
   unhex,
   hexToTimestamp,
-  deserialize
+  deserialize,
+  getFromGateway
 } from "@neoblog/sdk";
 
 // Components
@@ -24,9 +25,16 @@ import views from "./views";
 class ArticleView extends Component {
   async componentWillMount() {
     const { fileHash } = this.props.store.router.params;
-    this.handleCat(fileHash);
+    this.handleFetch(fileHash);
     this.handleUserData(fileHash);
   }
+
+  handleFetch = async fileHash => {
+    const { app } = this.props.store;
+    const { data } = await getFromGateway(fileHash);
+    app.currentArticle.content = data;
+    app.states.fetchingArticles = false;
+  };
 
   handleCat = async fileHash => {
     const node = new window.Ipfs();

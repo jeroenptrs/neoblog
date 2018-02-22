@@ -45,6 +45,12 @@ Object.defineProperty(exports, "determineKey", {
     return _neo.determineKey;
   }
 });
+Object.defineProperty(exports, "getFromGateway", {
+  enumerable: true,
+  get: function get() {
+    return _fetch.getFromGateway;
+  }
+});
 exports.default = void 0;
 
 require("@babel/polyfill");
@@ -58,6 +64,8 @@ var _conversion = require("./helpers/conversion");
 var _neo = require("./helpers/neo");
 
 var _setters = require("./functions/neo/setters");
+
+var _fetch = require("./functions/ipfs/fetch");
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
 
