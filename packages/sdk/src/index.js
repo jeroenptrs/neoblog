@@ -27,6 +27,7 @@ import {
 } from "./helpers/conversion";
 import { determineKey } from "./helpers/neo";
 import { handleInvoke, updateUsername } from "./functions/neo/setters";
+import { getFromGateway } from "./functions/ipfs/fetch";
 
 export default class Neoblog {
   constructor(host, contract, account = undefined) {
@@ -143,5 +144,6 @@ export {
   unhex,
   deserialize,
   hexToTimestamp,
-  getBestRPCNode
+  getBestRPCNode,
+  getFromGateway
 };

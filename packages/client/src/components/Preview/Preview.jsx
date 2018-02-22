@@ -4,7 +4,7 @@ import { inject, observer } from "mobx-react";
 import { series } from "async";
 import * as removeMd from "remove-markdown";
 // import ReactMarkdown from "react-markdown";
-// import { scriptHashToAddress } from "@neoblog/sdk";
+import { getFromGateway } from "@neoblog/sdk";
 
 import views from "./../views/views";
 
@@ -43,11 +43,16 @@ class Preview extends Component {
   handleFetchHash = async () => {
     const { domain, index, store: { api } } = this.props;
     const fileHash = await api.getArticle(domain, index);
-    const article = await this.handleCat(fileHash);
+    const article = await this.handleFetchData(fileHash);
     return {
       fileHash,
       article
     };
+  };
+
+  handleFetchData = async fileHash => {
+    const { data } = await getFromGateway(fileHash);
+    return data;
   };
 
   handleCat = async fileHash =>
