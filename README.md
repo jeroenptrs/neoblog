@@ -23,8 +23,3 @@ We decided to divide our roadmap in two categories:
 * Major: upgrades to the application that do and thus also upgrades to the smart contract itself
 
 You can see our Minor Version roadmap over at [issue #41](https://github.com/be-neo/neoblog/issues/41) and our Major Roadmap at [issue #42](https://github.com/be-neo/neoblog/issues/42).
-
-## Contributing
-Please try to adhere to semantic versioning and semantic commit messages:
-* https://semver.org/spec/v2.0.0.html
-* https://seesparkbox.com/foundry/semantic_commit_messages
