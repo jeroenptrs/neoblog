@@ -17,6 +17,13 @@ Combine this with the decentralization of storage (IPFS) and blockchain, we now 
 Neoblog is a serverless application that uses these these technologies: built on the NEO blockchain, articles are posted to our smart contract, while the content is stored on IPFS.  
 We didn't have to set up any servers at all, even our HTTPS proxy for the NEO seeds is completely serverless.
 
+## Roadmap
+We decided to divide our roadmap in two categories:
+* Minor: upgrades to the application that require **no** change to the smart contract whatsoever
+* Major: upgrades to the application that do and thus also upgrades to the smart contract itself
+
+You can see our Minor Version roadmap over at [issue #41](https://github.com/be-neo/neoblog/issues/41) and our Major Roadmap at [issue #42](https://github.com/be-neo/neoblog/issues/42).
+
 ## Contributing
 Please try to adhere to semantic versioning and semantic commit messages:
 * https://semver.org/spec/v2.0.0.html
