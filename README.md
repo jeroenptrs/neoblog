@@ -22,4 +22,4 @@ We decided to divide our roadmap in two categories:
 * Minor: upgrades to the application that require **no** change to the smart contract whatsoever
 * Major: upgrades to the application that do and thus also upgrades to the smart contract itself
 
-You can see our Minor Version roadmap over at [issue #41](https://github.com/be-neo/neoblog/issues/41) and our Major Roadmap at [issue #42](https://github.com/be-neo/neoblog/issues/42).
+You can see our Minor Version roadmap over at [issue #41](https://github.com/be-neo/neoblog/issues/41) and our Major Roadmap at [issue #43](https://github.com/be-neo/neoblog/issues/43).
