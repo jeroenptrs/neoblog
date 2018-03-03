@@ -39,11 +39,11 @@ class NewPost extends Component {
       await series([
         cb => node.once("ready", cb),
         cb =>
-          node.version(err => {
+          node.version((err, version) => {
             if (err) {
               return cb(err);
             }
-            // console.log(`Version ${version.version}`);
+            console.log(`Version ${version.version}`);
             cb();
             return true;
           }),

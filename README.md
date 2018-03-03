@@ -15,7 +15,7 @@ The traditional way of setting up a blog is to set up a server that will store y
 Combine this with the decentralization of storage (IPFS) and blockchain, we now have a toolkit to provide an application that's completely serverless.
 
 Neoblog is a serverless application that uses these these technologies: built on the NEO blockchain, articles are posted to our smart contract, while the content is stored on IPFS.  
-We didn't have to set up any servers at all, even our HTTPS proxy for the NEO seeds is completely serverless.
+We didn't have to set up any servers at all, even our HTTPS proxy for the NEO seeds is completely serverless. 
 
 ## Roadmap
 We decided to divide our roadmap in two categories:
