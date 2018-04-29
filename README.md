@@ -10,6 +10,9 @@
   Neoblog is a public blogging platform that's completely serverless. Reading and posting articles to our platform require no servers and runs completely on the NEO Blockchain and IPFS
 </p>
 
+## This repo is now archived!
+We're going to move this to a new GitHub organisation to focus work on a v2 of NeoBlog. We will update with a link to the repo once it's live!
+
 ## Preface
 The traditional way of setting up a blog is to set up a server that will store your content. With modern technologies, we are advancing into an age that moves away from traditional servers.  
 Combine this with the decentralization of storage (IPFS) and blockchain, we now have a toolkit to provide an application that's completely serverless.
