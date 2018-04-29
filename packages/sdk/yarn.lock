@@ -461,19 +461,19 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@be-neo/neo-https-proxy/-/neo-https-proxy-1.0.0.tgz#dcf05564fc3e1952badc9e8244c978f12b75d423"
 
-"@cityofzion/neon-js@^3.2.0":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@cityofzion/neon-js/-/neon-js-3.2.1.tgz#8cd0a2e27cc276519cbdc90e920a2fbff3ad36c0"
+"@cityofzion/neon-js@^3.6.2":
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/@cityofzion/neon-js/-/neon-js-3.6.2.tgz#a27ffda9defae273786fd150b47b1b402f703f10"
   dependencies:
-    axios "^0.17.1"
-    bignumber.js "^5.0.0"
+    axios "^0.18.0"
+    bignumber.js "5.0.0"
     bs58 "^4.0.1"
     bs58check "^2.1.1"
     crypto-js "^3.1.9-1"
     elliptic "^6.4.0"
     js-scrypt "^0.2.0"
     loglevel "^1.6.1"
-    loglevel-plugin-prefix "^0.7.2"
+    loglevel-plugin-prefix "^0.8.3"
     scrypt-js "^2.0.3"
     secure-random "^1.1.1"
     semver "^5.5.0"
@@ -583,6 +583,13 @@ axios@^0.17.1:
     follow-redirects "^1.2.5"
     is-buffer "^1.1.5"
 
+axios@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
+  dependencies:
+    follow-redirects "^1.3.0"
+    is-buffer "^1.1.5"
+
 babylon@7.0.0-beta.40:
   version "7.0.0-beta.40"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.40.tgz#91fc8cd56d5eb98b28e6fde41045f2957779940a"
@@ -607,7 +614,7 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bignumber.js@^5.0.0:
+bignumber.js@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-5.0.0.tgz#fbce63f09776b3000a83185badcde525daf34833"
 
@@ -957,7 +964,7 @@ fill-range@^2.1.0:
     repeat-element "^1.1.2"
     repeat-string "^1.5.2"
 
-follow-redirects@^1.2.5:
+follow-redirects@^1.2.5, follow-redirects@^1.3.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.4.1.tgz#d8120f4518190f55aac65bb6fc7b85fcd666d6aa"
   dependencies:
@@ -1432,9 +1439,9 @@ lodash@^4.17.4, lodash@^4.2.0:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
-loglevel-plugin-prefix@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/loglevel-plugin-prefix/-/loglevel-plugin-prefix-0.7.2.tgz#938a5598b149d97b6de44e13547a764135b917b4"
+loglevel-plugin-prefix@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/loglevel-plugin-prefix/-/loglevel-plugin-prefix-0.8.3.tgz#3e46ee114f92ead1e1761100209349bda695995b"
 
 loglevel@^1.6.1:
   version "1.6.1"
