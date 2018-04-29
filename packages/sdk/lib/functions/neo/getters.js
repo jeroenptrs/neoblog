@@ -66,7 +66,7 @@ function () {
 
           case 3:
             _context2.t1 = _context2.sent;
-            return _context2.abrupt("return", (0, _context2.t0)(_context2.t1));
+            return _context2.abrupt("return", (0, _context2.t0)(_context2.t1, 16));
 
           case 5:
           case "end":

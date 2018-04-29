@@ -10,7 +10,7 @@ export const getBestRPCNode = async host =>
   await api.neonDB.getRPCEndpoint(host);
 
 export const getLatest = async (host, contract, domain) =>
-  parseInt(await getStorage(host, contract, s2h(domain + "latest")));
+  parseInt(await getStorage(host, contract, s2h(domain + "latest")), 16);
 
 export const getLatestPost = async (host, contract) =>
   await getLatest(host, contract, "post.");
