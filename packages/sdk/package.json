@@ -1,6 +1,6 @@
 {
   "name": "@neoblog/sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@be-neo/neo-https-proxy": "^1.0.0",
-    "@cityofzion/neon-js": "^3.2.0",
+    "@cityofzion/neon-js": "^3.6.2",
     "axios": "^0.17.1",
     "binascii": "^0.0.2",
     "bs58": "^4.0.1",
